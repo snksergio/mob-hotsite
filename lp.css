@@ -44,17 +44,26 @@ h1, h2, h3, p, figure, ul, ol, dl, dd { margin: 0; padding: 0; }
 ul, ol { list-style: none; }
 b, strong { font-weight: 500; }
 em { font-style: normal; }
+[hidden] { display: none !important; }
+.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 :focus-visible { outline: 2px solid var(--neon); outline-offset: 3px; border-radius: 8px; }
 ::selection { background: var(--neon); color: var(--neon-ink); }
 .fw { width: min(var(--wrap), 100% - var(--g) * 2); margin-inline: auto; }
 .wrap { width: min(var(--max), 100% - var(--pad) * 2); margin-inline: auto; }
 .sec { padding-top: var(--sec); }
-/* dois toques de luz verde, diferentes entre si: um feixe horizontal bem leve na passagem 01→02 (ecossistema → simulador)
-   e uma faixa diagonal um pouco mais presente na passagem 02→03 (simulador → operação). Só isso. */
+.d0.sec, .app.sec { padding-top: calc(var(--sec) + 80px); }
+/* dois toques de luz verde, diferentes entre si, como no footer da referência (igreen-eventos-v2): uma fita de aurora
+   desfocada (a mesma imagem, na paleta da iGreen MOB) que entra pela borda da tela, com uma grade de pontinhos em
+   overlay por cima — os pontinhos só aparecem onde há luz e misturam a luz ao preto. 02 (simulador): entra pela direita,
+   atrás do título e do topo do painel. 03 (operação): entra pela esquerda. A camada tem o mesmo preto da página e fica
+   inteira dentro da própria seção (não cobre a seção vizinha); as bordas somem numa máscara, sem emenda dos pontinhos. */
 .glow { position: relative; isolation: isolate; }
-.glow::before { content: ""; position: absolute; z-index: -1; pointer-events: none; background: center / 100% 100% no-repeat; }
-.glow--soft::before { top: clamp(-200px, -11vw, -100px); left: clamp(-460px, -22vw, -140px); width: min(64vw, 1000px); aspect-ratio: 16 / 10; background-image: url("assets/img/aurora-h.webp"); opacity: 0.34; }
-.glow--diag::before { top: clamp(-280px, -15vw, -140px); right: clamp(-640px, -32vw, -240px); width: min(86vw, 1360px); aspect-ratio: 16 / 10; background-image: url("assets/img/aurora-r.webp"); opacity: 0.46; }
+/* posição: a meio caminho entre a borda da tela (de onde a luz nasce) e a borda do conteúdo — em monitor muito largo
+   ela continua vindo da lateral e ainda encosta no conteúdo; nas telas grandes a camada também cresce */
+.glow::before { --gw: min(70vw, 1700px); --cx: min(var(--max) / 2, 50% - var(--pad)); content: ""; position: absolute; z-index: -1; top: 0; width: var(--gw); aspect-ratio: 16 / 10; pointer-events: none; background-color: var(--bg); background-size: 4.5px 4.5px, 100% 100%; background-repeat: repeat, no-repeat; background-blend-mode: overlay, screen; -webkit-mask-image: radial-gradient(closest-side, #000 62%, transparent); mask-image: radial-gradient(closest-side, #000 62%, transparent); }
+.glow--soft::before { left: calc((100% + 24vw - var(--gw) + 50% + var(--cx) - 80px - var(--gw) * 0.5) / 2); background-image: radial-gradient(rgba(214, 255, 200, 0.42) 0.8px, transparent 1.25px), url("assets/img/luz-sim.webp"); opacity: 0.3; }
+.glow--diag::before { top: 40px; max-height: calc(100% - 40px); left: calc((clamp(-34vw, -26vw - (1700px - 100vw) * 0.3, -26vw) + 50% - var(--cx) - 80px - var(--gw) * 0.45) / 2); background-image: radial-gradient(rgba(214, 255, 200, 0.42) 0.8px, transparent 1.25px), url("assets/img/luz-d0.webp"); opacity: 0.26; }
+@media (min-width: 1800px) { .glow--soft::before { opacity: 0.26; } .glow--diag::before { opacity: 0.22; } }
 .mono { font-family: var(--m); }
 /* textos com versão curta: a longa no computador, a curta no celular (a escondida sai também da leitura de tela) */
 .t-xs { display: none; }
@@ -321,10 +330,13 @@ em { font-style: normal; }
 .read__val { display: flex; align-items: baseline; gap: 8px; margin-top: 10px; }
 .read__val b { font-size: clamp(40px, 4.3vw, 60px); font-weight: 500; line-height: 1; letter-spacing: -0.04em; color: var(--neon); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .read__val span { font-size: 17px; color: var(--ink-3); }
-.read__meta { display: flex; flex-wrap: wrap; gap: 10px 36px; margin-top: 18px; }
+/* clientes na carteira e acumulado no período: dois cards discretos (fundo quase nulo, borda fraca) dividindo a linha */
+.read__meta { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 22px; }
+.read__meta > div { min-width: 0; padding: 13px 16px 14px; border-radius: 14px; background: rgba(242, 246, 239, 0.02); box-shadow: inset 0 0 0 1px rgba(242, 246, 239, 0.07); }
 .read__meta dt { font-size: 12.5px; color: var(--ink-3); }
-.read__meta dd { margin-top: 2px; font-size: 18px; font-weight: 500; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
-.chart { position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 14px; height: 230px; margin: 28px 0 40px; }
+.read__meta dd { margin-top: 3px; font-size: 18px; font-weight: 500; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; white-space: nowrap; }
+/* o gráfico cresce para ocupar a área que sobra no painel (fica mais baixo e mais alto), sem passar de 340px */
+.chart { position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 14px; flex: 1 1 auto; min-height: 230px; max-height: 340px; margin: 38px 0 44px; }
 .chart__plot { position: relative; height: 100%; }
 .chart__svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 .chart__grid line { stroke: var(--line); stroke-width: 1; vector-effect: non-scaling-stroke; stroke-dasharray: 2 4; }
@@ -543,15 +555,17 @@ em { font-style: normal; }
    NA PRÁTICA — as fotos passam da esquerda para a direita
    e a do centro cresce até virar o vídeo
    ========================================================= */
-.dive { position: relative; height: 400vh; margin-top: calc(var(--sec) * 0.45); }
+.dive { position: relative; height: 320vh; margin-top: calc(var(--sec) * 0.45); }
 .dive__stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
 .dive__grid { --gap: 1.1vw; --bo: 1; position: absolute; left: 50%; top: 50%; z-index: 1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: repeat(3, minmax(0, 1fr)); gap: var(--gap); width: min(84vw, 1320px); aspect-ratio: 16 / 9; translate: -50% -50%; will-change: transform; }
 .dive__cell { position: relative; overflow: hidden; border-radius: 14px; background: #0a120d; box-shadow: 0 24px 50px -28px rgba(0, 0, 0, 0.8); will-change: transform; }
 .dive__cell::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 1px rgba(242, 246, 239, calc(0.12 * var(--bo))); pointer-events: none; }
 .dive__cell img { width: 100%; height: 100%; object-fit: cover; }
 .dive__full { position: absolute; inset: 0; z-index: 4; opacity: 0; background: #000; }
-.dive__full img, .dive__full video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.dive__video { opacity: 0; }
+.dive__full img, .dive__full video { position: absolute; left: 50%; top: 50%; width: max(100%, 100svh * 16 / 9); max-width: none; height: auto; aspect-ratio: 16 / 9; object-fit: cover; translate: -50% -50%; scale: var(--ms, 1); }
+/* o vídeo aparece quando começa a tocar (--vp) e some suavemente quando o quadro volta a ficar pequeno (--vz) */
+.dive__video { opacity: calc(var(--vp, 0) * var(--vz, 1)); }
+.dive__video:fullscreen { translate: none; scale: none; opacity: 1; }
 .dive__veil { position: absolute; inset: 0; z-index: 5; opacity: 0; pointer-events: none; background: linear-gradient(90deg, rgba(2, 6, 4, 0.8) 0%, rgba(2, 6, 4, 0.38) 34%, rgba(2, 6, 4, 0) 58%), linear-gradient(0deg, rgba(2, 6, 4, 0.85) 0%, rgba(2, 6, 4, 0) 46%), linear-gradient(180deg, rgba(2, 6, 4, 0.6) 0%, rgba(2, 6, 4, 0) 20%); }
 .dive__copy { position: absolute; left: 0; right: 0; bottom: clamp(28px, 6vh, 64px); z-index: 6; opacity: 0; pointer-events: none; }
 .dive.is-live .dive__copy { pointer-events: auto; }
@@ -657,15 +671,47 @@ em { font-style: normal; }
    ========================================================= */
 .faq__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: start; gap: clamp(32px, 4.4vw, 72px); }
 .faq__side { display: flex; flex-direction: column; }
+@media (min-width: 961px) and (min-height: 620px) { .faq__side { position: sticky; top: calc(var(--hdr) + 36px); } }
 .faq__lead { max-width: 26em; margin-top: 20px; font-size: 15.5px; line-height: 1.6; color: var(--ink-2); }
 .faq__help { margin-top: clamp(48px, 7vw, 112px); padding-top: 24px; border-top: 1px solid var(--line); }
 .faq__t { font-size: 20px; font-weight: 500; letter-spacing: -0.02em; }
 .faq__p { max-width: 24em; margin: 6px 0 22px; font-size: 14px; line-height: 1.55; color: var(--ink-3); }
-.faq__list { display: grid; gap: 10px; }
+/* ferramentas: busca + filtros por tema (com a contagem de perguntas em cada um, que acompanha a busca) */
+.faq__tools { display: grid; gap: 14px; margin-bottom: 30px; }
+.fsearch { position: relative; display: flex; align-items: center; height: 56px; border-radius: 999px; background: rgba(242, 246, 239, 0.03); box-shadow: inset 0 0 0 1px var(--line); cursor: text; transition: box-shadow 0.3s, background-color 0.3s; }
+.fsearch:hover { box-shadow: inset 0 0 0 1px var(--line-2); }
+.fsearch:focus-within { background: rgba(242, 246, 239, 0.045); box-shadow: inset 0 0 0 1px rgba(3, 255, 31, 0.5), 0 0 0 4px rgba(3, 255, 31, 0.07); }
+.fsearch > svg { position: absolute; left: 22px; width: 18px; height: 18px; color: var(--ink-3); pointer-events: none; transition: color 0.3s; }
+.fsearch:focus-within > svg { color: var(--neon); }
+.fsearch__in { flex: 1; min-width: 0; height: 100%; padding: 0 58px 0 52px; border: 0; border-radius: 999px; background: none; font: inherit; font-size: 15.5px; color: var(--ink); -webkit-appearance: none; appearance: none; }
+.fsearch__in:focus, .fsearch__in:focus-visible { outline: none; }
+.fsearch__in::placeholder { color: var(--ink-3); opacity: 1; }
+.fsearch__in::-webkit-search-cancel-button, .fsearch__in::-webkit-search-decoration { -webkit-appearance: none; display: none; }
+.fsearch__x { position: absolute; right: 9px; display: grid; place-items: center; width: 38px; height: 38px; border: 0; border-radius: 50%; background: rgba(242, 246, 239, 0.06); color: var(--ink); cursor: pointer; transition: background-color 0.3s, color 0.3s; }
+.fsearch__x svg { width: 14px; height: 14px; }
+.fsearch__x:hover { background: rgba(3, 255, 31, 0.12); color: var(--neon); }
+.fcats { display: flex; flex-wrap: wrap; gap: 8px; }
+.fcat { display: inline-flex; align-items: center; gap: 9px; height: 40px; padding: 0 8px 0 16px; border: 0; border-radius: 999px; background: rgba(242, 246, 239, 0.025); box-shadow: inset 0 0 0 1px var(--line); font-size: 14px; color: var(--ink-2); white-space: nowrap; cursor: pointer; transition: color 0.3s, background-color 0.3s, box-shadow 0.3s, opacity 0.3s; }
+.fcat span { display: inline-grid; place-items: center; min-width: 24px; height: 24px; padding: 0 7px; border-radius: 999px; background: rgba(242, 246, 239, 0.06); font-family: var(--m); font-size: 11px; color: var(--ink-3); font-variant-numeric: tabular-nums; transition: color 0.3s, background-color 0.3s; }
+.fcat:hover { color: var(--ink); box-shadow: inset 0 0 0 1px var(--line-2); }
+.fcat[aria-pressed="true"] { color: var(--neon); background: rgba(3, 255, 31, 0.08); box-shadow: inset 0 0 0 1px rgba(3, 255, 31, 0.5); }
+.fcat[aria-pressed="true"] span { background: rgba(3, 255, 31, 0.14); color: var(--neon); }
+.fcat:disabled { opacity: 0.38; cursor: default; }
+.fcat:disabled:hover { color: var(--ink-2); box-shadow: inset 0 0 0 1px var(--line); }
+/* perguntas agrupadas por tema: rótulo mono com a contagem e um fio até a borda */
+.faq__list { display: grid; gap: 30px; }
+.fgroup { display: grid; gap: 10px; }
+.fgroup__t { display: flex; align-items: center; gap: 10px; margin: 0 0 4px; font-size: 11px; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3); }
+.fgroup__t span { color: var(--neon); }
+.fgroup__t::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+.qa__q mark { border-radius: 3px; background: rgba(3, 255, 31, 0.2); box-shadow: 0 0 0 1px rgba(3, 255, 31, 0.2); color: var(--ink); }
+.faq__empty { padding: 30px 28px 28px; border-radius: 14px; background: rgba(242, 246, 239, 0.02); box-shadow: inset 0 0 0 1px var(--line); }
+.faq__empty-t { font-size: 18px; font-weight: 500; letter-spacing: -0.015em; overflow-wrap: anywhere; }
+.faq__empty-p { margin: 6px 0 18px; font-size: 14px; color: var(--ink-3); }
 .qa { border-radius: 14px; background: rgba(242, 246, 239, 0.025); box-shadow: inset 0 0 0 1px var(--line); transition: background-color 0.4s, box-shadow 0.4s; }
 .qa:hover { box-shadow: inset 0 0 0 1px var(--line-2); }
 .qa.is-open { background: rgba(242, 246, 239, 0.055); box-shadow: inset 0 0 0 1px var(--line-2); }
-.qa h3 { font: inherit; }
+.qa h4 { margin: 0; font: inherit; }
 .qa__q { display: flex; align-items: center; justify-content: space-between; gap: 20px; width: 100%; padding: 20px 20px 20px 26px; border: 0; background: none; text-align: left; font-size: clamp(16px, 1.25vw, 18.5px); font-weight: 500; letter-spacing: -0.015em; cursor: pointer; }
 .qa__q i { position: relative; flex: none; width: 38px; height: 38px; border-radius: 50%; box-shadow: inset 0 0 0 1px var(--line-2); transition: box-shadow 0.4s, transform 0.5s var(--ease); }
 .qa__q i::before, .qa__q i::after { content: ""; position: absolute; left: 50%; top: 50%; width: 13px; height: 1.6px; margin: -0.8px 0 0 -6.5px; border-radius: 2px; background: var(--ink); transition: background-color 0.3s; }
@@ -675,7 +721,13 @@ em { font-style: normal; }
 .qa__a { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.55s var(--ease); }
 .qa.is-open .qa__a { grid-template-rows: 1fr; }
 .qa__a > div { min-height: 0; overflow: hidden; }
-.qa__a p { padding: 0 86px 22px 26px; font-size: 15px; line-height: 1.6; color: var(--ink-2); }
+.qa__a p, .qa__a ul { padding: 0 86px 0 26px; font-size: 15px; line-height: 1.6; color: var(--ink-2); }
+.qa__a > div > :last-child { padding-bottom: 22px; }
+.qa__a p + ul { margin-top: 10px; }
+.qa__a ul { display: grid; gap: 6px; }
+.qa__a li { position: relative; padding-left: 18px; }
+.qa__a li::before { content: ""; position: absolute; left: 1px; top: 0.8em; width: 7px; height: 1.5px; border-radius: 2px; background: var(--neon); }
+.qa__a b { font-weight: 500; color: var(--ink); }
 
 /* =========================================================
    ENCERRAMENTO — o portão sobe e revela uma segunda hero
@@ -877,6 +929,11 @@ em { font-style: normal; }
   .app__stage { order: -1; }
   .club__grid { grid-template-columns: 1fr; }
   .faq__grid { grid-template-columns: 1fr; }
+  /* em uma coluna: título → busca e perguntas → "Ainda com dúvida?" no fim da lista */
+  .faq__grid { row-gap: 0; }
+  .faq__side { display: contents; }
+  .faq__help { order: 2; margin-top: 44px; }
+  .faq__main { order: 1; margin-top: 32px; }
   .app__stage { min-height: 520px; }
   .dive__copy-in { grid-template-columns: 1fr; }
   .mat { display: none; }
@@ -898,8 +955,9 @@ em { font-style: normal; }
 }
 @media (max-width: 760px) {
   :root { --hdr: 64px; --g: 20px; --pad: 20px; --sec: 84px; }
-  .glow--soft::before { top: -60px; left: -70vw; width: 160vw; opacity: 0.3; }
-  .glow--diag::before { top: -90px; right: -90vw; width: 190vw; opacity: 0.4; }
+  .d0.sec, .app.sec { padding-top: calc(var(--sec) + 40px); }
+  .glow--soft::before { left: auto; right: -80vw; width: 170vw; }
+  .glow--diag::before { top: 20px; left: -78vw; width: 170vw; opacity: 0.24; }
   .t-xl { display: none; }
   .t-xs { display: inline; }
   .hdr.is-hidden { transform: translateY(-115%); }
@@ -966,7 +1024,7 @@ em { font-style: normal; }
   .net__row { grid-template-columns: 1fr; }
   .nf + .nf { border-left: 0; border-top: 1px solid var(--line); }
   .seg button { padding: 0 4px; font-size: 13px; }
-  .chart { height: 180px; }
+  .chart { min-height: 180px; margin: 30px 0 40px; }
   .chart { gap: 10px; }
   .chart__y { min-width: 66px; }
   .chart__y span { font-size: 9.5px; }
@@ -976,7 +1034,19 @@ em { font-style: normal; }
   .board__d { display: none; }
   .faq__help { margin-top: 36px; }
   .qa__q { padding: 18px 16px 18px 20px; }
-  .qa__a p { padding: 0 20px 20px; }
+  .qa__a p, .qa__a ul { padding: 0 20px; }
+  .qa__a > div > :last-child { padding-bottom: 20px; }
+  .faq__tools { margin-bottom: 26px; }
+  .fsearch { height: 52px; }
+  .fsearch__in { font-size: 16px; }
+  .fcat { height: 38px; padding: 0 7px 0 14px; font-size: 13.5px; }
+  .faq__empty { padding: 24px 20px; }
+  /* o acumulado chega a 11 dígitos (20 por dia em 10 anos): o card dele fica mais largo */
+  .read__meta { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); }
+  .read__meta > div { padding: 11px 13px 12px; }
+  .read__meta dt { font-size: 11.5px; }
+  .read__meta dd { font-size: 16.5px; }
+  .chart__x span:first-child { display: none; }
   .gate__door { inset: 0 12px; }
   .gate__rail { width: 12px; }
   .adm { grid-template-columns: 1fr; }
@@ -1051,4 +1121,11 @@ em { font-style: normal; }
   .end__scene { position: relative; }
   .gate { display: none; }
   .cps { overflow-x: auto; scrollbar-width: none; }
+}
+@media (max-width: 380px) {
+  .read__meta dd { font-size: 15.5px; }
+  /* os cinco filtros do FAQ em duas linhas também nos celulares estreitos */
+  .fcats { gap: 6px; }
+  .fcat { gap: 7px; height: 36px; padding: 0 6px 0 12px; font-size: 13px; }
+  .fcat span { min-width: 21px; height: 21px; padding: 0 6px; font-size: 10.5px; }
 }

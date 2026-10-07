@@ -315,7 +315,7 @@
               <p class="read__lbl"><span>Receita mensal</span><span class="read__h mono" data-h-label>Fim do 1º ano</span></p>
               <p class="read__val"><b data-mensal>R$ 37.440,00</b></p>
               <dl class="read__meta">
-                <div><dt>Clientes na carteira</dt><dd data-carteira>720</dd></div>
+                <div><dt><span class="t-xl">Clientes na carteira</span><span class="t-xs">Clientes</span></dt><dd data-carteira>720</dd></div>
                 <div><dt>Acumulado no período</dt><dd data-acum>R$ 243.360,00</dd></div>
               </dl>
             </div>
@@ -648,35 +648,110 @@
             <a class="btn btn--neon btn--sm js-wa" href="#">Falar com o consultor<span class="btn__chip"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
           </div>
         </div>
-        <div class="faq__list" data-faq data-reveal>
-            <div class="qa is-open">
-              <h3><button class="qa__q" type="button" aria-expanded="true" aria-controls="qa-0" id="qa-h0"><span>Preciso trocar meu carregador?</span><i aria-hidden="true"></i></button></h3>
-              <div class="qa__a" id="qa-0" role="region" aria-labelledby="qa-h0"><div><p>A compatibilidade do seu equipamento com a bandeira iGreen é avaliada na conversa com o seu consultor, junto com as condições para o seu eletroposto.</p></div></div>
+        <div class="faq__main" data-faq data-reveal>
+          <div class="faq__tools">
+            <label class="fsearch">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg>
+              <span class="sr-only">Buscar uma pergunta</span>
+              <input class="fsearch__in" type="search" placeholder="Ex.: D0, cartão, comissão" autocomplete="off" spellcheck="false" enterkeyhint="search" data-faq-q>
+              <button class="fsearch__x" type="button" aria-label="Limpar a busca" data-faq-clear hidden><svg viewBox="0 0 24 24"><path d="M7 7l10 10M17 7 7 17"/></svg></button>
+            </label>
+            <div class="fcats" role="group" aria-label="Filtrar as perguntas por tema">
+              <button class="fcat" type="button" aria-pressed="true" data-cat="todas">Todas<span data-count>17</span></button>
+              <button class="fcat" type="button" aria-pressed="false" data-cat="migracao">Migração<span data-count>5</span></button>
+              <button class="fcat" type="button" aria-pressed="false" data-cat="recebimento">Recebimento<span data-count>3</span></button>
+              <button class="fcat" type="button" aria-pressed="false" data-cat="comissoes">Comissões<span data-count>5</span></button>
+              <button class="fcat" type="button" aria-pressed="false" data-cat="recarga">Recarga e app<span data-count>4</span></button>
             </div>
-            <div class="qa">
-              <h3><button class="qa__q" type="button" aria-expanded="false" aria-controls="qa-1" id="qa-h1"><span>Quando o dinheiro das recargas entra no caixa?</span><i aria-hidden="true"></i></button></h3>
-              <div class="qa__a" id="qa-1" role="region" aria-labelledby="qa-h1"><div><p>No mesmo dia. O valor das recargas fica disponível em D0, sem esperar 30 ou 60 dias para entrar no caixa.</p></div></div>
-            </div>
-            <div class="qa">
-              <h3><button class="qa__q" type="button" aria-expanded="false" aria-controls="qa-2" id="qa-h2"><span>Quanto custa a administração iGreen?</span><i aria-hidden="true"></i></button></h3>
-              <div class="qa__a" id="qa-2" role="region" aria-labelledby="qa-h2"><div><p>14% sobre o faturamento das recargas, com suporte 24h e taxas de cartão incluídos. De cada R$ 100 em recargas, R$ 86 ficam no seu caixa.</p></div></div>
-            </div>
-            <div class="qa">
-              <h3><button class="qa__q" type="button" aria-expanded="false" aria-controls="qa-3" id="qa-h3"><span>Como o motorista encontra e paga a recarga?</span><i aria-hidden="true"></i></button></h3>
-              <div class="qa__a" id="qa-3" role="region" aria-labelledby="qa-h3"><div><p>Pelo app iGreen MOB. Ele encontra o seu ponto no mapa, escolhe o conector e paga com o saldo da carteira ou com o cartão, com pré-autorização e cobrança apenas do que consumiu.</p></div></div>
-            </div>
-            <div class="qa">
-              <h3><button class="qa__q" type="button" aria-expanded="false" aria-controls="qa-4" id="qa-h4"><span>Como ganho com energia, seguros e telefonia?</span><i aria-hidden="true"></i></button></h3>
-              <div class="qa__a" id="qa-4" role="region" aria-labelledby="qa-h4"><div><p>Os clientes conectados pelo seu ponto geram comissões todo mês: 4% sobre a conta de energia paga, 5% sobre a mensalidade do seguro e R$ 7 por linha de telefonia ativa.</p></div></div>
-            </div>
-            <div class="qa">
-              <h3><button class="qa__q" type="button" aria-expanded="false" aria-controls="qa-5" id="qa-h5"><span>O que é a carteira na rede?</span><i aria-hidden="true"></i></button></h3>
-              <div class="qa__a" id="qa-5" role="region" aria-labelledby="qa-h5"><div><p>Quem se cadastra pelo QR Code do seu ponto fica vinculado à sua carteira. Você recebe 2% do valor bruto das recargas dessa pessoa na rede, inclusive em outros eletropostos iGreen.</p></div></div>
-            </div>
-            <div class="qa">
-              <h3><button class="qa__q" type="button" aria-expanded="false" aria-controls="qa-6" id="qa-h6"><span>Os valores do simulador são garantidos?</span><i aria-hidden="true"></i></button></h3>
-              <div class="qa__a" id="qa-6" role="region" aria-labelledby="qa-h6"><div><p>Não. A projeção é ilustrativa, feita com base nas conexões selecionadas e sem considerar cancelamentos. A rede (2%) é uma estimativa separada.</p></div></div>
-            </div>
+          </div>
+          <p class="sr-only" aria-live="polite" data-faq-status></p>
+          <div class="faq__list">
+            <section class="fgroup" data-group="migracao" aria-labelledby="fg-migracao">
+              <h3 class="fgroup__t mono" id="fg-migracao">Migração<span data-gcount>5</span></h3>
+              <div class="qa is-open">
+                <h4><button class="qa__q" type="button" aria-expanded="true" aria-controls="qa-0" id="qa-h0"><span>Preciso trocar meu carregador?</span><i aria-hidden="true"></i></button></h4>
+                <div class="qa__a" id="qa-0" role="region" aria-labelledby="qa-h0"><div><p>A compatibilidade do seu equipamento com a bandeira iGreen é avaliada na conversa com o seu consultor, junto com as condições para o seu eletroposto.</p></div></div>
+              </div>
+              <div class="qa">
+                <h4><button class="qa__q" type="button" aria-expanded="false" aria-controls="qa-1" id="qa-h1"><span>O que muda no meu ponto com a bandeira iGreen?</span><i aria-hidden="true"></i></button></h4>
+                <div class="qa__a" id="qa-1" role="region" aria-labelledby="qa-h1"><div><p>O eletroposto entra na rede iGreen: o equipamento ganha a identidade visual da marca, o motorista encontra e paga a recarga pelo app iGreen MOB e uma campanha comunica os benefícios para quem passa pelo seu ponto.</p></div></div>
+              </div>
+              <div class="qa">
+                <h4><button class="qa__q" type="button" aria-expanded="false" aria-controls="qa-2" id="qa-h2"><span>Quem faz a manutenção?</span><i aria-hidden="true"></i></button></h4>
+                <div class="qa__a" id="qa-2" role="region" aria-labelledby="qa-h2"><div><p>Depende do plano contratado. A administração iGreen cobre o suporte e a gestão da operação, conforme as condições do plano.</p></div></div>
+              </div>
+              <div class="qa">
+                <h4><button class="qa__q" type="button" aria-expanded="false" aria-controls="qa-3" id="qa-h3"><span>Se der problema, quem me atende?</span><i aria-hidden="true"></i></button></h4>
+                <div class="qa__a" id="qa-3" role="region" aria-labelledby="qa-h3"><div><p>O Suporte iGreen MOB, 24 horas. Ele está incluído na administração iGreen, junto com a gestão da operação do seu ponto.</p></div></div>
+              </div>
+              <div class="qa">
+                <h4><button class="qa__q" type="button" aria-expanded="false" aria-controls="qa-4" id="qa-h4"><span>O eletroposto tem seguro?</span><i aria-hidden="true"></i></button></h4>
+                <div class="qa__a" id="qa-4" role="region" aria-labelledby="qa-h4"><div><p>Sim, o eletroposto tem seguro.</p></div></div>
+              </div>
+            </section>
+            <section class="fgroup" data-group="recebimento" aria-labelledby="fg-recebimento">
+              <h3 class="fgroup__t mono" id="fg-recebimento">Recebimento<span data-gcount>3</span></h3>
+              <div class="qa">
+                <h4><button class="qa__q" type="button" aria-expanded="false" aria-controls="qa-5" id="qa-h5"><span>Quando o dinheiro das recargas entra no caixa?</span><i aria-hidden="true"></i></button></h4>
+                <div class="qa__a" id="qa-5" role="region" aria-labelledby="qa-h5"><div><p>No mesmo dia. O valor das recargas fica disponível em D0, sem esperar 30 ou 60 dias para entrar no caixa.</p></div></div>
+              </div>
+              <div class="qa">
+                <h4><button class="qa__q" type="button" aria-expanded="false" aria-controls="qa-6" id="qa-h6"><span>Quanto custa a administração iGreen?</span><i aria-hidden="true"></i></button></h4>
+                <div class="qa__a" id="qa-6" role="region" aria-labelledby="qa-h6"><div><p>14% sobre o faturamento das recargas, com suporte 24h e taxas de cartão incluídos. De cada R$ 100 em recargas, R$ 86 ficam no seu caixa.</p></div></div>
+              </div>
+              <div class="qa">
+                <h4><button class="qa__q" type="button" aria-expanded="false" aria-controls="qa-7" id="qa-h7"><span>As taxas de cartão são cobradas à parte?</span><i aria-hidden="true"></i></button></h4>
+                <div class="qa__a" id="qa-7" role="region" aria-labelledby="qa-h7"><div><p>Não. As taxas de cartão já estão dentro dos 14% da administração iGreen, assim como o suporte 24h.</p></div></div>
+              </div>
+            </section>
+            <section class="fgroup" data-group="comissoes" aria-labelledby="fg-comissoes">
+              <h3 class="fgroup__t mono" id="fg-comissoes">Comissões<span data-gcount>5</span></h3>
+              <div class="qa">
+                <h4><button class="qa__q" type="button" aria-expanded="false" aria-controls="qa-8" id="qa-h8"><span>Como ganho com energia, seguros e telefonia?</span><i aria-hidden="true"></i></button></h4>
+                <div class="qa__a" id="qa-8" role="region" aria-labelledby="qa-h8"><div><p>Os clientes conectados pelo seu ponto geram comissões todo mês: 4% sobre a conta de energia paga, 5% sobre a mensalidade do seguro e R$ 7 por linha de telefonia ativa.</p></div></div>
+              </div>
+              <div class="qa">
+                <h4><button class="qa__q" type="button" aria-expanded="false" aria-controls="qa-9" id="qa-h9"><span>Quanto rende um cliente conectado?</span><i aria-hidden="true"></i></button></h4>
+                <div class="qa__a" id="qa-9" role="region" aria-labelledby="qa-h9"><div><p>Cerca de R$ 52 por mês nas três conexões: R$ 20 de energia (4% de uma conta de R$ 500), R$ 25 de seguros (5% de uma mensalidade de R$ 500) e R$ 7 de telefonia por linha ativa.</p></div></div>
+              </div>
+              <div class="qa">
+                <h4><button class="qa__q" type="button" aria-expanded="false" aria-controls="qa-10" id="qa-h10"><span>Existe receita recorrente?</span><i aria-hidden="true"></i></button></h4>
+                <div class="qa__a" id="qa-10" role="region" aria-labelledby="qa-h10"><div><p>Sim, em dois níveis:</p><ul><li><b>A cada recarga</b> no seu eletroposto.</li><li><b>Pela carteira iGreen</b>, todo mês, por cliente conectado, enquanto ele continuar ativo.</li></ul></div></div>
+              </div>
+              <div class="qa">
+                <h4><button class="qa__q" type="button" aria-expanded="false" aria-controls="qa-11" id="qa-h11"><span>O que é a carteira na rede?</span><i aria-hidden="true"></i></button></h4>
+                <div class="qa__a" id="qa-11" role="region" aria-labelledby="qa-h11"><div><p>Quem se cadastra pelo QR Code do seu ponto fica vinculado à sua carteira. Você recebe 2% do valor bruto das recargas dessa pessoa na rede, inclusive em outros eletropostos iGreen.</p></div></div>
+              </div>
+              <div class="qa">
+                <h4><button class="qa__q" type="button" aria-expanded="false" aria-controls="qa-12" id="qa-h12"><span>Os valores do simulador são garantidos?</span><i aria-hidden="true"></i></button></h4>
+                <div class="qa__a" id="qa-12" role="region" aria-labelledby="qa-h12"><div><p>Não. A projeção é ilustrativa, feita com base nas conexões selecionadas e sem considerar cancelamentos. A rede (2%) é uma estimativa separada.</p></div></div>
+              </div>
+            </section>
+            <section class="fgroup" data-group="recarga" aria-labelledby="fg-recarga">
+              <h3 class="fgroup__t mono" id="fg-recarga">Recarga e app<span data-gcount>4</span></h3>
+              <div class="qa">
+                <h4><button class="qa__q" type="button" aria-expanded="false" aria-controls="qa-13" id="qa-h13"><span>Como o motorista encontra e paga a recarga?</span><i aria-hidden="true"></i></button></h4>
+                <div class="qa__a" id="qa-13" role="region" aria-labelledby="qa-h13"><div><p>Pelo app iGreen MOB. Ele encontra o seu ponto no mapa, escolhe o conector e paga com o saldo da carteira ou com o cartão, com pré-autorização e cobrança apenas do que consumiu.</p></div></div>
+              </div>
+              <div class="qa">
+                <h4><button class="qa__q" type="button" aria-expanded="false" aria-controls="qa-14" id="qa-h14"><span>O que o motorista ganha com a iGreen?</span><i aria-hidden="true"></i></button></h4>
+                <div class="qa__a" id="qa-14" role="region" aria-labelledby="qa-h14"><div><p>Ao habilitar o desconto de energia, recebe R$ 50 em cashback para recarregar nos eletropostos iGreen. No seguro, a primeira mensalidade vira crédito integral em recargas e, depois, 10% de cashback mensal em bônus. E todo cliente cadastrado no app tem o iGreen Club, com benefícios em mais de 30 mil estabelecimentos.</p></div></div>
+              </div>
+              <div class="qa">
+                <h4><button class="qa__q" type="button" aria-expanded="false" aria-controls="qa-15" id="qa-h15"><span>Qual a diferença entre recarga AC e DC?</span><i aria-hidden="true"></i></button></h4>
+                <div class="qa__a" id="qa-15" role="region" aria-labelledby="qa-h15"><div><ul><li><b>AC</b> (corrente alternada) é a mais lenta, de 3,7 a 22 kW. É a usada em casas, condomínios, shoppings, hotéis e empresas.</li><li><b>DC</b> (corrente contínua) é a rápida, de 40 a 120 kW ou mais. É a dos postos, rodovias, varejo e corredores rodoviários.</li></ul></div></div>
+              </div>
+              <div class="qa">
+                <h4><button class="qa__q" type="button" aria-expanded="false" aria-controls="qa-16" id="qa-h16"><span>Quanto tempo demora uma recarga?</span><i aria-hidden="true"></i></button></h4>
+                <div class="qa__a" id="qa-16" role="region" aria-labelledby="qa-h16"><div><p>Depende da potência:</p><ul><li><b>AC lenta:</b> 6 a 10 horas</li><li><b>AC semi-rápida:</b> 2 a 4 horas</li><li><b>DC rápida:</b> 40 a 60 minutos</li><li><b>DC ultrarrápida:</b> 20 a 30 minutos</li></ul></div></div>
+              </div>
+            </section>
+          </div>
+          <div class="faq__empty" data-faq-empty hidden>
+            <p class="faq__empty-t">Nenhuma pergunta com “<span data-faq-term></span>”.</p>
+            <p class="faq__empty-p">Tente outra palavra ou pergunte direto ao seu consultor.</p>
+            <a class="link js-wa" href="#">Perguntar ao consultor<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+          </div>
         </div>
       </div>
     </section>

@@ -509,7 +509,7 @@
   const playVideo = () => { if (!dvid) return; armVideo(); wantPlay = true; const p = dvid.play(); if (p && p.catch) p.catch(() => {}); };
   const pauseVideo = () => { if (!dvid) return; wantPlay = false; dvid.pause(); };
   if (dvid) {
-    dvid.addEventListener("playing", () => { if (motion) G.to(dvid, { opacity: 1, duration: 0.4 }); else dvid.style.opacity = "1"; });
+    dvid.addEventListener("playing", () => { if (motion) G.to(dvid, { "--vp": 1, duration: 0.4 }); else dvid.style.opacity = "1"; });
     dvid.addEventListener("loadedmetadata", () => { if (!full && dvid.currentTime < LOOP_A) dvid.currentTime = LOOP_A; });
     dvid.addEventListener("ended", () => { dvid.currentTime = LOOP_A; if (wantPlay) playVideo(); });
   }
@@ -638,16 +638,92 @@
   }
 
   /* =========================================================
-     07 · DÚVIDAS — uma pergunta aberta por vez
+     07 · DÚVIDAS — uma pergunta aberta por vez, busca e filtros por tema
      ========================================================= */
   const faq = $("[data-faq]");
   if (faq) {
     const qas = $$(".qa", faq);
+    const setOpen = (it, open) => { it.classList.toggle("is-open", open); $(".qa__q", it).setAttribute("aria-expanded", String(open)); };
     qas.forEach((it) => $(".qa__q", it).addEventListener("click", () => {
       const open = !it.classList.contains("is-open");
-      qas.forEach((o) => { o.classList.remove("is-open"); $(".qa__q", o).setAttribute("aria-expanded", "false"); });
-      if (open) { it.classList.add("is-open"); $(".qa__q", it).setAttribute("aria-expanded", "true"); }
+      qas.forEach((o) => setOpen(o, false));
+      if (open) setOpen(it, true);
     }));
+
+    // busca: sem diferenciar maiúsculas e acentos ("comissao" acha "comissão"); procura na pergunta e na resposta
+    const fold = (s) => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+    // plural simples: "comissoes" → "comissao" nos dois lados; e "recargas" procura "recarga" (que acha as duas formas)
+    const stem = (s) => s.replace(/([oa])es\b/g, "ao");
+    const word = (w) => (w.length > 3 && w.endsWith("s") ? w.slice(0, -1) : w);
+    // termos curtos ("AC", "DC", "D0", "24h") valem só como palavra inteira; os longos, em qualquer parte
+    const rx = (w) => { const e = w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); return new RegExp(w.length <= 3 ? "\\b" + e + "\\b" : e, "g"); };
+    const items = qas.map((it) => {
+      const span = $(".qa__q span", it);
+      return { it, span, q: span.textContent, hay: stem(fold(span.textContent + " " + $(".qa__a", it).textContent)), group: it.closest("[data-group]").dataset.group };
+    });
+    const groups = $$("[data-group]", faq);
+    const chips = $$("[data-cat]", faq);
+    const input = $("[data-faq-q]", faq), clear = $("[data-faq-clear]", faq);
+    const empty = $("[data-faq-empty]", faq), term = $("[data-faq-term]", faq), status = $("[data-faq-status]", faq);
+    let cat = "todas";
+    // destaca o termo no texto da pergunta (as posições batem porque cada letra vira uma só letra sem acento)
+    const mark = (x, words) => {
+      if (!words.length) { x.span.textContent = x.q; return; }
+      const f = fold(x.q);
+      if (f.length !== x.q.length) { x.span.textContent = x.q; return; }
+      const fz = stem(f);
+      const hit = new Array(f.length).fill(false);
+      const src = fz.length === f.length ? fz : f;
+      words.forEach((w) => { for (const m of src.matchAll(rx(w))) for (let k = m.index; k < m.index + w.length; k++) hit[k] = true; });
+      x.span.textContent = "";
+      let k = 0;
+      while (k < f.length) {
+        let e = k; while (e < f.length && hit[e] === hit[k]) e++;
+        const part = x.q.slice(k, e);
+        if (hit[k]) { const m = document.createElement("mark"); m.textContent = part; x.span.appendChild(m); } else x.span.appendChild(document.createTextNode(part));
+        k = e;
+      }
+    };
+    const apply = (fromTyping) => {
+      const raw = input.value.trim();
+      const words = stem(fold(raw)).split(/\s+/).filter(Boolean).map(word);
+      // ao digitar, a busca vale para todos os temas
+      if (fromTyping && words.length && cat !== "todas") cat = "todas";
+      const res = words.map(rx);
+      const match = (x) => res.every((r) => { r.lastIndex = 0; return r.test(x.hay); });
+      const counts = { todas: 0 };
+      items.forEach((x) => { if (match(x)) { counts.todas++; counts[x.group] = (counts[x.group] || 0) + 1; } });
+      let shown = 0;
+      items.forEach((x) => {
+        const ok = match(x) && (cat === "todas" || x.group === cat);
+        x.it.hidden = !ok;
+        if (ok) shown++;
+        if (!ok && x.it.classList.contains("is-open")) setOpen(x.it, false);
+        mark(x, words);
+      });
+      groups.forEach((g) => {
+        const n = items.filter((x) => x.group === g.dataset.group && !x.it.hidden).length;
+        g.hidden = n === 0;
+        const gc = $("[data-gcount]", g); if (gc) gc.textContent = n;
+      });
+      chips.forEach((b) => {
+        const k = b.dataset.cat, n = counts[k] || 0;
+        $("[data-count]", b).textContent = n;
+        b.setAttribute("aria-pressed", String(k === cat));
+        b.disabled = k !== "todas" && n === 0;
+      });
+      // um único resultado já abre sozinho
+      const vis = items.filter((x) => !x.it.hidden);
+      if (words.length && vis.length === 1) setOpen(vis[0].it, true);
+      empty.hidden = shown > 0;
+      term.textContent = raw;
+      clear.hidden = !raw;
+      status.textContent = words.length ? (shown ? shown + (shown > 1 ? " perguntas encontradas" : " pergunta encontrada") : "Nenhuma pergunta encontrada") : "";
+    };
+    input.addEventListener("input", () => apply(true));
+    input.addEventListener("keydown", (e) => { if (e.key === "Escape" && input.value) { input.value = ""; apply(false); } });
+    clear.addEventListener("click", () => { input.value = ""; apply(false); input.focus(); });
+    chips.forEach((b) => b.addEventListener("click", () => { cat = b.dataset.cat; apply(false); }));
   }
 
   if (!motion) {
@@ -705,15 +781,26 @@
       const maxScale = () => { const sx = stage.clientWidth / focus.offsetWidth, sy = stage.clientHeight / focus.offsetHeight; return mob ? sx : Math.max(sx, sy) * 1.002; };
       let S1 = maxScale();
       const z = { t: 0 };
+      const full = $(".dive__full"), media = $(".dive__still", full);
       const applyZoom = () => {
-        G.set(grid, { scale: Math.pow(S1, z.t) });
+        const s = Math.pow(S1, z.t);
+        G.set(grid, { scale: s });
         const r = (mob ? 10 : 14) * (1 - z.t);
         cells.forEach((cl) => { cl.style.borderRadius = r.toFixed(2) + "px"; });
         grid.style.setProperty("--bo", (1 - z.t).toFixed(3));
+        // a foto/vídeo do centro vive no quadro: o recorte e a escala seguem o quadro na tela,
+        // então ao descer o vídeo cresce com ele e, ao subir, encolhe de volta ao mosaico
+        const sr = stage.getBoundingClientRect(), fr = focus.getBoundingClientRect();
+        const u = clamp((z.t - 0.72) / 0.28, 0, 1); // no fim o recorte abre para o palco inteiro (no celular o quadro não cobre a altura)
+        const ins = (v) => (Math.max(0, v) * (1 - u)).toFixed(1) + "px";
+        full.style.clipPath = "inset(" + ins(fr.top - sr.top) + " " + ins(sr.right - fr.right) + " " + ins(sr.bottom - fr.bottom) + " " + ins(fr.left - sr.left) + " round " + (r * s * (1 - u)).toFixed(1) + "px)";
+        const cover = Math.max(fr.width / (media.offsetWidth || 1), fr.height / (media.offsetHeight || 1));
+        full.style.setProperty("--ms", (cover + (1 - cover) * u).toFixed(4));
+        full.style.setProperty("--vz", clamp((z.t - 0.1) / 0.35, 0, 1).toFixed(3));
       };
       applyZoom();
-      // fração do scroll antes de a cena prender (1 tela de 4 no desktop, de 3,2 no celular)
-      const E = 1 / (mob ? 3.2 : 4);
+      // fração do scroll antes de a cena prender (1 tela de 3,2)
+      const E = 1 / 3.2;
       const far = () => stage.clientWidth * (mob ? 0.85 : 0.62);
       const tl = G.timeline({
         defaults: { ease: "none" },
@@ -738,7 +825,7 @@
       });
       tl.to(z, { t: 1, duration: 0.3, ease: "power2.inOut", onUpdate: applyZoom }, settle + 0.06)
         .to(others, { autoAlpha: 0, duration: 0.1 }, settle + (mob ? 0.14 : 0.26))
-        .to(".dive__full", { opacity: 1, duration: 0.03 }, settle + 0.36)
+        .to(".dive__full", { opacity: 1, duration: 0.01, onStart: applyZoom }, settle + 0.06)
         .to(".dive__veil", { opacity: 1, duration: 0.06 }, settle + 0.38)
         .fromTo(".dive__copy", { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 0.08 }, settle + 0.4)
         .to({}, { duration: Math.max(0.01, 1 - (settle + 0.48)) }, settle + 0.48);
