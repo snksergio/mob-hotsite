@@ -1,0 +1,797 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>iGreen MOB · Migre sua bandeira</title>
+  <meta name="description" content="Você já tem o ponto. Migre sua bandeira para a iGreen e transforme cada motorista em uma conexão que pode gerar receita todo mês.">
+  <meta name="theme-color" content="#020604">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23020604'/%3E%3Cpath d='M18 3 7 18h8l-2 11 12-17h-9z' fill='%2303ff1f'/%3E%3C/svg%3E">
+  <link rel="preload" href="img/novo-3.webp" as="image" media="(min-width: 761px)">
+  <link rel="preload" href="img/novo-3-m.webp" as="image" media="(max-width: 760px)">
+  <link rel="stylesheet" href="shared/fonts-instrument.css">
+  <link rel="stylesheet" href="lp.css">
+  <script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+  <a class="skip" href="#conexoes">Pular para o conteúdo</a>
+
+  <!-- barra de progresso: uma bateria que carrega conforme a página desce -->
+  <div class="charge" aria-hidden="true"><i class="charge__fill"></i></div>
+
+  <!-- ================= MENU (fica compacto, em cápsula de vidro, ao rolar) ================= -->
+  <header class="hdr" id="hdr">
+    <span class="hdr__bg" aria-hidden="true"></span>
+    <div class="hdr__in fw">
+      <a class="brand" href="#topo" aria-label="iGreen MOB, voltar ao início"><img src="assets/img/logo-igreen.svg" alt="iGreen" width="101" height="28"><i aria-hidden="true"></i><span>MOB</span></a>
+      <nav class="hdr__nav" aria-label="Seções">
+        <a href="#conexoes">Conexões</a><a href="#simulador">Simulador</a><a href="#operacao">Operação</a><a href="#app">App</a><a href="#pratica">Na prática</a><a href="#club">Club</a><a href="#duvidas">Dúvidas</a>
+      </nav>
+      <a class="btn btn--neon btn--sm hdr__cta js-wa" href="#">Falar com consultor<span class="btn__chip"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+    </div>
+  </header>
+
+  <main>
+    <!-- ================= HERO (1E) · a única seção no container largo ================= -->
+    <section class="hero" id="topo" aria-labelledby="hero-title" style="--wb: .74">
+      <div class="hero__media">
+        <!-- as fotos alternam: a primeira carrega junto com a página, as outras uma antes de aparecer -->
+        <div class="frame" data-slides>
+          <div class="slide is-on" style="--shift: 5vw" data-label="Seu ponto">
+            <picture>
+              <source media="(max-width: 760px)" srcset="img/novo-3-m.webp">
+              <img class="cover" src="img/novo-3.webp" alt="Carregador iGreen com um carro elétrico verde conectado, em estúdio escuro" width="2560" height="1428">
+            </picture>
+            <p class="note note--l" data-note data-x="0.515" data-y="0.38">
+              <span class="note__dot" aria-hidden="true"></span><span class="note__rule" aria-hidden="true"></span>
+              <span class="note__txt"><b>Bandeira iGreen</b>Recarga e pagamento pelo app</span>
+            </p>
+            <p class="note note--u" data-note data-x="0.43" data-y="0.52">
+              <span class="note__dot" aria-hidden="true"></span><span class="note__rule" aria-hidden="true"></span>
+              <span class="note__txt"><b>Cada motorista</b>uma nova conexão</span>
+            </p>
+          </div>
+          <div class="slide" style="--shift: 14vw" data-label="Comércio de bairro" aria-hidden="true">
+            <picture>
+              <source media="(max-width: 760px)" data-srcset="img/novo-5-m.webp">
+              <img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="img/novo-5.webp" alt="Carregador iGreen com um carro elétrico verde conectado em frente a um comércio de bairro à noite" width="2560" height="1428" decoding="async">
+            </picture>
+          </div>
+          <div class="slide" style="--shift: 9vw" data-label="Restaurante e hotel" aria-hidden="true">
+            <picture>
+              <source media="(max-width: 760px)" data-srcset="img/novo-7-m.webp">
+              <img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="img/novo-7.webp" alt="Carregador iGreen com um carro elétrico verde conectado na entrada de um restaurante com jardim vertical" width="2560" height="1428" decoding="async">
+            </picture>
+          </div>
+          <div class="slide slide--dim" style="--shift: 20vw" data-label="Centro comercial" aria-hidden="true">
+            <picture>
+              <source media="(max-width: 760px)" data-srcset="img/novo-9-m.webp">
+              <img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="img/novo-9.webp" alt="Carregador iGreen com um carro elétrico verde conectado no estacionamento de um centro comercial" width="2560" height="1428" decoding="async">
+            </picture>
+          </div>
+          <div class="slide" style="--shift: 13vw" data-label="Posto com cobertura" aria-hidden="true">
+            <picture>
+              <source media="(max-width: 760px)" data-srcset="img/novo-8-m.webp">
+              <img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="img/novo-8.webp" alt="Eletroposto iGreen com cobertura iluminada e um carro elétrico verde recarregando" width="2560" height="1428" decoding="async">
+            </picture>
+          </div>
+          <div class="slide" style="--shift: 2vw" data-label="Estacionamento" aria-hidden="true">
+            <picture>
+              <source media="(max-width: 760px)" data-srcset="img/novo-11-m.webp">
+              <img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="img/novo-11.webp" alt="Carregador iGreen com um carro elétrico verde conectado em um estacionamento na cobertura, com a cidade ao fundo" width="2560" height="1428" decoding="async">
+            </picture>
+          </div>
+        </div>
+        <span class="hero__shade" aria-hidden="true"></span>
+        <span class="hero__fade" aria-hidden="true"></span>
+        <span class="grain" aria-hidden="true"></span>
+      </div>
+
+      <div class="hero__stage fw">
+        <div class="hero__copy">
+          <p class="tag" data-in><i></i>Para quem já tem um eletroposto</p>
+          <h1 id="hero-title" class="hero__title">
+            <span class="line" data-line>Transforme seu ponto</span>
+            <span class="line" data-line>em <em>receita recorrente.</em></span>
+          </h1>
+          <p class="lead" data-in>Migre sua bandeira para a iGreen e transforme cada motorista em uma conexão que pode gerar receita todo mês.</p>
+          <div class="actions" data-in>
+            <a class="btn btn--neon" href="#simulador">Simular receita<span class="btn__chip"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+            <a class="link" href="#conexoes">Como funciona<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
+          </div>
+          <div class="proof" data-in>
+            <ul class="faces glass" aria-hidden="true"><li><img src="img/av-1.webp" alt="" width="160" height="160"></li><li><img src="img/av-2.webp" alt="" width="160" height="160"></li><li><img src="img/av-3.webp" alt="" width="160" height="160"></li><li><img src="img/av-4.webp" alt="" width="160" height="160"></li></ul>
+            <p class="proof__txt"><b>+30 mil estabelecimentos</b><span>com benefícios para os seus clientes no iGreen Club</span></p>
+          </div>
+        </div>
+        <div class="hero__foot">
+          <!-- a bomba sai do quadro; leva para a página do eletroposto, com o carregador e a estrutura em 3D
+               (a página anterior, produto.html, continua no ar como cópia de segurança) -->
+          <a class="film prod glass" href="eletroposto.html" data-in>
+            <span class="prod__frame" aria-hidden="true"><img class="prod__img" src="img/bomba-3d-v2.webp" alt="" width="439" height="640"></span>
+            <span class="film__txt">Conheça o eletroposto<br>iGreen em 3D</span>
+            <span class="prod__go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+          </a>
+          <!-- indicador do carrossel de fotos: logo abaixo do card, na mesma largura -->
+          <div class="hero__dots" data-in>
+            <div class="hd__bars" role="tablist" aria-label="Fotos do fundo">
+              <button type="button" role="tab" aria-selected="true" aria-label="Foto 1: seu ponto"><i></i></button>
+              <button type="button" role="tab" aria-selected="false" aria-label="Foto 2: comércio de bairro"><i></i></button>
+              <button type="button" role="tab" aria-selected="false" aria-label="Foto 3: restaurante e hotel"><i></i></button>
+              <button type="button" role="tab" aria-selected="false" aria-label="Foto 4: centro comercial"><i></i></button>
+              <button type="button" role="tab" aria-selected="false" aria-label="Foto 5: posto com cobertura"><i></i></button>
+              <button type="button" role="tab" aria-selected="false" aria-label="Foto 6: estacionamento"><i></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 01 · ECOSSISTEMA (título, maquete e caminhos ficam fixos no scroll) ================= -->
+    <section class="eco" id="conexoes" aria-labelledby="eco-title">
+      <div class="eco__track" data-eco>
+        <div class="eco__stick">
+          <div class="wrap eco__in">
+            <header class="shead eco__shead">
+              <div>
+                <p class="eyebrow" data-reveal><i></i>01 · Um novo ecossistema</p>
+                <h2 class="h2" id="eco-title" data-reveal>Uma recarga. <span class="dim">Cinco caminhos.</span></h2>
+              </div>
+              <p class="shead__p" data-reveal>A recarga aproxima. Energia, seguro e telefonia mantêm a conexão com o seu negócio.</p>
+            </header>
+
+            <div class="eco__grid">
+              <figure class="eco__card" data-reveal>
+                <p class="eco__live mono"><i></i>O seu ponto, conectado</p>
+                <div class="eco__imgs">
+                  <img class="is-on" src="assets/img/eco/energia.webp" alt="Maquete: casa com placas solares, bateria verde e carro elétrico na garagem" width="1400" height="1050" loading="lazy">
+                  <img src="assets/img/eco/seguro.webp" alt="Maquete: carro elétrico verde protegido sob uma cobertura com um escudo" width="1400" height="1050" loading="lazy">
+                  <img src="assets/img/eco/telefonia.webp" alt="Maquete: antena, prédios e um celular conectados" width="1400" height="1050" loading="lazy">
+                  <img src="assets/img/eco/rede.webp" alt="Maquete: rede de eletropostos iGreen ligados por um caminho iluminado" width="1400" height="1050" loading="lazy">
+                  <img src="assets/img/iso/hub.webp" alt="Maquete: eletroposto iGreen com cobertura e carro verde recarregando" width="1400" height="1045" loading="lazy">
+                </div>
+                <figcaption class="eco__cap">
+                  <span class="mono"><b data-eco-n>01</b> / 05</span>
+                  <strong data-eco-t>Energia</strong>
+                </figcaption>
+                <span class="eco__bar" aria-hidden="true"><i></i></span>
+              </figure>
+
+              <ol class="eco__list">
+                <li class="eco__item is-open" data-i="0">
+                  <button class="eco__head" type="button" aria-expanded="true" aria-controls="eco-b0" id="eco-h0">
+                    <span class="eco__n mono">01</span><span class="eco__name">Energia</span><span class="eco__val">4<small>%</small></span><svg class="eco__arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+                  </button>
+                  <div class="eco__body" id="eco-b0" role="region" aria-labelledby="eco-h0">
+                    <div class="eco__inner">
+                      <p class="eco__k mono">Sua comissão · sobre a conta de energia paga</p>
+                      <h3 class="eco__h">R$ 50 para recarregar.</h3>
+                      <p class="eco__p">Ao enviar a conta e habilitar o desconto de energia, o cliente recebe <b>R$ 50 em cashback</b> para usar nos eletropostos iGreen.</p>
+                      <p class="eco__you"><span class="mono">Para você</span>4% recorrentes sobre a conta de energia paga.</p>
+                    </div>
+                  </div>
+                </li>
+                <li class="eco__item" data-i="1">
+                  <button class="eco__head" type="button" aria-expanded="false" aria-controls="eco-b1" id="eco-h1">
+                    <span class="eco__n mono">02</span><span class="eco__name">Seguros</span><span class="eco__val">5<small>%</small></span><svg class="eco__arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+                  </button>
+                  <div class="eco__body" id="eco-b1" role="region" aria-labelledby="eco-h1">
+                    <div class="eco__inner">
+                      <p class="eco__k mono">Sua comissão · sobre a mensalidade do seguro</p>
+                      <h3 class="eco__h">Seguro que vira recarga.</h3>
+                      <p class="eco__p">A primeira mensalidade vira <b>crédito integral em recargas</b>. Depois, o cliente recebe 10% de cashback mensal em bônus.</p>
+                      <p class="eco__ex mono">Exemplo · Dolphin Mini: seguro de R$ 500/mês = R$ 500 em recarga inicial + R$ 50/mês em bônus</p>
+                      <p class="eco__you"><span class="mono">Para você</span>5% recorrentes sobre a mensalidade do seguro.</p>
+                    </div>
+                  </div>
+                </li>
+                <li class="eco__item" data-i="2">
+                  <button class="eco__head" type="button" aria-expanded="false" aria-controls="eco-b2" id="eco-h2">
+                    <span class="eco__n mono">03</span><span class="eco__name">Telefonia</span><span class="eco__val"><small>R$</small>7</span><svg class="eco__arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+                  </button>
+                  <div class="eco__body" id="eco-b2" role="region" aria-labelledby="eco-h2">
+                    <div class="eco__inner">
+                      <p class="eco__k mono">Sua comissão · por linha ativa, todo mês</p>
+                      <h3 class="eco__h">Cada linha, uma receita.</h3>
+                      <p class="eco__p">Você recebe <b>R$ 7 por mês, por linha ativa</b> conectada pelo seu ponto.</p>
+                      <p class="eco__you"><span class="mono">Para você</span>R$ 7 por mês, por linha de telefonia.</p>
+                    </div>
+                  </div>
+                </li>
+                <li class="eco__item" data-i="3">
+                  <button class="eco__head" type="button" aria-expanded="false" aria-controls="eco-b3" id="eco-h3">
+                    <span class="eco__n mono">04</span><span class="eco__name">Rede iGreen</span><span class="eco__val">2<small>%</small></span><svg class="eco__arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+                  </button>
+                  <div class="eco__body" id="eco-b3" role="region" aria-labelledby="eco-h3">
+                    <div class="eco__inner">
+                      <p class="eco__k mono">Sua comissão · sobre as recargas na rede</p>
+                      <h3 class="eco__h">O cliente viaja. A conexão fica.</h3>
+                      <p class="eco__p">Um novo cliente cadastrado pelo QR Code do seu ponto fica vinculado à sua carteira. Você recebe <b>2% do valor bruto das recargas</b> dele na rede, inclusive em outros eletropostos iGreen.</p>
+                      <p class="eco__you"><span class="mono">Para você</span>Cada novo cadastro amplia seu potencial de receita.</p>
+                    </div>
+                  </div>
+                </li>
+                <li class="eco__item" data-i="4">
+                  <button class="eco__head" type="button" aria-expanded="false" aria-controls="eco-b4" id="eco-h4">
+                    <span class="eco__n mono">05</span><span class="eco__name">Eletropostos</span><span class="eco__val eco__val--tag mono">MOB</span><svg class="eco__arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+                  </button>
+                  <div class="eco__body" id="eco-b4" role="region" aria-labelledby="eco-h4">
+                    <div class="eco__inner">
+                      <p class="eco__k mono">A recarga no seu ponto · app iGreen MOB</p>
+                      <h3 class="eco__h">Seu ponto na rede iGreen.</h3>
+                      <p class="eco__p">O motorista encontra o seu eletroposto, paga e acompanha a recarga pelo app. Você recebe o valor das recargas <b>no mesmo dia</b>, com suporte 24h e taxas de cartão incluídos.</p>
+                      <p class="eco__you"><span class="mono">Para você</span>Recebimento em D0 · administração de 14%.</p>
+                    </div>
+                  </div>
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 02 · SIMULADOR ================= -->
+    <section class="sim sec glow glow--soft" id="simulador" aria-labelledby="sim-title">
+      <div class="wrap">
+        <header class="shead">
+          <div>
+            <p class="eyebrow" data-reveal><i></i><span class="t-xl">02 · Faça as contas com a sua realidade</span><span class="t-xs">02 · Faça as contas</span></p>
+            <h2 class="h2" id="sim-title" data-reveal>Uma carteira que cresce. <span class="dim">Uma receita que se repete.</span></h2>
+          </div>
+          <p class="shead__p" data-reveal>Ajuste os novos clientes por dia e escolha as conexões para visualizar o potencial da sua carteira ao longo do tempo.</p>
+        </header>
+
+        <div class="sim__panel" data-reveal>
+          <!-- esquerda: o cenário -->
+          <div class="sim__in">
+            <div class="sim__top">
+              <p class="sim__h mono">Monte seu cenário</p>
+              <button class="sim__reset" type="button" data-reset>Redefinir</button>
+            </div>
+
+            <div class="daily">
+              <div class="daily__top">
+                <label class="daily__lbl" for="daily">Novos clientes por dia</label>
+                <div class="daily__ctl">
+                  <button class="step-btn" type="button" data-step="-1" aria-label="Menos um cliente por dia"><svg viewBox="0 0 24 24"><path d="M6 12h12"/></svg></button>
+                  <output class="daily__out" for="daily" data-daily>2</output>
+                  <button class="step-btn" type="button" data-step="1" aria-label="Mais um cliente por dia"><svg viewBox="0 0 24 24"><path d="M12 6v12M6 12h12"/></svg></button>
+                </div>
+              </div>
+              <div class="crowd" aria-hidden="true" data-people></div>
+              <input class="range" id="daily" type="range" min="0" max="20" step="1" value="2" aria-describedby="daily-note">
+              <div class="range__scale mono" aria-hidden="true"><span>0</span><span>5</span><span>10</span><span>15</span><span>20</span></div>
+              <p class="daily__note" id="daily-note">São <span data-monthly>60</span> clientes por mês em 30 dias de operação. <span class="daily__key mono">Cada ícone = 1 novo cliente por dia.</span></p>
+            </div>
+
+            <p class="kicker mono sim__kc">Conexões</p>
+            <ul class="conn">
+              <li>
+                <label class="conn__row">
+                  <span class="conn__ill" aria-hidden="true"><img src="assets/img/r4-produto/iso-energia-s.webp" alt="" width="560" height="418" loading="lazy"></span>
+                  <span class="conn__t"><b>Energia</b><small class="mono">4% de R$ 500</small></span>
+                  <span class="conn__v">R$ 20,00<small>/mês</small></span>
+                  <input class="switch-in" type="checkbox" data-conn="energia" checked><span class="sw" aria-hidden="true"></span>
+                </label>
+              </li>
+              <li>
+                <label class="conn__row">
+                  <span class="conn__ill" aria-hidden="true"><img src="assets/img/r4-produto/iso-seguro-s.webp" alt="" width="560" height="418" loading="lazy"></span>
+                  <span class="conn__t"><b>Seguros</b><small class="mono">5% de R$ 500</small></span>
+                  <span class="conn__v">R$ 25,00<small>/mês</small></span>
+                  <input class="switch-in" type="checkbox" data-conn="seguro" checked><span class="sw" aria-hidden="true"></span>
+                </label>
+              </li>
+              <li>
+                <label class="conn__row">
+                  <span class="conn__ill" aria-hidden="true"><img src="assets/img/r4-produto/iso-telefonia-s.webp" alt="" width="560" height="418" loading="lazy"></span>
+                  <span class="conn__t"><b>Telefonia</b><small class="mono">por linha ativa</small></span>
+                  <span class="conn__v">R$ 7,00<small>/mês</small></span>
+                  <input class="switch-in" type="checkbox" data-conn="telefonia" checked><span class="sw" aria-hidden="true"></span>
+                </label>
+              </li>
+            </ul>
+
+            <div class="unit">
+              <p>Receita mensal por cliente<small>nas conexões escolhidas</small></p>
+              <b data-unit>R$ 52,00</b>
+            </div>
+          </div>
+
+          <!-- direita: a carteira no tempo (leitura + gráfico de 120 meses, como no r4-sessao) -->
+          <div class="sim__out">
+            <div class="sim__top">
+              <p class="sim__h mono">Sua carteira no tempo</p>
+              <div class="seg" role="radiogroup" aria-label="Horizonte da projeção" data-seg>
+                <span class="seg__ind" aria-hidden="true" data-seg-ind></span>
+                <button type="button" role="radio" aria-checked="false" data-h="1">1º mês</button>
+                <button type="button" role="radio" aria-checked="true" data-h="12">1 ano</button>
+                <button type="button" role="radio" aria-checked="false" data-h="60">5 anos</button>
+                <button type="button" role="radio" aria-checked="false" data-h="120">10 anos</button>
+              </div>
+            </div>
+            <div class="read" aria-live="polite">
+              <p class="read__lbl"><span>Receita mensal</span><span class="read__h mono" data-h-label>Fim do 1º ano</span></p>
+              <p class="read__val"><b data-mensal>R$ 37.440,00</b></p>
+              <dl class="read__meta">
+                <div><dt>Clientes na carteira</dt><dd data-carteira>720</dd></div>
+                <div><dt>Acumulado no período</dt><dd data-acum>R$ 243.360,00</dd></div>
+              </dl>
+            </div>
+            <div class="chart" data-chart>
+              <div class="chart__y mono" aria-hidden="true"><span data-y-max>R$ 374,4 mil</span><span data-y-mid>R$ 187,2 mil</span><span>R$ 0</span></div>
+              <div class="chart__plot">
+                <svg class="chart__svg" viewBox="0 0 640 220" preserveAspectRatio="none" aria-hidden="true">
+                  <g class="chart__grid"><line x1="0" y1="20" x2="640" y2="20"/><line x1="0" y1="105" x2="640" y2="105"/><line x1="0" y1="190" x2="640" y2="190"/></g>
+                  <g class="chart__bars" data-bars></g>
+                  <path class="chart__line chart__line--ghost" d="M0 190 L640 20"/>
+                  <path class="chart__line chart__line--live" data-line d="M0 190 L640 20"/>
+                </svg>
+                <div class="chart__marks" aria-hidden="true" data-marks></div>
+                <div class="chart__dot" aria-hidden="true" data-dot><span class="chart__tip mono" data-tip>R$ 37.440/mês</span></div>
+                <div class="chart__x mono" aria-hidden="true"><span style="--x:0">0</span><span style="--x:.1">1 ano</span><span style="--x:.5">5 anos</span><span style="--x:1">10 anos</span></div>
+              </div>
+            </div>
+            <div class="sim__send">
+              <a class="btn btn--neon js-wa-sim" href="#">Enviar minha simulação<span class="btn__chip"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+              <p class="sim__fine">Projeção ilustrativa com base nas conexões selecionadas, sem considerar cancelamentos.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- rede: estimativa separada · cabeçalho e, embaixo, três células com as mesmas linhas (rótulo, valor, régua) -->
+        <div class="net" data-reveal>
+          <div class="net__head">
+            <div>
+              <p class="net__tag mono"><b>+2%</b>Rede · estimativa separada</p>
+              <h3>Sua carteira também rende na rede</h3>
+            </div>
+            <p class="net__txt">Clientes vinculados × gasto mensal em recargas na rede × 2%. Estimativa separada da simulação de energia, seguros e telefonia.</p>
+          </div>
+          <div class="net__row">
+            <div class="nf">
+              <label class="nf__k mono" for="netN">Clientes vinculados</label>
+              <div class="nf__v"><output for="netN" data-net-n>100</output><span class="stepper"><button class="stepper__b" type="button" data-net-step="netN" data-d="-10" aria-label="Diminuir clientes vinculados"><svg viewBox="0 0 24 24"><path d="M6 12h12"/></svg></button><button class="stepper__b" type="button" data-net-step="netN" data-d="10" aria-label="Aumentar clientes vinculados"><svg viewBox="0 0 24 24"><path d="M12 6v12M6 12h12"/></svg></button></span></div>
+              <input class="range" id="netN" type="range" min="0" max="1000" step="10" value="100">
+            </div>
+            <div class="nf">
+              <label class="nf__k mono" for="netS">Recarga média por cliente/mês</label>
+              <div class="nf__v"><output for="netS" data-net-s>R$ 300</output><span class="stepper"><button class="stepper__b" type="button" data-net-step="netS" data-d="-10" aria-label="Diminuir recarga média"><svg viewBox="0 0 24 24"><path d="M6 12h12"/></svg></button><button class="stepper__b" type="button" data-net-step="netS" data-d="10" aria-label="Aumentar recarga média"><svg viewBox="0 0 24 24"><path d="M12 6v12M6 12h12"/></svg></button></span></div>
+              <input class="range" id="netS" type="range" min="0" max="1500" step="10" value="300">
+            </div>
+            <div class="nf nf--out" aria-live="polite">
+              <p class="nf__k mono">Comissão bruta estimada</p>
+              <p class="nf__v"><b data-net>R$ 600,00</b><small>/mês</small></p>
+              <p class="nf__f mono" data-net-f>100 × R$ 300 × 2%</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- como a conta é feita: por último, depois da rede -->
+        <details class="how" data-reveal>
+          <summary><span class="how__k mono">Entenda os números</span><span class="how__t">Como esta projeção é calculada</span><i aria-hidden="true"></i></summary>
+          <div class="how__body">
+            <ol>
+              <li><b>Clientes por mês</b> = novos clientes por dia × 30 dias de operação.</li>
+              <li><b>Receita por cliente</b> = soma das conexões escolhidas: energia R$ 20,00 (4% de uma conta de R$ 500), seguros R$ 25,00 (5% de uma mensalidade de R$ 500) e telefonia R$ 7,00 por linha ativa.</li>
+              <li><b>No mês escolhido</b>: clientes na carteira = clientes por mês × meses; receita mensal = carteira × receita por cliente.</li>
+              <li><b>Acumulado</b> = soma das receitas mensais do mês 1 até o mês escolhido.</li>
+            </ol>
+            <p>Projeção ilustrativa, sem considerar cancelamentos. A rede (2%) é uma estimativa separada.</p>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- ================= 03 · OPERAÇÃO · D0 ================= -->
+    <section class="d0 sec glow glow--diag" id="operacao" aria-labelledby="d0-title">
+      <div class="wrap d0__grid">
+        <div class="d0__copy">
+          <p class="eyebrow" data-reveal><i></i>03 · Operação · Recebimento em D0</p>
+          <h2 class="h2" id="d0-title" data-reveal>O cliente passou o cartão. <span class="dim">Você recebe na hora.</span></h2>
+          <p class="d0__p" data-reveal>O valor das suas recargas disponível no mesmo dia. Sem esperar 30 ou 60 dias para o dinheiro entrar no caixa.</p>
+          <ol class="tl" data-reveal aria-label="Quando o valor entra no caixa">
+            <li class="tl__now"><i aria-hidden="true"></i><b>D0</b><span class="mono">no mesmo dia</span></li>
+            <li><i aria-hidden="true"></i><b>D+30</b><span class="mono">sem esperar</span></li>
+            <li><i aria-hidden="true"></i><b>D+60</b><span class="mono">sem esperar</span></li>
+          </ol>
+          <p class="d0__claim" data-reveal>Mais agilidade para reinvestir. <span class="dim">Mais controle do seu caixa.</span></p>
+        </div>
+
+        <div class="d0__stage" data-d0>
+          <figure class="d0__model">
+            <img src="assets/img/iso/d0.webp" alt="Maquete: eletroposto iGreen e terminal de cartão ao lado da vaga" width="1400" height="1045" loading="lazy">
+            <!-- o cartão aproxima do terminal -->
+            <span class="d0__card" aria-hidden="true"><i></i></span>
+            <span class="d0__wave" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="d0__ok mono" aria-hidden="true"><i></i>Cartão aprovado</span>
+          </figure>
+          <!-- e o comprovante sai impresso, como uma via de papel térmico -->
+          <div class="slip" aria-label="Comprovante de exemplo: a cada R$ 100 em recargas, R$ 86 entram no seu caixa no mesmo dia">
+            <span class="slip__slot" aria-hidden="true"><i></i></span>
+            <div class="slip__clip">
+              <div class="slip__paper">
+                <img class="slip__logo" src="assets/img/logo-igreen.svg" alt="" width="101" height="28">
+                <p class="slip__t">Comprovante de sessão</p>
+                <p class="slip__meta"><span>Exemplo</span><span>a cada R$ 100</span></p>
+                <dl class="slip__rows">
+                  <div><dt>Recargas no ponto</dt><dd>R$ 100,00</dd></div>
+                  <div><dt>Adm. iGreen 14%</dt><dd>-R$ 14,00</dd></div>
+                  <div><dt>Suporte 24h</dt><dd>incluído</dd></div>
+                  <div><dt>Taxas de cartão</dt><dd>incluídas</dd></div>
+                </dl>
+                <div class="slip__total"><span>No seu caixa</span><b data-slip-total>R$ 86,00</b></div>
+                <p class="slip__when"><span>Disponível em</span>
+                  <!-- carimbo redondo de tinta: entra quando o total termina de contar -->
+                  <span class="slip__stamp" aria-hidden="true">
+                    <svg viewBox="0 0 100 100">
+                      <defs>
+                        <path id="stamp-ring" d="M50 50m-34 0a34 34 0 1 1 68 0a34 34 0 1 1-68 0"/>
+                        <filter id="stamp-ink" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="2" seed="7" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.1 1.5" result="m"/><feComposite in="SourceGraphic" in2="m" operator="in"/></filter>
+                      </defs>
+                      <g filter="url(#stamp-ink)">
+                        <circle cx="50" cy="50" r="46.5" fill="none" stroke="currentColor" stroke-width="3"/>
+                        <circle cx="50" cy="50" r="25.5" fill="none" stroke="currentColor" stroke-width="1.4"/>
+                        <text class="slip__ring" textLength="212" lengthAdjust="spacing"><textPath href="#stamp-ring">RECEBIDO NO MESMO DIA • IGREEN MOB •</textPath></text>
+                        <text class="slip__d0" x="50" y="59.5" text-anchor="middle">D0</text>
+                      </g>
+                    </svg>
+                  </span>
+                </p>
+                <span class="slip__code" aria-hidden="true"></span>
+                <p class="slip__via">Via do estabelecimento</p>
+              </div>
+            </div>
+          </div>
+          <button class="d0__replay mono" type="button" data-d0-replay><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.3-5.7M4 4v4h4"/></svg>Passar o cartão de novo</button>
+        </div>
+      </div>
+
+      <div class="wrap">
+        <div class="adm" data-reveal>
+          <div class="adm__big">
+            <p class="kicker mono">Administração iGreen</p>
+            <b>14<small>%</small></b>
+          </div>
+          <div class="adm__bar">
+            <div class="adm__labels"><span><b>R$ 86</b> no seu caixa</span><span><b>R$ 14</b> adm.</span></div>
+            <div class="adm__track" aria-hidden="true"><i class="adm__you"></i><i class="adm__fee"></i></div>
+            <p class="adm__cap">De cada R$ 100 em recargas, sobre o faturamento.</p>
+          </div>
+          <ul class="adm__checks">
+            <li><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></i>Suporte 24h incluído</li>
+            <li><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></i>Taxas de cartão incluídas</li>
+            <li><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></i>Recebimento em D0</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 04 · APP ================= -->
+    <section class="app sec" id="app" aria-labelledby="app-title">
+      <div class="wrap">
+        <header class="shead">
+          <div>
+            <p class="eyebrow" data-reveal><i></i><span class="t-xl">04 · App iGreen MOB · Do primeiro toque à recarga</span><span class="t-xs">04 · App iGreen MOB</span></p>
+            <h2 class="h2" id="app-title" data-reveal>Toda a experiência de recarga. <span class="dim">Na palma da mão.</span></h2>
+          </div>
+          <p class="shead__p" data-reveal>Seis telas reais do app que o motorista usa para encontrar, pagar e acompanhar a recarga no seu eletroposto.</p>
+        </header>
+
+        <div class="app__grid" data-app>
+          <div class="app__side">
+            <ol class="steps" role="tablist" aria-label="Passos no app">
+              <li><button type="button" role="tab" data-s="0" aria-selected="true"><span class="steps__n mono">01</span><span class="steps__t">Tudo começa no app</span><span class="steps__d"><span><span class="steps__dt">Abra o iGreen MOB e encontre o mapa, a carteira e as suas recargas em um só lugar.</span></span></span><i class="steps__bar"></i></button></li>
+              <li><button type="button" role="tab" data-s="1" aria-selected="false"><span class="steps__n mono">02</span><span class="steps__t">Encontre seu eletroposto</span><span class="steps__d"><span><span class="steps__dt">Veja no mapa a localização do eletroposto, o preço por kWh e se o ponto está disponível.</span></span></span><i class="steps__bar"></i></button></li>
+              <li><button type="button" role="tab" data-s="2" aria-selected="false"><span class="steps__n mono">03</span><span class="steps__t">Escolha onde recarregar</span><span class="steps__d"><span><span class="steps__dt">Confira os conectores, os valores e o horário do ponto, e toque em “Carregar aqui”.</span></span></span><i class="steps__bar"></i></button></li>
+              <li><button type="button" role="tab" data-s="3" aria-selected="false"><span class="steps__n mono">04</span><span class="steps__t">Saldo ou pós-pago</span><span class="steps__d"><span><span class="steps__dt">Pague com o saldo da carteira ou no cartão, com pré-autorização e cobrança do consumido.</span></span></span><i class="steps__bar"></i></button></li>
+              <li><button type="button" role="tab" data-s="4" aria-selected="false"><span class="steps__n mono">05</span><span class="steps__t">Comece sua recarga</span><span class="steps__d"><span><span class="steps__dt">Encaixe o cabo no carro e aguarde a confirmação do eletroposto para iniciar a recarga.</span></span></span><i class="steps__bar"></i></button></li>
+              <li><button type="button" role="tab" data-s="5" aria-selected="false"><span class="steps__n mono">06</span><span class="steps__t">Recarga em andamento</span><span class="steps__d"><span><span class="steps__dt">Acompanhe a bateria, a energia entregue, o tempo e o custo da recarga em tempo real.</span></span></span><i class="steps__bar"></i></button></li>
+            </ol>
+            <p class="steps__now" aria-hidden="true"><b data-step-now-t>Tudo começa no app</b><span data-step-now-d>Abra o iGreen MOB e encontre o mapa, a carteira e as suas recargas em um só lugar.</span></p>
+            <p class="app__note"><span class="mono">Para o seu ponto</span>É pelo app que o motorista encontra, paga e acompanha a recarga no seu eletroposto.</p>
+          </div>
+
+          <div class="app__stage">
+            <span class="app__glow" aria-hidden="true"></span>
+            <div class="phone">
+              <span class="phone__btn phone__btn--a" aria-hidden="true"></span><span class="phone__btn phone__btn--b" aria-hidden="true"></span><span class="phone__btn phone__btn--c" aria-hidden="true"></span>
+              <div class="phone__screen">
+                <span class="phone__island" aria-hidden="true"></span>
+                <div class="phone__bar mono" aria-hidden="true"><span>9:41</span><span class="phone__sig"><i></i><i></i><i></i></span></div>
+                <img class="is-on" src="assets/img/app-app.webp" alt="Tela inicial do app iGreen MOB com saldo, serviços e eletroposto mais próximo" width="560" height="1087" loading="lazy">
+                <img src="assets/img/app-mapa.webp" alt="Mapa de eletropostos com preço por kWh" width="560" height="1155" loading="lazy">
+                <img src="assets/img/app-estacao.webp" alt="Detalhes do eletroposto: conectores, valores e horário" width="560" height="1155" loading="lazy">
+                <img src="assets/img/app-pagamento.webp" alt="Escolha do pagamento: saldo da carteira ou cartão de crédito" width="560" height="1146" loading="lazy">
+                <img data-own-bar src="assets/img/app-conectar.webp" alt="Tela pedindo para conectar o cabo no carro" width="560" height="1215" loading="lazy">
+                <img data-own-bar src="assets/img/app-recarga.webp" alt="Recarga em andamento com bateria, potência, energia e custo" width="560" height="1237" loading="lazy">
+                <span class="phone__glare" aria-hidden="true"></span>
+              </div>
+            </div>
+            <p class="callout" data-callout aria-hidden="true"><i></i><span data-callout-t>Saldo da carteira</span></p>
+            <p class="app__count mono" aria-hidden="true"><b data-sn>01</b> / 06</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= NA PRÁTICA: as fotos passam como um carrossel e a do centro vira o vídeo ================= -->
+    <section class="dive" id="pratica" aria-labelledby="dive-title">
+      <div class="dive__stage">
+        <div class="dive__grid" aria-hidden="true">
+          <figure class="dive__cell" data-row="0" data-col="0"><img src="assets/img/real/chegada.webp" alt="" width="1024" height="576" loading="lazy"></figure>
+          <figure class="dive__cell" data-row="0" data-col="1"><img src="assets/img/real/canopy-traseira.webp" alt="" width="1024" height="576" loading="lazy"></figure>
+          <figure class="dive__cell" data-row="0" data-col="2"><img src="assets/img/real/motorista.webp" alt="" width="1024" height="576" loading="lazy"></figure>
+          <figure class="dive__cell" data-row="1" data-col="0"><img src="assets/img/real/plugando.webp" alt="" width="1024" height="576" loading="lazy"></figure>
+          <figure class="dive__cell dive__cell--focus" data-row="1" data-col="1"><img src="assets/img/real/canopy-igreen.webp" alt="" width="1024" height="576" loading="lazy"></figure>
+          <figure class="dive__cell" data-row="1" data-col="2"><img src="assets/img/real/letreiro.webp" alt="" width="1024" height="576" loading="lazy"></figure>
+          <figure class="dive__cell" data-row="2" data-col="0"><img src="assets/img/real/conector.webp" alt="" width="1024" height="576" loading="lazy"></figure>
+          <figure class="dive__cell" data-row="2" data-col="1"><img src="assets/img/posto.webp" alt="" width="960" height="1280" loading="lazy"></figure>
+          <figure class="dive__cell" data-row="2" data-col="2"><img src="assets/img/real/atendente.webp" alt="" width="1024" height="576" loading="lazy"></figure>
+        </div>
+
+        <div class="dive__full">
+          <img class="dive__still" src="assets/img/real/canopy-igreen.webp" alt="" width="1024" height="576" loading="lazy">
+          <video class="dive__video" muted playsinline preload="none" poster="assets/img/real/canopy-igreen.webp" aria-label="Vídeo: um eletroposto trocando de bandeira para a iGreen"></video>
+        </div>
+        <div class="dive__veil" aria-hidden="true"></div>
+
+        <div class="dive__copy">
+          <div class="fw dive__copy-in">
+            <div class="dive__head">
+              <p class="tag"><i></i>Veja a iGreen na prática</p>
+              <h2 class="dive__t" id="dive-title">Uma marca presente <br>no seu ponto.</h2>
+              <p class="dive__p">Identidade visual e campanha para comunicar os benefícios.</p>
+              <!-- controle do vídeo: assistir aqui mesmo, com ou sem som, ou em tela cheia -->
+              <div class="vc" data-vc>
+                <div class="vc__bar glass">
+                  <button class="vc__btn" type="button" data-vc-play aria-label="Pausar vídeo"><svg class="vc__i-pause" viewBox="0 0 24 24"><path d="M9 6v12M15 6v12"/></svg><svg class="vc__i-play" viewBox="0 0 24 24"><path class="play" d="M8 5.5v13l11-6.5z"/></svg></button>
+                  <button class="vc__btn vc__btn--snd" type="button" data-vc-sound aria-pressed="false"><svg class="vc__i-off" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 6v12l-4.5-3.5H4z"/><path d="m16 10 4 4M20 10l-4 4"/></svg><svg class="vc__i-on" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 6v12l-4.5-3.5H4z"/><path d="M15.5 9.5a3.5 3.5 0 0 1 0 5M18 7a7 7 0 0 1 0 10"/></svg><span data-vc-label>Ativar som</span></button>
+                  <span class="vc__prog" aria-hidden="true"><i data-vc-prog></i></span>
+                </div>
+                <button class="link" type="button" data-vc-full>Assistir em tela cheia<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+              </div>
+            </div>
+            <div class="mat" data-mat>
+              <div class="mat__card" aria-roledescription="carrossel" aria-label="Material da marca">
+                <div class="mat__view">
+                  <button class="mat__slide is-on" type="button" data-mat-open="0" aria-label="Ampliar foto: o ponto com a bandeira"><img src="assets/img/posto.webp" alt="Eletroposto com a bandeira iGreen, carro verde e um licenciado" width="960" height="1280" loading="lazy"><span class="mat__cap"><span class="mono">01</span>O ponto com a bandeira</span></button>
+                  <button class="mat__slide" type="button" data-mat-open="1" aria-label="Ampliar foto: o equipamento com a identidade"><img src="assets/img/eletroposto.webp" alt="Carregador iGreen com o painel da campanha" width="914" height="1600" loading="lazy"><span class="mat__cap"><span class="mono">02</span>O equipamento com a identidade</span></button>
+                  <button class="mat__slide" type="button" data-mat-open="2" aria-label="Ampliar foto: a campanha para o motorista"><img src="assets/img/campanha.webp" alt="Peça da campanha iGreen para o motorista" width="1100" height="1542" loading="lazy"><span class="mat__cap"><span class="mono">03</span>A campanha para o motorista</span></button>
+                </div>
+              </div>
+              <!-- indicador fora do card: cada traço abre a foto correspondente -->
+              <div class="mat__dots" role="tablist" aria-label="Fotos do material">
+                <button type="button" role="tab" aria-selected="true" aria-label="Foto 1"><i></i></button>
+                <button type="button" role="tab" aria-selected="false" aria-label="Foto 2"><i></i></button>
+                <button type="button" role="tab" aria-selected="false" aria-label="Foto 3"><i></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 05 · iGREEN CLUB ================= -->
+    <section class="club sec" id="club" aria-labelledby="club-title">
+      <div class="wrap club__grid">
+        <div class="club__copy">
+          <p class="eyebrow" data-reveal><i></i>05 · iGreen Club · incluído no app</p>
+          <h2 class="h2" id="club-title" data-reveal>A recarga é só o começo. <span class="dim">Os benefícios acompanham o cliente.</span></h2>
+          <p class="club__p" data-reveal>Todo cliente cadastrado no app tem acesso a um clube completo, com benefícios em mais de 30 mil estabelecimentos. Mais um motivo para escolher o seu ponto e fazer parte da iGreen.</p>
+        </div>
+        <figure class="club__model" data-reveal>
+          <div class="club__map">
+            <img src="assets/img/r4-maquete/club.webp" alt="Maquete de uma rua comercial com farmácia, cinema e restaurante iluminados" width="1400" height="1045" loading="lazy">
+            <!-- etiquetas saindo de cada loja -->
+            <span class="pin" aria-hidden="true" style="--x: 25%; --y: 31%; --h: 56px"><i class="pin__line"></i><i class="pin__dot"></i><span class="pin__lbl">Farmácias</span></span>
+            <span class="pin" aria-hidden="true" style="--x: 51%; --y: 22%; --h: 76px"><i class="pin__line"></i><i class="pin__dot"></i><span class="pin__lbl">Cinemas</span></span>
+            <span class="pin" aria-hidden="true" style="--x: 75%; --y: 31%; --h: 56px"><i class="pin__line"></i><i class="pin__dot"></i><span class="pin__lbl">Restaurantes</span></span>
+          </div>
+          <span class="club__badge"><b>+30 mil</b>estabelecimentos</span>
+        </figure>
+      </div>
+
+      <div class="club__rail" data-reveal>
+        <div class="wrap club__railhead">
+          <p class="kicker mono">Marcas do clube</p>
+          <p class="club__note">Consulte no app as ofertas disponíveis e as condições de cada benefício.</p>
+        </div>
+        <!-- carrossel infinito: anda sozinho e desacelera até parar com o mouse em cima -->
+        <div class="cps" data-cps aria-label="Cupons do iGreen Club">
+          <div class="cps__track" data-cps-track>
+            <!-- por enquanto as quatro marcas com logo, repetidas; novas marcas entram aqui -->
+            <article class="cp"><div class="cp__stub"><img src="assets/img/club/drogasil.png" alt="Drogasil" width="419" height="419" loading="lazy"></div><div class="cp__main"><p class="cp__k mono">Farmácia</p><p class="cp__v">40% a 70%</p><p class="cp__t">de desconto em medicamentos genéricos</p></div></article>
+            <article class="cp"><div class="cp__stub"><img src="assets/img/club/cinemark.png" alt="Cinemark" width="457" height="457" loading="lazy"></div><div class="cp__main"><p class="cp__k mono">Cinema</p><p class="cp__v">até 60%</p><p class="cp__t">de desconto nos ingressos de cinema</p></div></article>
+            <article class="cp"><div class="cp__stub"><img src="assets/img/club/dominos.png" alt="Domino’s" width="366" height="366" loading="lazy"></div><div class="cp__main"><p class="cp__k mono">Gastronomia</p><p class="cp__v">Ofertas</p><p class="cp__t">em pizzas, disponíveis no iGreen Club</p></div></article>
+            <article class="cp"><div class="cp__stub"><img src="assets/img/club/coco-bambu.png" alt="Coco Bambu" width="457" height="457" loading="lazy"></div><div class="cp__main"><p class="cp__k mono">Gastronomia</p><p class="cp__v">Ofertas</p><p class="cp__t">em restaurantes, disponíveis no app</p></div></article>
+            <article class="cp"><div class="cp__stub"><img src="assets/img/club/drogasil.png" alt="Drogasil" width="419" height="419" loading="lazy"></div><div class="cp__main"><p class="cp__k mono">Farmácia</p><p class="cp__v">40% a 70%</p><p class="cp__t">de desconto em medicamentos genéricos</p></div></article>
+            <article class="cp"><div class="cp__stub"><img src="assets/img/club/cinemark.png" alt="Cinemark" width="457" height="457" loading="lazy"></div><div class="cp__main"><p class="cp__k mono">Cinema</p><p class="cp__v">até 60%</p><p class="cp__t">de desconto nos ingressos de cinema</p></div></article>
+            <article class="cp"><div class="cp__stub"><img src="assets/img/club/dominos.png" alt="Domino’s" width="366" height="366" loading="lazy"></div><div class="cp__main"><p class="cp__k mono">Gastronomia</p><p class="cp__v">Ofertas</p><p class="cp__t">em pizzas, disponíveis no iGreen Club</p></div></article>
+            <article class="cp"><div class="cp__stub"><img src="assets/img/club/coco-bambu.png" alt="Coco Bambu" width="457" height="457" loading="lazy"></div><div class="cp__main"><p class="cp__k mono">Gastronomia</p><p class="cp__v">Ofertas</p><p class="cp__t">em restaurantes, disponíveis no app</p></div></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 06 · EM NÚMEROS ================= -->
+    <section class="nums sec" id="numeros" aria-labelledby="nums-title">
+      <div class="wrap">
+        <header class="shead">
+          <div>
+            <p class="eyebrow" data-reveal><i></i>06 · A bandeira iGreen em números</p>
+            <h2 class="h2" id="nums-title" data-reveal>Uma bandeira completa. <span class="dim">Em quatro números.</span></h2>
+          </div>
+          <p class="shead__p" data-reveal>Recebimento, custo, caminhos de receita e benefícios: o que muda no seu ponto com a bandeira iGreen.</p>
+        </header>
+        <!-- um painel só, quatro colunas: os números contam quando o painel entra na tela -->
+        <ul class="board" data-reveal data-board>
+          <li class="board__c"><i class="board__bar" aria-hidden="true"></i><p class="board__k mono">Recebimento</p><p class="board__v"><b>D0</b></p><p class="board__t">no mesmo dia</p><p class="board__d">O valor das recargas entra no caixa sem esperar 30 ou 60 dias.</p></li>
+          <li class="board__c"><i class="board__bar" aria-hidden="true"></i><p class="board__k mono">Administração</p><p class="board__v"><b data-count="14">14</b><small>%</small></p><p class="board__t">sobre as recargas</p><p class="board__d">Com suporte 24h e taxas de cartão incluídos.</p></li>
+          <li class="board__c"><i class="board__bar" aria-hidden="true"></i><p class="board__k mono">Caminhos</p><p class="board__v"><b data-count="5">5</b></p><p class="board__t">a partir de uma recarga</p><p class="board__d">Energia, seguros, telefonia, rede iGreen e o seu eletroposto.</p></li>
+          <li class="board__c"><i class="board__bar" aria-hidden="true"></i><p class="board__k mono">iGreen Club</p><p class="board__v"><small>+</small><b data-count="30">30</b><small>mil</small></p><p class="board__t">estabelecimentos</p><p class="board__d">Benefícios no app, de farmácias a cinemas e restaurantes.</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================= 07 · DÚVIDAS ================= -->
+    <section class="faq sec" id="duvidas" aria-labelledby="faq-title">
+      <div class="wrap faq__grid">
+        <div class="faq__side">
+          <p class="eyebrow" data-reveal><i></i>07 · Bom saber</p>
+          <h2 class="h2" id="faq-title" data-reveal>Antes de migrar <span class="dim">a bandeira.</span></h2>
+          <p class="faq__lead" data-reveal>Equipamento, recebimento, custos e comissões: o essencial para decidir a migração do seu ponto com tranquilidade.</p>
+          <div class="faq__help" data-reveal>
+            <p class="faq__t">Ainda com dúvida?</p>
+            <p class="faq__p">Fale com o seu consultor pelo WhatsApp. A conversa já abre com a mensagem pronta.</p>
+            <a class="btn btn--neon btn--sm js-wa" href="#">Falar com o consultor<span class="btn__chip"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+          </div>
+        </div>
+        <div class="faq__list" data-faq data-reveal>
+            <div class="qa is-open">
+              <h3><button class="qa__q" type="button" aria-expanded="true" aria-controls="qa-0" id="qa-h0"><span>Preciso trocar meu carregador?</span><i aria-hidden="true"></i></button></h3>
+              <div class="qa__a" id="qa-0" role="region" aria-labelledby="qa-h0"><div><p>A compatibilidade do seu equipamento com a bandeira iGreen é avaliada na conversa com o seu consultor, junto com as condições para o seu eletroposto.</p></div></div>
+            </div>
+            <div class="qa">
+              <h3><button class="qa__q" type="button" aria-expanded="false" aria-controls="qa-1" id="qa-h1"><span>Quando o dinheiro das recargas entra no caixa?</span><i aria-hidden="true"></i></button></h3>
+              <div class="qa__a" id="qa-1" role="region" aria-labelledby="qa-h1"><div><p>No mesmo dia. O valor das recargas fica disponível em D0, sem esperar 30 ou 60 dias para entrar no caixa.</p></div></div>
+            </div>
+            <div class="qa">
+              <h3><button class="qa__q" type="button" aria-expanded="false" aria-controls="qa-2" id="qa-h2"><span>Quanto custa a administração iGreen?</span><i aria-hidden="true"></i></button></h3>
+              <div class="qa__a" id="qa-2" role="region" aria-labelledby="qa-h2"><div><p>14% sobre o faturamento das recargas, com suporte 24h e taxas de cartão incluídos. De cada R$ 100 em recargas, R$ 86 ficam no seu caixa.</p></div></div>
+            </div>
+            <div class="qa">
+              <h3><button class="qa__q" type="button" aria-expanded="false" aria-controls="qa-3" id="qa-h3"><span>Como o motorista encontra e paga a recarga?</span><i aria-hidden="true"></i></button></h3>
+              <div class="qa__a" id="qa-3" role="region" aria-labelledby="qa-h3"><div><p>Pelo app iGreen MOB. Ele encontra o seu ponto no mapa, escolhe o conector e paga com o saldo da carteira ou com o cartão, com pré-autorização e cobrança apenas do que consumiu.</p></div></div>
+            </div>
+            <div class="qa">
+              <h3><button class="qa__q" type="button" aria-expanded="false" aria-controls="qa-4" id="qa-h4"><span>Como ganho com energia, seguros e telefonia?</span><i aria-hidden="true"></i></button></h3>
+              <div class="qa__a" id="qa-4" role="region" aria-labelledby="qa-h4"><div><p>Os clientes conectados pelo seu ponto geram comissões todo mês: 4% sobre a conta de energia paga, 5% sobre a mensalidade do seguro e R$ 7 por linha de telefonia ativa.</p></div></div>
+            </div>
+            <div class="qa">
+              <h3><button class="qa__q" type="button" aria-expanded="false" aria-controls="qa-5" id="qa-h5"><span>O que é a carteira na rede?</span><i aria-hidden="true"></i></button></h3>
+              <div class="qa__a" id="qa-5" role="region" aria-labelledby="qa-h5"><div><p>Quem se cadastra pelo QR Code do seu ponto fica vinculado à sua carteira. Você recebe 2% do valor bruto das recargas dessa pessoa na rede, inclusive em outros eletropostos iGreen.</p></div></div>
+            </div>
+            <div class="qa">
+              <h3><button class="qa__q" type="button" aria-expanded="false" aria-controls="qa-6" id="qa-h6"><span>Os valores do simulador são garantidos?</span><i aria-hidden="true"></i></button></h3>
+              <div class="qa__a" id="qa-6" role="region" aria-labelledby="qa-h6"><div><p>Não. A projeção é ilustrativa, feita com base nas conexões selecionadas e sem considerar cancelamentos. A rede (2%) é uma estimativa separada.</p></div></div>
+            </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ENCERRAMENTO: o portão sobe e mostra a bomba ================= -->
+    <section class="end sec" id="contato" aria-labelledby="end-title">
+      <div class="end__stage">
+        <!-- cena revelada: uma segunda hero, com a bomba grande cortada pelo rodapé -->
+        <div class="end__scene">
+          <div class="end__pic" aria-hidden="true">
+            <img src="img/fumaca.webp" alt="" width="2560" height="1428" loading="lazy">
+          </div>
+          <span class="end__shade" aria-hidden="true"></span>
+          <div class="fw end__grid">
+            <div class="end__copy">
+              <p class="tag"><i></i>Seu próximo passo</p>
+              <h2 class="end__t" id="end-title"><span class="end__pre">Seu ponto já conecta carros.</span> <em>Conecte novas receitas.</em></h2>
+              <p class="end__p">Converse sobre a migração de bandeira, a compatibilidade do seu equipamento e as condições para o seu eletroposto.</p>
+              <a class="btn btn--neon btn--lg js-wa" href="#"><span class="t-xl">Quero levar a iGreen para meu ponto</span><span class="t-xs">Quero a iGreen no meu ponto</span><span class="btn__chip"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+            </div>
+            <div class="end__side">
+            <aside class="agent glass" aria-label="Seu consultor iGreen">
+              <p class="kicker mono">Seu consultor iGreen</p>
+              <div class="agent__who">
+                <span class="agent__av" data-c-avatar aria-hidden="true"></span>
+                <p><b data-c-name>Consultor iGreen</b><small data-c-city>Atendimento pelo WhatsApp</small></p>
+              </div>
+              <ul class="agent__list">
+                <li>Migração de bandeira</li>
+                <li>Compatibilidade do equipamento</li>
+                <li>Condições para o seu ponto</li>
+              </ul>
+              <a class="btn btn--neon btn--sm agent__btn js-wa" href="#">Chamar no WhatsApp<span class="btn__chip"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+              <p class="agent__note" data-c-note>A conversa abre no WhatsApp com a mensagem pronta.</p>
+            </aside>
+            <!-- o mesmo card da abertura: a bomba sai do quadro e leva para a página do eletroposto em 3D -->
+            <a class="film prod glass end__prod" href="eletroposto.html">
+              <span class="prod__frame" aria-hidden="true"><img class="prod__img" src="img/bomba-3d-v2.webp" alt="" width="439" height="640" loading="lazy"></span>
+              <span class="film__txt">Conheça o eletroposto<br>iGreen em 3D</span>
+              <span class="prod__go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+            </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- o portão: fechado, com a primeira metade da frase; sobe com o scroll -->
+        <div class="gate" aria-hidden="true">
+          <div class="gate__door">
+            <span class="gate__slats"></span>
+            <p class="gate__txt">Seu ponto já<br>conecta carros.</p>
+            <span class="gate__hint mono">Role para abrir</span>
+            <span class="gate__edge"><i class="gate__handle"></i><i class="gate__lock"></i></span>
+          </div>
+          <!-- trilhos laterais e a caixa da mola ficam parados enquanto a porta sobe -->
+          <span class="gate__rail gate__rail--l"></span>
+          <span class="gate__rail gate__rail--r"></span>
+          <span class="gate__box"></span>
+        </div>
+      </div>
+
+      <!-- rodapé -->
+      <footer class="foot">
+        <div class="wrap">
+          <div class="foot__top">
+            <div class="foot__brand">
+              <a class="brand" href="#topo" aria-label="iGreen MOB"><img src="assets/img/logo-igreen.svg" alt="iGreen" width="101" height="28"><i aria-hidden="true"></i><span>MOB</span></a>
+              <p>Proposta de migração de bandeira para quem já tem um eletroposto. Recarga, energia, seguros e telefonia em um só ecossistema.</p>
+              <a class="btn btn--neon btn--sm js-wa" href="#">Conversar no WhatsApp<span class="btn__chip"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+            </div>
+            <nav class="foot__col" aria-label="Navegação do rodapé">
+              <p class="kicker mono">Navegação</p>
+              <a href="#conexoes">Conexões</a><a href="#simulador">Simulador</a><a href="#operacao">Operação</a><a href="#app">App iGreen MOB</a><a href="#pratica">Na prática</a><a href="#club">iGreen Club</a><a href="#duvidas">Dúvidas</a>
+            </nav>
+            <div class="foot__col">
+              <p class="kicker mono">Fale com a iGreen</p>
+              <p class="foot__who" data-c-show hidden><b data-c-name></b><span data-c-city></span></p>
+              <a class="js-wa" href="#">WhatsApp do consultor</a>
+              <a href="#simulador">Enviar minha simulação</a>
+            </div>
+            <div class="foot__col">
+              <p class="kicker mono">Redes</p>
+              <div class="foot__social">
+                <a href="#" aria-label="Instagram da iGreen"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg></a>
+                <a href="#" aria-label="LinkedIn da iGreen"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10.5V16M8 7.5h.01M12 16v-3.2c0-1.5 1-2.3 2-2.3s2 .8 2 2.3V16M12 10.5V16"/></svg></a>
+                <a href="#" aria-label="YouTube da iGreen"><svg viewBox="0 0 24 24"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path class="play" d="m10.5 9.5 4 2.5-4 2.5z"/></svg></a>
+              </div>
+            </div>
+          </div>
+          <div class="foot__bottom">
+            <p>iGreen MOB · Proposta de migração de bandeira</p>
+            <p class="mono">Projeções ilustrativas · valores do simulador oficial</p>
+            <a class="foot__up" href="#topo">Voltar ao topo<span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></svg></span></a>
+          </div>
+        </div>
+      </footer>
+    </section>
+  </main>
+
+  <!-- vídeo da migração -->
+  <dialog class="lightbox" aria-label="Vídeo: um eletroposto trocando de bandeira para a iGreen">
+    <button class="lightbox__close" type="button" aria-label="Fechar vídeo"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <video class="lightbox__video" controls playsinline preload="none" poster="assets/img/migracao-poster.webp"></video>
+  </dialog>
+
+  <!-- foto ampliada do material -->
+  <dialog class="viewer" aria-label="Foto do material da marca">
+    <button class="lightbox__close" type="button" aria-label="Fechar foto"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <figure class="viewer__fig"></figure>
+  </dialog>
+
+  <script src="config.js"></script>
+  <script src="shared/core.js"></script>
+  <script src="js/vendor/gsap.min.js" defer></script>
+  <script src="js/vendor/ScrollTrigger.min.js" defer></script>
+  <script src="js/vendor/SplitText.min.js" defer></script>
+  <script src="lp.js" defer></script>
+</body>
+</html>

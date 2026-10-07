@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>O eletroposto iGreen · iGreen MOB</title>
+  <meta name="description" content="O carregador iGreen parte por parte, em 3D, as camadas de receita que ele conecta e como o seu ponto fica com a cobertura, o letreiro e as vagas da bandeira.">
+  <meta name="theme-color" content="#020604">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23020604'/%3E%3Cpath d='M18 3 7 18h8l-2 11 12-17h-9z' fill='%2303ff1f'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="shared/fonts-instrument.css">
+  <link rel="stylesheet" href="lp.css">
+  <link rel="stylesheet" href="produto.css">
+  <link rel="stylesheet" href="eletroposto.css">
+  <script>
+    // modo 3D só com WebGL e sem pedido de movimento reduzido; senão, versão estática com as imagens do 3D
+    (function () {
+      var d = document.documentElement, rm = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches, gl = false;
+      try { var c = document.createElement("canvas"); gl = !!(c.getContext("webgl2") || c.getContext("webgl")); } catch (e) {}
+      d.classList.add("js", rm ? "rm" : "motion", gl && !rm ? "is-3d" : "is-static");
+    })();
+  </script>
+</head>
+<body class="pg">
+  <a class="skip" href="#produto">Pular para o eletroposto</a>
+
+  <div class="charge" aria-hidden="true"><i class="charge__fill"></i></div>
+
+  <!-- palco 3D fixo: carregador e estrutura feitos em código (nítidos em qualquer distância) -->
+  <div class="stage" aria-hidden="true">
+    <canvas class="stage__canvas" id="stage"></canvas>
+    <img class="stage__poster" src="img/eletroposto-hero.webp" alt="" width="900" height="1200">
+  </div>
+  <div class="overlay" aria-hidden="true">
+    <svg class="overlay__lines" width="100%" height="100%"></svg>
+    <div class="overlay__tags"></div>
+    <!-- camadas de receita: os nós que giram em volta do carregador -->
+    <div class="overlay__nodes">
+      <div class="node" data-i="0"><i></i><span class="node__card"><span class="node__ill"><img src="assets/img/r4-produto/iso-energia-s.webp" alt="" width="560" height="418"></span><span class="node__txt"><b>4%</b>Energia</span></span></div>
+      <div class="node" data-i="1"><i></i><span class="node__card"><span class="node__ill"><img src="assets/img/r4-produto/iso-seguro-s.webp" alt="" width="560" height="418"></span><span class="node__txt"><b>5%</b>Seguro</span></span></div>
+      <div class="node" data-i="2"><i></i><span class="node__card"><span class="node__ill"><img src="assets/img/r4-produto/iso-telefonia-s.webp" alt="" width="560" height="418"></span><span class="node__txt"><b>R$ 7</b>Telefonia</span></span></div>
+      <div class="node" data-i="3"><i></i><span class="node__card"><span class="node__ill"><img src="assets/img/r4-produto/iso-rede-s.webp" alt="" width="560" height="418"></span><span class="node__txt"><b>2%</b>Rede</span></span></div>
+    </div>
+  </div>
+
+  <!-- ================= MENU (página interna: só o logo e a volta) ================= -->
+  <header class="hdr" id="hdr">
+    <span class="hdr__bg" aria-hidden="true"></span>
+    <div class="hdr__in fw">
+      <a class="brand" href="index.html" aria-label="iGreen MOB, voltar para a proposta"><img src="assets/img/logo-igreen.svg" alt="iGreen" width="101" height="28"><i aria-hidden="true"></i><span>MOB</span></a>
+      <a class="btn btn--back btn--sm hdr__cta" href="index.html"><span class="btn__chip"><svg viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></span>Voltar para a proposta</a>
+    </div>
+  </header>
+
+  <main class="pmain">
+    <!-- ================= ABERTURA ================= -->
+    <section class="phero" id="inicio" aria-labelledby="p-title">
+      <div class="wrap phero__grid">
+        <div class="phero__copy">
+          <p class="tag" data-in><i></i>O eletroposto iGreen</p>
+          <h1 class="phero__t" id="p-title" data-in>Do carregador <em>ao ponto inteiro.</em></h1>
+          <p class="phero__lead" data-in>Conheça o carregador iGreen parte por parte, as camadas de receita que ele conecta e como o seu ponto fica com a cobertura, o letreiro e as vagas da bandeira.</p>
+          <div class="actions" data-in>
+            <a class="btn btn--neon" href="#ch-tela" data-go="0">Ver por dentro<span class="btn__chip"><svg viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></svg></span></a>
+            <a class="link" href="index.html#simulador">Simular receita<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+          </div>
+        </div>
+        <p class="phero__fig mono" data-in aria-hidden="true"><span>Fig. 01</span>Eletroposto iGreen em 3D · ilustrativo</p>
+        <ul class="pspecs" data-in aria-label="O que o ponto ganha">
+          <li><span class="pspecs__k mono"><em>01</em> Carregador</span><strong>Tela e cabos</strong><span class="pspecs__v">recarga acompanhada pelo app</span></li>
+          <li><span class="pspecs__k mono"><em>02</em> Cobertura</span><strong>Iluminada</strong><span class="pspecs__v">estrutura verde com LED</span></li>
+          <li><span class="pspecs__k mono"><em>03</em> Letreiro</span><strong>iGreen</strong><span class="pspecs__v">a marca acesa no seu ponto</span></li>
+          <li><span class="pspecs__k mono"><em>04</em> Vagas</span><strong>Sinalizadas</strong><span class="pspecs__v">pintadas com o G da marca</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================= O ELETROPOSTO, PARTE POR PARTE ================= -->
+    <section class="story" id="produto" aria-label="O eletroposto iGreen, parte por parte">
+      <div class="story__stage">
+        <div class="wrap story__inner">
+          <header class="story__head" data-reveal>
+            <p class="eyebrow"><i></i>O eletroposto, parte por parte</p>
+            <h2 class="h2">Do carregador <span class="dim">ao ponto inteiro.</span></h2>
+            <p class="story__lead">Primeiro o carregador, de perto, e as camadas de receita que cada recarga conecta. Depois a estrutura que leva a bandeira iGreen para o seu ponto.</p>
+          </header>
+
+          <div class="chapters">
+            <article class="ch" data-ch="0" id="ch-tela">
+              <div class="ch__text">
+                <p class="ch__kicker mono"><span>01</span>A tela</p>
+                <h3 class="ch__title">A recarga é o primeiro toque.</h3>
+                <p class="ch__body">O motorista vê a carga subir na tela do carregador e acompanha bateria, energia, tempo e custo em tempo real no app iGreen MOB.</p>
+              </div>
+              <figure class="ch__fig"><img src="img/eletroposto-tela.webp" alt="Tela do carregador iGreen marcando 78% de carga" width="1440" height="900" loading="lazy"></figure>
+              <ul class="ptags"><li class="ptag" data-anchor="screen" data-dx="220" data-dy="-90" data-mdx="96" data-mdy="-70"><b>78%</b><span>Tela de recarga</span></li></ul>
+            </article>
+
+            <article class="ch" data-ch="1" id="ch-bandeira">
+              <div class="ch__text">
+                <p class="ch__kicker mono"><span>02</span>A bandeira</p>
+                <h3 class="ch__title">Uma nova bandeira no seu ponto.</h3>
+                <p class="ch__body">O G de folhas e lâmpada passa a identificar o seu eletroposto. A iGreen leva identidade visual e campanha para comunicar os benefícios a cada motorista.</p>
+              </div>
+              <figure class="ch__fig"><img src="img/eletroposto-bandeira.webp" alt="O símbolo G da iGreen na frente do carregador" width="1440" height="900" loading="lazy"></figure>
+              <ul class="ptags">
+                <li class="ptag" data-anchor="g" data-dx="230" data-dy="-70" data-mdx="92" data-mdy="-80"><b>G</b><span>Símbolo iGreen</span></li>
+                <li class="ptag" data-mhide data-anchor="word" data-dx="210" data-dy="40" data-mdx="88" data-mdy="40"><b>iGreen</b><span>A marca no seu ponto</span></li>
+              </ul>
+            </article>
+
+            <article class="ch" data-ch="2" id="ch-conexao">
+              <div class="ch__text">
+                <p class="ch__kicker mono"><span>03</span>A conexão</p>
+                <h3 class="ch__title">Cada recarga começa uma conexão.</h3>
+                <p class="ch__body">A recarga aproxima. Energia, seguro e telefonia mantêm a conexão com o seu negócio, e cada uma delas vira uma camada de receita recorrente.</p>
+              </div>
+              <figure class="ch__fig"><img src="img/eletroposto-conexao.webp" alt="Conector e cabo na lateral do carregador iGreen" width="1440" height="900" loading="lazy"></figure>
+              <ul class="ptags"><li class="ptag" data-anchor="plugL" data-dx="-150" data-dy="-40" data-mdx="-60" data-mdy="-70"><b>Conector</b><span>Onde a conexão começa</span></li></ul>
+            </article>
+
+            <article class="ch ch--layer" data-ch="3" id="ch-camadas">
+              <div class="ch__text">
+                <figure class="ch__iso"><img src="assets/img/eco/energia.webp" alt="Maquete: casa com placas solares, bateria verde e carro elétrico na garagem" width="1400" height="1050" loading="lazy"></figure>
+                <p class="ch__kicker mono"><span>04</span>Camada 1 de 4 · Energia</p>
+                <h3 class="ch__title">R$ 50 para recarregar.</h3>
+                <p class="ch__body">Ao enviar a conta e habilitar o desconto de energia, o cliente recebe R$ 50 em cashback para usar nos eletropostos iGreen.</p>
+                <div class="gain"><span class="gain__k mono">Para você</span><strong>4%</strong><span class="gain__v">recorrentes sobre a conta de energia paga</span></div>
+              </div>
+            </article>
+            <article class="ch ch--layer" data-ch="4">
+              <div class="ch__text">
+                <figure class="ch__iso"><img src="assets/img/eco/seguro.webp" alt="Maquete: carro elétrico verde protegido sob uma cobertura com um escudo" width="1400" height="1050" loading="lazy"></figure>
+                <p class="ch__kicker mono"><span>05</span>Camada 2 de 4 · Seguro</p>
+                <h3 class="ch__title">Seguro que vira recarga.</h3>
+                <p class="ch__body">A primeira mensalidade vira crédito integral em recargas. Depois, o cliente recebe 10% de cashback mensal em bônus.</p>
+                <p class="ch__note"><span class="mono">Exemplo · Dolphin Mini</span>Seguro de R$ 500/mês = R$ 500 em recarga inicial + R$ 50/mês em bônus recarga para o motorista.</p>
+                <div class="gain"><span class="gain__k mono">Para você</span><strong>5%</strong><span class="gain__v">recorrentes sobre a mensalidade do seguro</span></div>
+              </div>
+            </article>
+            <article class="ch ch--layer" data-ch="5">
+              <div class="ch__text">
+                <figure class="ch__iso"><img src="assets/img/eco/telefonia.webp" alt="Maquete: antena, prédios e um celular conectados" width="1400" height="1050" loading="lazy"></figure>
+                <p class="ch__kicker mono"><span>06</span>Camada 3 de 4 · Telefonia</p>
+                <h3 class="ch__title">Cada linha, uma receita.</h3>
+                <p class="ch__body">Cada linha ativa conectada pelo seu ponto entra para a sua carteira e rende todo mês.</p>
+                <div class="gain"><span class="gain__k mono">Para você</span><strong>R$&nbsp;7</strong><span class="gain__v">por mês, por linha ativa</span></div>
+              </div>
+            </article>
+            <article class="ch ch--layer" data-ch="6">
+              <div class="ch__text">
+                <figure class="ch__iso"><img src="assets/img/eco/rede.webp" alt="Maquete: rede de eletropostos iGreen ligados por um caminho iluminado" width="1400" height="1050" loading="lazy"></figure>
+                <p class="ch__kicker mono"><span>07</span>Camada 4 de 4 · Rede</p>
+                <h3 class="ch__title">O cliente viaja. A conexão fica.</h3>
+                <p class="ch__body">Um novo cliente iGreen cadastrado pelo QR Code do seu ponto fica vinculado à sua carteira, inclusive quando recarrega em outros eletropostos iGreen.</p>
+                <div class="gain"><span class="gain__k mono">Para você</span><strong>2%</strong><span class="gain__v">do valor bruto das recargas dele na rede</span></div>
+              </div>
+            </article>
+
+            <article class="ch" data-ch="7" id="ch-ecossistema">
+              <div class="ch__text">
+                <p class="ch__kicker mono"><span>08</span>O ecossistema</p>
+                <h3 class="ch__title">O motorista ganha benefícios. <span class="dim">Você constrói uma carteira recorrente.</span></h3>
+                <p class="ch__body">Energia, seguro, telefonia e rede: quatro camadas de receita que começam numa recarga feita no seu ponto. Cada novo cadastro amplia seu potencial de receita.</p>
+                <a class="btn btn--neon" href="index.html#simulador">Simular minha receita<span class="btn__chip"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+              </div>
+              <figure class="ch__fig ch__fig--eco">
+                <img src="img/eletroposto-ecossistema.webp" alt="Carregador iGreen com o anel das quatro camadas de receita" width="1440" height="900" loading="lazy">
+                <ul class="peco" aria-label="Camadas de receita">
+                  <li style="--x:4%;--y:10%"><img src="assets/img/r4-produto/iso-energia-s.webp" alt="" width="560" height="418" loading="lazy"><span><b>4%</b>Energia</span></li>
+                  <li style="--x:68%;--y:20%"><img src="assets/img/r4-produto/iso-seguro-s.webp" alt="" width="560" height="418" loading="lazy"><span><b>5%</b>Seguro</span></li>
+                  <li style="--x:4%;--y:66%"><img src="assets/img/r4-produto/iso-telefonia-s.webp" alt="" width="560" height="418" loading="lazy"><span><b>R$ 7</b>Telefonia</span></li>
+                  <li style="--x:68%;--y:76%"><img src="assets/img/r4-produto/iso-rede-s.webp" alt="" width="560" height="418" loading="lazy"><span><b>2%</b>Rede</span></li>
+                </ul>
+              </figure>
+            </article>
+
+            <article class="ch" data-ch="8" id="ch-estrutura">
+              <div class="ch__text">
+                <p class="ch__kicker mono"><span>09</span>A estrutura</p>
+                <h3 class="ch__title">O ponto inteiro com a cara da iGreen.</h3>
+                <p class="ch__body">Cobertura verde e iluminação deixam o eletroposto visível de longe e protegem quem para para recarregar.</p>
+              </div>
+              <figure class="ch__fig"><img src="img/eletroposto-estrutura.webp" alt="Cobertura verde iGreen montada sobre o carregador" width="1440" height="900" loading="lazy"></figure>
+              <ul class="ptags"><li class="ptag" data-anchor="roof" data-dx="-30" data-dy="-120" data-mdx="-10" data-mdy="-80"><b>Cobertura</b><span>Estrutura verde com LED</span></li></ul>
+            </article>
+
+            <article class="ch" data-ch="9" id="ch-letreiro">
+              <div class="ch__text">
+                <p class="ch__kicker mono"><span>10</span>O letreiro</p>
+                <h3 class="ch__title">A marca acesa, de longe.</h3>
+                <p class="ch__body">O letreiro iGreen iluminado identifica o ponto para quem procura onde recarregar, de dia e à noite.</p>
+              </div>
+              <figure class="ch__fig"><img src="img/eletroposto-letreiro.webp" alt="Letreiro iGreen iluminado sobre a cobertura" width="1440" height="900" loading="lazy"></figure>
+              <ul class="ptags"><li class="ptag" data-anchor="sign" data-dx="-260" data-dy="-70" data-mdx="-90" data-mdy="-70"><b>iGreen</b><span>Letreiro iluminado</span></li></ul>
+            </article>
+
+            <article class="ch" data-ch="10" id="ch-vagas">
+              <div class="ch__text">
+                <p class="ch__kicker mono"><span>11</span>As vagas</p>
+                <h3 class="ch__title">Vagas pintadas com a identidade.</h3>
+                <p class="ch__body">As vagas verdes com o G da iGreen mostram ao motorista onde parar para recarregar, uma de cada lado do carregador.</p>
+              </div>
+              <figure class="ch__fig"><img src="img/eletroposto-vagas.webp" alt="Duas vagas verdes com o G da iGreen pintado no chão" width="1440" height="900" loading="lazy"></figure>
+              <ul class="ptags"><li class="ptag" data-anchor="bay" data-dx="150" data-dy="-110" data-mdx="60" data-mdy="-90"><b>G</b><span>Vagas sinalizadas</span></li></ul>
+            </article>
+
+            <article class="ch ch--outro" data-ch="11" id="ch-ponto">
+              <div class="ch__text">
+                <p class="ch__kicker mono"><span>12</span>No seu ponto</p>
+                <h3 class="ch__title">Seu ponto com a bandeira iGreen. <span class="dim">De dia e à noite.</span></h3>
+                <p class="ch__body">Identidade visual e campanha para comunicar os benefícios a cada motorista. Converse com o seu consultor sobre a migração do seu eletroposto.</p>
+                <a class="btn btn--neon js-wa" href="#">Falar com o consultor<span class="btn__chip"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+              </div>
+              <figure class="ch__fig"><img src="img/eletroposto-ponto.webp" alt="Eletroposto iGreen à noite, com cobertura, letreiro e vagas" width="1440" height="900" loading="lazy"></figure>
+            </article>
+          </div>
+
+          <div class="story__hud" aria-hidden="true">
+            <span class="story__count mono"><b data-ch-n>01</b> / 12</span>
+            <span class="story__name mono" data-ch-name>A tela</span>
+            <span class="story__bar"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PRÓXIMO PASSO ================= -->
+    <section class="pend" id="contato" aria-labelledby="pend-title">
+      <div class="wrap pend__grid">
+        <div>
+          <p class="eyebrow" data-reveal><i></i>Seu próximo passo</p>
+          <h2 class="h2" id="pend-title" data-reveal>Seu ponto já conecta carros. <span class="dim">Conecte novas receitas.</span></h2>
+        </div>
+        <div class="pend__side" data-reveal>
+          <p class="pend__p">Converse sobre a migração de bandeira, a compatibilidade do seu equipamento e as condições para o seu eletroposto.</p>
+          <div class="actions">
+            <a class="btn btn--neon js-wa" href="#">Falar com o consultor<span class="btn__chip"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+          </div>
+        </div>
+      </div>
+      <footer class="pfoot wrap">
+        <a class="brand" href="index.html" aria-label="iGreen MOB, voltar para a proposta"><img src="assets/img/logo-igreen.svg" alt="iGreen" width="101" height="28"><i aria-hidden="true"></i><span>MOB</span></a>
+        <div class="pfoot__go">
+          <a class="btn btn--back btn--lg" href="index.html"><span class="btn__chip"><svg viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></span>Voltar para a proposta</a>
+          <a class="foot__up" href="#inicio">Topo<span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></svg></span></a>
+        </div>
+        <p class="pfoot__note">iGreen MOB · Proposta de migração de bandeira · Representação ilustrativa</p>
+      </footer>
+    </section>
+  </main>
+
+  <script src="config.js"></script>
+  <script src="shared/core.js"></script>
+  <script src="assets/3d/igreen-logo-svg.js" defer></script>
+  <script src="assets/3d/igreen-kit.js" defer></script>
+  <script src="eletroposto.js" defer></script>
+</body>
+</html>

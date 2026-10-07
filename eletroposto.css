@@ -1,0 +1,72 @@
+/* =========================================================
+   iGreen MOB · O eletroposto iGreen (página interna)
+   Base: lp.css + produto.css (menu, palco, capítulos). Aqui só o que muda:
+   doze capítulos (com o anel das camadas de receita), véu de leitura sobre o 3D, pôster recortado e as imagens do modo estático.
+   ========================================================= */
+:root { --steps: 12; --step: 84svh; }
+
+/* abertura: valores em palavras, um pouco menores que os números da página do produto */
+.pspecs strong { font-size: clamp(24px, 2.1vw, 32px); letter-spacing: -0.035em; }
+
+/* véu à esquerda: o texto continua legível quando a cena acende (cobertura, letreiro, noite) */
+.is-3d .stage::after { content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none; background: linear-gradient(90deg, rgba(2, 6, 4, 0.78), rgba(2, 6, 4, 0.42) 32%, rgba(2, 6, 4, 0) 52%), linear-gradient(0deg, rgba(2, 6, 4, 0.6), rgba(2, 6, 4, 0) 22%); }
+.stage__poster { filter: drop-shadow(0 40px 60px rgba(0, 0, 0, 0.7)) drop-shadow(0 0 80px rgba(3, 255, 31, 0.12)); }
+
+/* desempenho: nada de desfoque de fundo sobre o 3D (o navegador teria de refazer o desfoque a cada quadro da rolagem);
+   no lugar, fundos mais opacos que dão a mesma leitura sobre a cena escura */
+.hdr__bg { -webkit-backdrop-filter: none; backdrop-filter: none; background: rgba(8, 15, 11, 0.9); }
+.tag { -webkit-backdrop-filter: none; backdrop-filter: none; background: rgba(12, 20, 15, 0.86); }
+.node__card { -webkit-backdrop-filter: none; backdrop-filter: none; background: rgba(4, 8, 6, 0.9); }
+
+/* as anotações originais ficam escondidas: no 3D vão para a camada fixa; no estático as imagens falam sozinhas */
+.ch > .ptags { display: none; }
+.story__bar { grid-template-columns: repeat(12, 1fr); }
+.ch--outro .btn { margin-top: 30px; }
+
+/* modo estático: imagens 16:10 renderizadas do mesmo 3D */
+.ch__fig { aspect-ratio: 16 / 10; max-height: none; background: #05090d; }
+.ch__fig > img { object-fit: cover; transform: none; }
+/* ecossistema no modo estático: a imagem do anel ocupa o quadro e as quatro camadas ficam em volta */
+.ch__fig--eco > img { inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.ch__fig::after { content: "Representação ilustrativa"; position: absolute; right: 14px; bottom: 12px; padding: 5px 10px; border-radius: 999px; font-family: var(--m); font-size: 9.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); background: rgba(3, 6, 4, 0.72); }
+
+/* notebooks baixos (1366×768, 1280×720): os passos ficam compactos e não encostam no contador embaixo */
+@media (min-width: 761px) and (max-height: 780px) {
+  .is-3d .ch { top: calc(50% + var(--hdr) * 0.2 - 14px); }
+  .is-3d .ch__iso { width: 132px; margin-bottom: 0; }
+  .is-3d .ch__title { margin-top: 12px; font-size: clamp(26px, 2.4vw, 36px); }
+  .is-3d .ch__body { margin-top: 10px; font-size: 15px; line-height: 1.5; }
+  .is-3d .ch__note { margin-top: 10px; padding: 9px 12px; font-size: 13px; }
+  .is-3d .gain { margin-top: 14px; padding-top: 12px; }
+  .is-3d .gain strong { font-size: 40px; }
+  .is-3d .ch .btn { margin-top: 20px; }
+  .is-3d .story__hud { bottom: 18px; }
+}
+@media (max-width: 760px) {
+  .phero .actions { gap: 10px; }
+  .phero .actions .link { width: 100%; height: 52px; justify-content: space-between; padding: 0 20px 0 22px; border: 0; border-radius: 999px; background: rgba(242, 246, 239, 0.04); box-shadow: inset 0 0 0 1px var(--line-2); }
+  /* celular: o texto do passo ocupa só a parte de baixo; a ilustração da camada já aparece no anel 3D */
+  .is-3d .ch { padding: 22px var(--pad) 58px; }
+  .is-3d .ch__iso { display: none; }
+  .is-3d .ch__title { margin-top: 12px; font-size: clamp(23px, 6.6vw, 30px); }
+  .is-3d .ch__body { margin-top: 10px; font-size: 14.5px; line-height: 1.5; }
+  .is-3d .gain { margin-top: 12px; padding-top: 10px; }
+  .is-3d .gain strong { font-size: 34px; }
+  .is-3d .ch .btn { margin-top: 18px; }
+  :root { --step: 84svh; }
+  .peco li img { width: 44px; height: 32px; }
+  .peco li span { font-size: 9px; }
+  .peco b { font-size: 15px; }
+  .is-3d .stage::after { background: linear-gradient(0deg, rgba(2, 6, 4, 0.7), rgba(2, 6, 4, 0) 40%); }
+  .pspecs strong { font-size: 24px; }
+  .pspecs { -webkit-backdrop-filter: none; backdrop-filter: none; background: rgba(4, 7, 5, 0.94); }
+  .is-static .ch__fig { max-height: none; }
+  /* anel no celular: só a camada da vez mostra a ilustração; as outras ficam compactas, sem se amontoar */
+  .node:not(.is-active) .node__ill { display: none; }
+  .node:not(.is-active) .node__card { padding: 5px 9px; gap: 0; }
+}
+/* celulares baixos (iPhone SE, Androids pequenos): o exemplo do seguro sai para o 3D continuar visível */
+@media (max-width: 760px) and (max-height: 700px) {
+  .is-3d .ch__note { display: none; }
+  .is-3d .ch__body { font-size: 14px; }
+}
