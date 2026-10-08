@@ -665,7 +665,8 @@
     const chips = $$("[data-cat]", faq);
     const input = $("[data-faq-q]", faq), clear = $("[data-faq-clear]", faq);
     const empty = $("[data-faq-empty]", faq), term = $("[data-faq-term]", faq), status = $("[data-faq-status]", faq);
-    let cat = "todas";
+    // começa em Migração (o assunto da proposta); "Todas" fica por último
+    let cat = "migracao";
     // destaca o termo no texto da pergunta (as posições batem porque cada letra vira uma só letra sem acento)
     const mark = (x, words) => {
       if (!words.length) { x.span.textContent = x.q; return; }
@@ -724,6 +725,7 @@
     input.addEventListener("keydown", (e) => { if (e.key === "Escape" && input.value) { input.value = ""; apply(false); } });
     clear.addEventListener("click", () => { input.value = ""; apply(false); input.focus(); });
     chips.forEach((b) => b.addEventListener("click", () => { cat = b.dataset.cat; apply(false); }));
+    apply(false);
   }
 
   if (!motion) {
@@ -849,6 +851,13 @@
   };
 
   const start = () => {
+    // o ScrollTrigger mede rolando a página: com o "scroll-behavior: smooth" do CSS, um recálculo feito com a página rolada
+    // (filtro ou pergunta do FAQ mudando a altura, troca de visão do simulador, janela redimensionada) media tudo deslocado e
+    // o portão e o vídeo do "Na prática" ficavam presos no fim ao subir. Durante o recálculo a rolagem fica instantânea.
+    const html = document.documentElement;
+    // (ler o estilo calculado obriga o navegador a aplicar o "auto" já; sem isso o scrollTo do recálculo ainda saía suave)
+    ST.addEventListener("refreshInit", () => { html.style.scrollBehavior = "auto"; void getComputedStyle(html).scrollBehavior; });
+    ST.addEventListener("refresh", () => { html.style.scrollBehavior = ""; });
     heroIntro(); scenes(); ST.refresh(); req();
     // sem isto, o mosaico "Na prática" às vezes ficava parado ao subir e descer: as posições de início e fim eram da página
     // antes de imagens carregarem e o resto mudar de altura
