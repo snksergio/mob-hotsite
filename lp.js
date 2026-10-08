@@ -233,14 +233,14 @@
      02 · SIMULADOR (mesmas regras do original, via IGCore)
      leitura e gráfico de 120 meses com as animações do r4-sessao
      ========================================================= */
-  const sim = $("#simulador");
+  const sim = $("[data-simv-panel='simples']") || $("#simulador");
   const S = { daily: 2, conn: { energia: true, seguro: true, telefonia: true }, h: 12, pos: 12, netN: 100, netS: 300, lit: -1 };
   const fmt = IG ? IG.BRL : new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
   const fmt0 = IG ? IG.BRL0 : new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
   const fmtC = IG ? IG.BRLc : new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", notation: "compact", maximumFractionDigits: 1 });
   const INT = IG ? IG.INT : new Intl.NumberFormat("pt-BR");
   const daily = $("#daily"), netN = $("#netN"), netS = $("#netS");
-  const people = $("[data-people]");
+  const people = $("[data-people]", sim);
   for (let i = 0; i < 20; i++) {
     const s = document.createElement("span");
     s.innerHTML = '<svg viewBox="0 0 12 20"><circle cx="6" cy="4.2" r="3.3"/><path d="M.8 19.4v-5.2c0-3.2 2.3-5.3 5.2-5.3s5.2 2.1 5.2 5.3v5.2z"/></svg>';
@@ -281,7 +281,7 @@
   })();
 
   /* gráfico: 120 barras (um mês cada), linha até o horizonte, ponto com o valor e marcos 1/12/60/120 */
-  const ch = { bars: $("[data-bars]"), line: $("[data-line]"), dot: $("[data-dot]"), tip: $("[data-tip]"), marks: $("[data-marks]"), yMax: $("[data-y-max]"), yMid: $("[data-y-mid]") };
+  const ch = { bars: $("[data-bars]", sim), line: $("[data-line]", sim), dot: $("[data-dot]", sim), tip: $("[data-tip]", sim), marks: $("[data-marks]", sim), yMax: $("[data-y-max]", sim), yMid: $("[data-y-mid]", sim) };
   const W = 640, B = 190, TOP = 20, N = 120, stepX = W / N;
   const xc = (m) => (m - 0.5) * stepX;
   let flat = false, lastCur = -1;
@@ -316,14 +316,14 @@
       s.classList.toggle("is-hit", hit);
     });
   };
-  const seg = $("[data-seg]"), segBtns = $$("button", seg), segInd = $("[data-seg-ind]");
+  const seg = $("[data-seg]", sim), segBtns = $$("button", seg), segInd = $("[data-seg-ind]", sim);
   const placeInd = () => {
     const on = segBtns.find((b) => Number(b.dataset.h) === S.h) || segBtns[1];
     segInd.style.width = on.offsetWidth + "px";
     segInd.style.transform = "translateX(" + on.offsetLeft + "px)";
   };
   // rede (estimativa separada): atualiza só o próprio card; o valor do slider só é reescrito quando muda (não briga com o arrasto)
-  const netOut = { n: $("[data-net-n]"), s: $("[data-net-s]"), v: $("[data-net]"), f: $("[data-net-f]") };
+  const netOut = { n: $("[data-net-n]", sim), s: $("[data-net-s]", sim), v: $("[data-net]", sim), f: $("[data-net-f]", sim) };
   const renderNet = () => {
     const net = IG ? IG.network(S.netN, S.netS) : Math.floor(S.netN) * S.netS * 0.02;
     if (Number(netN.value) !== S.netN) netN.value = String(S.netN);
@@ -338,17 +338,17 @@
   const renderSim = (animate) => {
     const w = wallet(S.daily, S.conn);
     const r = w.at(S.h);
-    $("[data-daily]").textContent = String(S.daily);
-    $("[data-monthly]").textContent = INT.format(w.clients);
+    $("[data-daily]", sim).textContent = String(S.daily);
+    $("[data-monthly]", sim).textContent = INT.format(w.clients);
     daily.value = String(S.daily); fillRange(daily);
     paintPeople(animate === true);
-    $("[data-unit]").textContent = fmt.format(w.unit);
+    $("[data-unit]", sim).textContent = fmt.format(w.unit);
     segBtns.forEach((b) => { const on = Number(b.dataset.h) === S.h; b.setAttribute("aria-checked", String(on)); b.tabIndex = on ? 0 : -1; });
     placeInd();
-    $("[data-h-label]").textContent = IG ? IG.horizonLabel(S.h) : "";
-    countTo($("[data-mensal]"), "m", r.mensal, (v) => fmt.format(v));
-    countTo($("[data-acum]"), "a", r.acumulado, (v) => fmt.format(v));
-    $("[data-carteira]").textContent = INT.format(r.carteira);
+    $("[data-h-label]", sim).textContent = IG ? IG.horizonLabel(S.h) : "";
+    countTo($("[data-mensal]", sim), "m", r.mensal, (v) => fmt.format(v));
+    countTo($("[data-acum]", sim), "a", r.acumulado, (v) => fmt.format(v));
+    $("[data-carteira]", sim).textContent = INT.format(r.carteira);
     const max = w.at(N).mensal;
     const wasFlat = flat;
     flat = max === 0;
@@ -365,8 +365,8 @@
     // WhatsApp com a simulação
     if (IG) {
       const chosen = IG.CONNECTIONS.filter((cn) => S.conn[cn.id]).map((cn) => cn.name);
-      $(".js-wa-sim").href = IG.waLink(IG.simulationMessage(w, chosen));
-      $(".js-wa-sim").target = "_blank"; $(".js-wa-sim").rel = "noopener";
+      $(".js-wa-sim", sim).href = IG.waLink(IG.simulationMessage(w, chosen));
+      $(".js-wa-sim", sim).target = "_blank"; $(".js-wa-sim", sim).rel = "noopener";
     }
   };
   daily.addEventListener("input", () => { S.daily = clamp(Math.round(daily.value), 0, 20); renderSim(true); });

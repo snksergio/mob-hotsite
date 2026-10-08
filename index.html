@@ -11,6 +11,7 @@
   <link rel="preload" href="img/novo-3-m.webp" as="image" media="(max-width: 760px)">
   <link rel="stylesheet" href="shared/fonts-instrument.css">
   <link rel="stylesheet" href="lp.css">
+  <link rel="stylesheet" href="sim-interativo.css">
   <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
@@ -237,150 +238,400 @@
         <header class="shead">
           <div>
             <p class="eyebrow" data-reveal><i></i><span class="t-xl">02 · Faça as contas com a sua realidade</span><span class="t-xs">02 · Faça as contas</span></p>
-            <h2 class="h2" id="sim-title" data-reveal>Uma carteira que cresce. <span class="dim">Uma receita que se repete.</span></h2>
+            <h2 class="h2" id="sim-title" data-reveal><span data-simv-show="interativo">Um posto. <span class="dim">Novas receitas.</span></span><span data-simv-show="simples" hidden>Uma carteira que cresce. <span class="dim">Uma receita que se repete.</span></span></h2>
           </div>
-          <p class="shead__p" data-reveal>Ajuste os novos clientes por dia e escolha as conexões para visualizar o potencial da sua carteira ao longo do tempo.</p>
+          <div class="shead__side" data-reveal>
+            <p class="shead__p"><span data-simv-show="interativo">Monte o seu eletroposto e veja como cada escolha vira receita, com as mesmas contas do simulador oficial da iGreen.</span><span data-simv-show="simples" hidden>Ajuste os novos clientes por dia e escolha as conexões para visualizar o potencial da sua carteira ao longo do tempo.</span></p>
+            <div class="simv" role="tablist" aria-label="Visão do simulador">
+              <button type="button" role="tab" id="simv-t-int" aria-controls="simv-int" aria-selected="true" data-simv="interativo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 7.5v9L12 21l8-4.5v-9z"/><path d="M4 7.5 12 12l8-4.5M12 12v9"/></svg>Simulador interativo</button>
+              <button type="button" role="tab" id="simv-t-simples" aria-controls="simv-simples" aria-selected="false" tabindex="-1" data-simv="simples"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19h16M7 16v-5M12 16V7M17 16v-8"/></svg>Visão simplificada</button>
+            </div>
+          </div>
         </header>
 
-        <div class="sim__panel" data-reveal>
-          <!-- esquerda: o cenário -->
-          <div class="sim__in">
-            <div class="sim__top">
-              <p class="sim__h mono">Monte seu cenário</p>
-              <button class="sim__reset" type="button" data-reset>Redefinir</button>
-            </div>
+        <!-- simulador interativo (padrão): o posto em 3D, em 4 etapas; o 3D só baixa quando a seção chega perto da tela -->
+        <div class="simx v3-pg v4-pg" id="simv-int" role="tabpanel" aria-labelledby="simv-t-int" data-simv-panel="interativo" data-simx data-lazy3d="js/vendor/three-bundle.min.js assets/3d/igreen-logo-svg.js assets/3d/igreen-kit.js assets/3d/posto/posto-dados.js maquete-rotas.js maquete-cena.js">
+          <div class="cfg" data-cfg data-step="0">
+            <div class="work">
+              <!-- ============ VISUAL: o posto em 3D + o resumo ao vivo ============ -->
+              <div class="vis">
+                <div class="vis__hd">
+                  <p class="vis__k mono"><i></i>Resultado ao vivo</p>
+                  <p class="vis__t">Este é o resultado da sua simulação.</p>
+                </div>
+                <div class="cena" data-cena role="img" aria-label="O seu eletroposto em 3D, montado conforme as escolhas">
+                  <img class="cena__fallback" data-fallback src="assets/img/simulador/posto-duo.webp" alt="" width="1600" height="1200" hidden>
+                  <p class="cena__loading mono" data-loading>Montando o seu posto<span></span></p>
+                  <div class="cena__title"><span data-c-model>iGreen DUO</span><b data-c-kw>7 + 40<small>kW</small></b></div>
+                  <p class="cena__tag" data-c-tag><i></i>Pronto para novas conexões</p>
+                  <p class="cena__ill"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.6v.4"/></svg>Projeto ilustrativo</p>
+                  <!-- cartões ancorados no 3D -->
+                  <div class="ov" aria-hidden="true">
+                    <svg class="ov__lines"><path data-line="energia"/><path data-line="seguro"/><path data-line="telefonia"/></svg>
+                    <span class="ov__price" data-price>R$ 2,20<small>/kWh</small></span>
+                    <span class="ov__cars" data-carsday><b>7</b> carros por dia</span>
+                    <span class="node" data-node="energia"><span class="node__ill"><img src="assets/img/r4-produto/iso-energia-s.webp" alt="" width="560" height="418"></span><span class="node__t"><b>Energia</b><small>R$ 20/cliente</small></span></span>
+                    <span class="node" data-node="seguro"><span class="node__ill"><img src="assets/img/r4-produto/iso-seguro-s.webp" alt="" width="560" height="418"></span><span class="node__t"><b>Seguros</b><small>R$ 25/cliente</small></span></span>
+                    <span class="node" data-node="telefonia"><span class="node__ill"><img src="assets/img/r4-produto/iso-telefonia-s.webp" alt="" width="560" height="418"></span><span class="node__t"><b>Telecom</b><small>R$ 7/linha</small></span></span>
+                  </div>
+                  <!-- a fila do dia (etapa 2): um carrinho por carro, os que carregam acendem -->
+                  <div class="cq" data-cq aria-hidden="true">
+                    <div class="queue__cars" data-queue></div>
+                    <p class="queue__leg"><span class="queue__s queue__s--on"><i></i>Carregando <b data-q-on>2</b></span><span class="queue__s queue__s--done"><i></i>Já carregaram <b data-q-done>0</b></span><span class="queue__s"><i></i>Na fila <b data-q-wait>5</b></span></p>
+                    <p class="queue__info" data-queue-info></p>
+                  </div>
+                  <!-- ferramentas do palco: recomeçar, girar e voltar à vista inicial -->
+                  <div class="cena__tools">
+                    <button class="cena__restart" type="button" data-restart title="Recomeçar a simulação"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.3-5.7M4 4v4h4"/></svg><span>Recomeçar</span></button>
+                    <button type="button" data-view="turn" aria-label="Girar a vista do posto" title="Girar a vista"><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v4h-4"/></svg></button>
+                    <button type="button" data-view="reset" aria-label="Voltar à vista inicial" title="Vista inicial"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg></button>
+                  </div>
+                </div>
 
-            <div class="daily">
-              <div class="daily__top">
-                <label class="daily__lbl" for="daily">Novos clientes por dia</label>
-                <div class="daily__ctl">
-                  <button class="step-btn" type="button" data-step="-1" aria-label="Menos um cliente por dia"><svg viewBox="0 0 24 24"><path d="M6 12h12"/></svg></button>
-                  <output class="daily__out" for="daily" data-daily>2</output>
-                  <button class="step-btn" type="button" data-step="1" aria-label="Mais um cliente por dia"><svg viewBox="0 0 24 24"><path d="M12 6v12M6 12h12"/></svg></button>
+                <div class="sum" aria-live="polite">
+                  <div class="sum__top">
+                    <p class="kick mono"><i></i>Sua simulação, ao vivo</p>
+                    <p class="sum__per mono" data-sum-per>Mês 1</p>
+                  </div>
+                  <div class="sum__row">
+                    <div class="sum__main"><span>Recebimento estimado</span><b data-sum-v>R$ 5.956,09</b></div>
+                    <dl class="sum__split">
+                      <div><dt><i class="dot dot--a"></i>Recargas</dt><dd data-sum-r>R$ 2.836,09</dd></div>
+                      <div><dt><i class="dot dot--b"></i>Carteira</dt><dd data-sum-w>R$ 3.120,00</dd></div>
+                    </dl>
+                  </div>
+                  <span class="sum__track"><i data-tr-a></i><i data-tr-b></i></span>
+                  <p class="sum__note">Projeção ilustrativa · tributo local a definir · comissões antes de tributos.</p>
+                </div>
+                <button class="vis__back" type="button" data-to-form><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg><span data-to-form-l>Voltar para a simulação</span></button>
+              </div>
+
+              <!-- ============ CONTROLES: uma etapa por vez (a coluna rola por dentro) ============ -->
+              <div class="ctl">
+                <nav class="steps4" aria-label="Etapas do simulador">
+                  <button type="button" data-go="0" aria-current="step"><span class="steps4__n mono">1</span><span class="steps4__t">Modelo</span></button><i class="steps4__ln" aria-hidden="true"></i>
+                  <button type="button" data-go="1"><span class="steps4__n mono">2</span><span class="steps4__t">Operação</span></button><i class="steps4__ln" aria-hidden="true"></i>
+                  <button type="button" data-go="2"><span class="steps4__n mono">3</span><span class="steps4__t">Carteira</span></button><i class="steps4__ln" aria-hidden="true"></i>
+                  <button type="button" data-go="3"><span class="steps4__n mono">4</span><span class="steps4__t">Resultado</span></button>
+                </nav>
+                <div class="ctl__in" data-panel>
+                  <!-- 01 · SEU ELETROPOSTO -->
+                  <section class="st" data-st="0" aria-labelledby="st0">
+                    <h2 class="st__t" id="st0">Comece pelo seu posto.</h2>
+                    <p class="st__p">Escolha o modelo do seu eletroposto.</p>
+                    <div class="mods" role="radiogroup" aria-label="Modelo do eletroposto">
+                      <label class="mod"><input type="radio" name="m" value="lento">
+                        <span class="mod__top"><span class="mod__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M13 7.5 9.8 12.6h2.6l-1 4 3.2-5.1H12z"/></svg></span><i class="mod__r" aria-hidden="true"></i></span>
+                        <span class="mod__k">Carga lenta</span>
+                        <span class="mod__kw"><b>7</b>kW</span>
+                        <span class="mod__s">1 conector de 7 kW</span>
+                        <span class="mod__s">Até 5 carros por dia</span>
+                        <span class="mod__soc"><small>Sociedade</small><b>100% seu</b><em>Todo o resultado</em></span>
+                      </label>
+                      <label class="mod"><input type="radio" name="m" value="duo" checked>
+                        <span class="mod__top"><span class="mod__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 3v4M15 3v4M6 7h12v4.5a6 6 0 0 1-12 0z"/><path d="M12.8 9.6 11 12.4h2l-1 2.4"/><path d="M12 17.5V21"/></svg></span><i class="mod__r" aria-hidden="true"></i></span>
+                        <span class="mod__k">Carga rápida</span>
+                        <span class="mod__kw"><b>7 + 40</b>kW</span>
+                        <span class="mod__s">2 conectores</span>
+                        <span class="mod__s">Até 30 carros por dia</span>
+                        <span class="mod__soc"><small>Sociedade</small><b>80/20</b><em>Você 80% · iGreen 20%</em></span>
+                      </label>
+                      <label class="mod"><input type="radio" name="m" value="ultra">
+                        <span class="mod__top"><span class="mod__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 15h16M4 19h16M7 11h10"/><path d="m11 3-2 4h3l-1 3M16 3.5l-1.4 2.8H17l-1 2.2"/></svg></span><i class="mod__r" aria-hidden="true"></i></span>
+                        <span class="mod__k">Carga ultra rápida</span>
+                        <span class="mod__kw"><b>80</b>kW</span>
+                        <span class="mod__s">Potência total</span>
+                        <span class="mod__s">Até 43 carros por dia</span>
+                        <span class="mod__soc"><small>Sociedade</small><b>80/20</b><em>Você 80% · iGreen 20%</em></span>
+                      </label>
+                    </div>
+                    <!-- incluso: num cartão discreto, separado dos modelos -->
+                    <div class="inc6">
+                      <p class="inc6__k mono">Incluso em todos os modelos</p>
+                      <ul class="inc6__l"><li>Equipamento</li><li>Instalação</li><li>Pintura</li><li>Licença iGreen</li></ul>
+                    </div>
+                    <!-- onde funciona melhor: sempre aberto, muda com o modelo -->
+                    <section class="where" aria-labelledby="where-t">
+                      <p class="where__k mono" id="where-t">Onde funciona melhor<span data-where-model>iGreen DUO</span></p>
+                      <ul class="where__l" data-where></ul>
+                      <p class="where__p" data-where-note></p>
+                    </section>
+                  </section>
+
+                  <!-- 02 · SUA OPERAÇÃO -->
+                  <section class="st" data-st="1" aria-labelledby="st1" hidden>
+                    <h2 class="st__t" id="st1">Como ele vai funcionar?</h2>
+                    <p class="st__p">Movimento do dia, energia e preço.</p>
+                    <div class="fcard">
+                      <div class="fld fld--top">
+                        <div class="fld__h"><label for="f-cars">Carros por dia<small>recargas no seu ponto</small></label><output for="f-cars"><b data-o="cars">7</b><small>carros</small></output></div>
+                        <input class="range" id="f-cars" type="range" min="1" max="30" step="1" value="7" data-f="cars">
+                      </div>
+                    </div>
+                    <ul class="vlist">
+                      <li class="vrow"><label for="e-kwh">Energia por recarga<small>quanto cada carro leva</small></label><div class="vstep"><button type="button" data-inc="kwh" data-d="-1" aria-label="Menos 1 kWh"><svg viewBox="0 0 24 24"><path d="M6 12h12"/></svg></button><span class="vin"><input id="e-kwh" type="text" inputmode="numeric" autocomplete="off" data-edit="kwh" value="25"><small>kWh</small></span><button type="button" data-inc="kwh" data-d="1" aria-label="Mais 1 kWh"><svg viewBox="0 0 24 24"><path d="M12 6v12M6 12h12"/></svg></button></div></li>
+                      <li class="vrow"><label for="e-days">Dias de operação<small>por mês</small></label><div class="vstep"><button type="button" data-inc="days" data-d="-1" aria-label="Menos um dia"><svg viewBox="0 0 24 24"><path d="M6 12h12"/></svg></button><span class="vin"><input id="e-days" type="text" inputmode="numeric" autocomplete="off" data-edit="days" value="30"><small>dias</small></span><button type="button" data-inc="days" data-d="1" aria-label="Mais um dia"><svg viewBox="0 0 24 24"><path d="M12 6v12M6 12h12"/></svg></button></div></li>
+                      <li class="vrow"><label for="e-cost">Custo da energia<small>o que você paga, com tributos</small></label><div class="vstep"><button type="button" data-inc="cost" data-d="-0.05" aria-label="Menos 5 centavos no custo"><svg viewBox="0 0 24 24"><path d="M6 12h12"/></svg></button><span class="vin"><small>R$</small><input id="e-cost" type="text" inputmode="decimal" autocomplete="off" data-edit="cost" value="0,80"><small>/kWh</small></span><button type="button" data-inc="cost" data-d="0.05" aria-label="Mais 5 centavos no custo"><svg viewBox="0 0 24 24"><path d="M12 6v12M6 12h12"/></svg></button></div></li>
+                      <li class="vrow"><label for="e-sale">Preço de venda<small>o que o motorista paga</small></label><div class="vstep"><button type="button" data-inc="sale" data-d="-0.05" aria-label="Menos 5 centavos no preço"><svg viewBox="0 0 24 24"><path d="M6 12h12"/></svg></button><span class="vin"><small>R$</small><input id="e-sale" type="text" inputmode="decimal" autocomplete="off" data-edit="sale" value="2,20"><small>/kWh</small></span><button type="button" data-inc="sale" data-d="0.05" aria-label="Mais 5 centavos no preço"><svg viewBox="0 0 24 24"><path d="M12 6v12M6 12h12"/></svg></button></div></li>
+                    </ul>
+                    <p class="rowval" data-margin><span>Margem bruta por kWh<small>preço de venda menos o custo</small></span><b>R$ 1,40</b></p>
+                    <details class="more">
+                      <summary>Participação do dono do ponto e administração<i aria-hidden="true"></i></summary>
+                      <div class="more__in">
+                        <div class="fld fld--in">
+                          <div class="fld__h"><label for="f-share">Participação do dono do ponto<small>sobre o lucro líquido positivo, depois dos impostos</small></label><output for="f-share"><b data-o="share">0</b><small>%</small></output></div>
+                          <input class="range" id="f-share" type="range" min="0" max="20" step="1" value="0" data-f="share">
+                          <p class="fld__s mono"><span>0%</span><span>até 20%</span></p>
+                        </div>
+                        <p class="rowval rowval--in"><span>Administração iGreen<small>fixa, sobre o faturamento: plataforma, atendimento e taxas de cartão</small></span><b>14%</b></p>
+                      </div>
+                    </details>
+                    <details class="more">
+                      <summary>Como calculamos a capacidade<i aria-hidden="true"></i></summary>
+                      <div class="more__in"><p class="more__p" data-cap-how></p></div>
+                    </details>
+                  </section>
+
+                  <!-- 03 · SUA CARTEIRA -->
+                  <section class="st" data-st="2" aria-labelledby="st2" hidden>
+                    <h2 class="st__t" id="st2">A recarga é o começo.</h2>
+                    <p class="st__p">Cada cliente conectado gera comissão todo mês.</p>
+                    <div class="fld">
+                      <div class="fld__h"><label for="f-cpd">Novos clientes por dia<small>conectados pelo seu ponto</small></label><output for="f-cpd"><b data-o="cpd">2</b><small>clientes</small></output></div>
+                      <input class="range" id="f-cpd" type="range" min="0" max="20" step="1" value="2" data-f="cpd">
+                      <p class="fld__s mono"><span>Nenhum</span><span>20/dia</span></p>
+                    </div>
+                    <ul class="conns">
+                      <li><label class="cn"><span class="cn__ill" aria-hidden="true"><img src="assets/img/r4-produto/iso-energia-s.webp" alt="" width="560" height="418" loading="lazy"></span><span class="cn__t"><b>Energia</b><small>4% de uma conta de R$ 500</small></span><span class="cn__v">R$ 20<small>/mês</small></span><input class="switch-in" type="checkbox" data-conn="energyEnabled" checked><span class="sw" aria-hidden="true"></span></label></li>
+                      <li><label class="cn"><span class="cn__ill" aria-hidden="true"><img src="assets/img/r4-produto/iso-seguro-s.webp" alt="" width="560" height="418" loading="lazy"></span><span class="cn__t"><b>Seguros</b><small>5% de uma mensalidade de R$ 500</small></span><span class="cn__v">R$ 25<small>/mês</small></span><input class="switch-in" type="checkbox" data-conn="insuranceEnabled" checked><span class="sw" aria-hidden="true"></span></label></li>
+                      <li><label class="cn"><span class="cn__ill" aria-hidden="true"><img src="assets/img/r4-produto/iso-telefonia-s.webp" alt="" width="560" height="418" loading="lazy"></span><span class="cn__t"><b>Telecom</b><small>uma linha ativa por cliente</small></span><span class="cn__v">R$ 7<small>/mês</small></span><input class="switch-in" type="checkbox" data-conn="telecomEnabled" checked><span class="sw" aria-hidden="true"></span></label></li>
+                    </ul>
+                    <div class="percl">
+                      <p class="rowval rowval--plain"><span>Por cliente, por mês</span><b data-unit>R$ 52,00</b></p>
+                      <div class="bars" data-bars aria-hidden="true"></div>
+                      <p class="percl__n" data-unit-n>60 novos clientes por mês × R$ 52,00 = R$ 3.120,00 a mais em comissões a cada mês. Antes de tributos.</p>
+                    </div>
+                    <details class="more">
+                      <summary>Como a carteira cresce<i aria-hidden="true"></i></summary>
+                      <div class="more__in"><dl class="grow" data-grow></dl></div>
+                    </details>
+                  </section>
+
+                  <!-- 04 · SEU RESULTADO -->
+                  <section class="st" data-st="3" aria-labelledby="st3" hidden>
+                    <h2 class="st__t" id="st3">Seu posto, em perspectiva.</h2>
+                    <p class="st__p" data-res-sub>iGreen DUO · 7 carros por dia · 2 novos clientes por dia.</p>
+                    <div class="seg2" role="radiogroup" aria-label="O que entra na conta" data-mode>
+                      <button type="button" role="radio" aria-checked="true" data-mode-v="combined">Recargas + carteira</button>
+                      <button type="button" role="radio" aria-checked="false" data-mode-v="charging">Só recargas</button>
+                    </div>
+                    <p class="res__k" data-res-k>Recebimento estimado no mês 1</p>
+                    <p class="res__v"><b data-res-v>R$ 5.956,09</b></p>
+                    <div class="pchips" role="radiogroup" aria-label="Período" data-per>
+                      <button type="button" role="radio" aria-checked="true" data-p="m1">Mês 1</button>
+                      <button type="button" role="radio" aria-checked="false" data-p="y1">1º ano</button>
+                      <button type="button" role="radio" aria-checked="false" data-p="y2">2º ano</button>
+                      <button type="button" role="radio" aria-checked="false" data-p="y3">3º ano</button>
+                    </div>
+                    <div class="chart chart--v4" data-chart>
+                      <div class="chart__y mono" aria-hidden="true"><span data-cy-max>R$ 2 mi</span><span data-cy-mid>R$ 1 mi</span><span>R$ 0</span></div>
+                      <div class="chart__plot">
+                        <svg class="chart__svg" viewBox="0 0 640 220" preserveAspectRatio="none" aria-hidden="true">
+                          <g class="chart__grid"><line x1="0" y1="20" x2="640" y2="20"/><line x1="0" y1="105" x2="640" y2="105"/><line x1="0" y1="190" x2="640" y2="190"/></g>
+                          <g class="chart__bars" data-cbars></g>
+                          <path class="chart__line chart__line--ghost" data-cghost d=""/>
+                          <path class="chart__line chart__line--live" data-cline d=""/>
+                        </svg>
+                        <div class="chart__marks" aria-hidden="true" data-cmarks></div>
+                        <div class="chart__dot" aria-hidden="true" data-cdot><span class="chart__tip mono" data-ctip>R$ 0</span></div>
+                        <div class="chart__x mono" aria-hidden="true"><span style="--x:0">Início</span><span style="--x:.333">12 meses</span><span style="--x:.667">24 meses</span><span style="--x:1">36 meses</span></div>
+                      </div>
+                    </div>
+                    <dl class="stats">
+                      <div><dt>Recebido em 36 meses</dt><dd data-s-36>R$ 2.180.019,31</dd></div>
+                      <div><dt>Clientes na carteira no mês 36</dt><dd data-s-cl>2.160</dd></div>
+                      <div><dt>Recargas por mês</dt><dd data-s-rec>210 · 5.250 kWh</dd></div>
+                      <div><dt>Sociedade</dt><dd data-s-soc>80% você · 20% iGreen</dd></div>
+                    </dl>
+                    <button class="linkrow" type="button" data-open><span>Ver demonstrativo e premissas</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></button>
+                    <p class="res__note">Projeção estimada. Os recebimentos variam com o movimento e não são garantidos. Prévia sem ICMS adicional e com comissões antes de tributos.</p>
+                  </section>
+                </div>
+
+                <div class="ctl__foot">
+                  <button class="back" type="button" data-prev><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg><span>Voltar</span></button>
+                  <span class="prog mono" data-prog hidden>01 / 04</span>
+                  <button class="nextbtn" type="button" data-next><span data-next-l>Próximo</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+                  <a class="btn btn--neon go js-wa-v2" href="#" data-send hidden><span class="t-xl">Enviar ao consultor</span><span class="t-xs">Enviar</span><span class="btn__chip"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
                 </div>
               </div>
-              <div class="crowd" aria-hidden="true" data-people></div>
-              <input class="range" id="daily" type="range" min="0" max="20" step="1" value="2" aria-describedby="daily-note">
-              <div class="range__scale mono" aria-hidden="true"><span>0</span><span>5</span><span>10</span><span>15</span><span>20</span></div>
-              <p class="daily__note" id="daily-note">São <span data-monthly>60</span> clientes por mês em 30 dias de operação. <span class="daily__key mono">Cada ícone = 1 novo cliente por dia.</span></p>
-            </div>
-
-            <p class="kicker mono sim__kc">Conexões</p>
-            <ul class="conn">
-              <li>
-                <label class="conn__row">
-                  <span class="conn__ill" aria-hidden="true"><img src="assets/img/r4-produto/iso-energia-s.webp" alt="" width="560" height="418" loading="lazy"></span>
-                  <span class="conn__t"><b>Energia</b><small class="mono">4% de R$ 500</small></span>
-                  <span class="conn__v">R$ 20,00<small>/mês</small></span>
-                  <input class="switch-in" type="checkbox" data-conn="energia" checked><span class="sw" aria-hidden="true"></span>
-                </label>
-              </li>
-              <li>
-                <label class="conn__row">
-                  <span class="conn__ill" aria-hidden="true"><img src="assets/img/r4-produto/iso-seguro-s.webp" alt="" width="560" height="418" loading="lazy"></span>
-                  <span class="conn__t"><b>Seguros</b><small class="mono">5% de R$ 500</small></span>
-                  <span class="conn__v">R$ 25,00<small>/mês</small></span>
-                  <input class="switch-in" type="checkbox" data-conn="seguro" checked><span class="sw" aria-hidden="true"></span>
-                </label>
-              </li>
-              <li>
-                <label class="conn__row">
-                  <span class="conn__ill" aria-hidden="true"><img src="assets/img/r4-produto/iso-telefonia-s.webp" alt="" width="560" height="418" loading="lazy"></span>
-                  <span class="conn__t"><b>Telefonia</b><small class="mono">por linha ativa</small></span>
-                  <span class="conn__v">R$ 7,00<small>/mês</small></span>
-                  <input class="switch-in" type="checkbox" data-conn="telefonia" checked><span class="sw" aria-hidden="true"></span>
-                </label>
-              </li>
-            </ul>
-
-            <div class="unit">
-              <p>Receita mensal por cliente<small>nas conexões escolhidas</small></p>
-              <b data-unit>R$ 52,00</b>
             </div>
           </div>
 
-          <!-- direita: a carteira no tempo (leitura + gráfico de 120 meses, como no r4-sessao) -->
-          <div class="sim__out">
-            <div class="sim__top">
-              <p class="sim__h mono">Sua carteira no tempo</p>
-              <div class="seg" role="radiogroup" aria-label="Horizonte da projeção" data-seg>
-                <span class="seg__ind" aria-hidden="true" data-seg-ind></span>
-                <button type="button" role="radio" aria-checked="false" data-h="1">1º mês</button>
-                <button type="button" role="radio" aria-checked="true" data-h="12">1 ano</button>
-                <button type="button" role="radio" aria-checked="false" data-h="60">5 anos</button>
-                <button type="button" role="radio" aria-checked="false" data-h="120">10 anos</button>
-              </div>
+          <footer class="cfg__foot">
+            <p><i></i>Você controla as premissas. A simulação acompanha.</p>
+            <button class="txtbtn" type="button" data-open>Premissas da simulação<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></button>
+          </footer>
+          <dialog class="dlg" data-dlg aria-labelledby="dlg-t">
+            <div class="dlg__top">
+              <div><p class="eyebrow"><i></i>Transparência em cada número</p><h2 class="dlg__t" id="dlg-t">Por dentro do cenário.</h2></div>
+              <button class="dlg__x" type="button" data-close aria-label="Fechar"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
             </div>
-            <div class="read" aria-live="polite">
-              <p class="read__lbl"><span>Receita mensal</span><span class="read__h mono" data-h-label>Fim do 1º ano</span></p>
-              <p class="read__val"><b data-mensal>R$ 37.440,00</b></p>
-              <dl class="read__meta">
-                <div><dt><span class="t-xl">Clientes na carteira</span><span class="t-xs">Clientes</span></dt><dd data-carteira>720</dd></div>
-                <div><dt>Acumulado no período</dt><dd data-acum>R$ 243.360,00</dd></div>
-              </dl>
+            <div class="dlg__tabs" role="tablist" aria-label="Partes do demonstrativo">
+              <button type="button" role="tab" aria-selected="true" aria-controls="d-dre" id="dt-dre">Demonstrativo</button>
+              <button type="button" role="tab" aria-selected="false" aria-controls="d-mes" id="dt-mes">Mês a mês</button>
+              <button type="button" role="tab" aria-selected="false" aria-controls="d-prem" id="dt-prem">Premissas</button>
             </div>
-            <div class="chart" data-chart>
-              <div class="chart__y mono" aria-hidden="true"><span data-y-max>R$ 374,4 mil</span><span data-y-mid>R$ 187,2 mil</span><span>R$ 0</span></div>
-              <div class="chart__plot">
-                <svg class="chart__svg" viewBox="0 0 640 220" preserveAspectRatio="none" aria-hidden="true">
-                  <g class="chart__grid"><line x1="0" y1="20" x2="640" y2="20"/><line x1="0" y1="105" x2="640" y2="105"/><line x1="0" y1="190" x2="640" y2="190"/></g>
-                  <g class="chart__bars" data-bars></g>
-                  <path class="chart__line chart__line--ghost" d="M0 190 L640 20"/>
-                  <path class="chart__line chart__line--live" data-line d="M0 190 L640 20"/>
-                </svg>
-                <div class="chart__marks" aria-hidden="true" data-marks></div>
-                <div class="chart__dot" aria-hidden="true" data-dot><span class="chart__tip mono" data-tip>R$ 37.440/mês</span></div>
-                <div class="chart__x mono" aria-hidden="true"><span style="--x:0">0</span><span style="--x:.1">1 ano</span><span style="--x:.5">5 anos</span><span style="--x:1">10 anos</span></div>
-              </div>
+            <div class="dlg__body">
+              <div id="d-dre" role="tabpanel" aria-labelledby="dt-dre"><p class="dlg__p">Um mês típico do eletroposto: como cada real cobrado na recarga vira o seu recebimento.</p><ol class="dre" data-dre></ol></div>
+              <div id="d-mes" role="tabpanel" aria-labelledby="dt-mes" hidden><p class="dlg__p">A recarga se repete; a carteira soma novos clientes a cada mês.</p><div class="tbl" tabindex="0" role="region" aria-label="Tabela mês a mês"><table><thead><tr><th scope="col">Mês</th><th scope="col">Clientes</th><th scope="col">Recargas</th><th scope="col">Carteira</th><th scope="col">No mês</th><th scope="col">Acumulado</th></tr></thead><tbody data-rows></tbody></table></div></div>
+              <div id="d-prem" role="tabpanel" aria-labelledby="dt-prem" hidden><p class="dlg__p">As mesmas premissas do simulador oficial. Tributos: Lucro Real · base 2026; altere só com valores validados pela contabilidade.</p><dl class="prem" data-prem></dl></div>
             </div>
-            <div class="sim__send">
-              <a class="btn btn--neon js-wa-sim" href="#">Enviar minha simulação<span class="btn__chip"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
-              <p class="sim__fine">Projeção ilustrativa com base nas conexões selecionadas, sem considerar cancelamentos.</p>
-            </div>
-          </div>
+          </dialog>
         </div>
 
-        <!-- rede: estimativa separada · cabeçalho e, embaixo, três células com as mesmas linhas (rótulo, valor, régua) -->
-        <div class="net" data-reveal>
-          <div class="net__head">
-            <div>
-              <p class="net__tag mono"><b>+2%</b>Rede · estimativa separada</p>
-              <h3>Sua carteira também rende na rede</h3>
-            </div>
-            <p class="net__txt">Clientes vinculados × gasto mensal em recargas na rede × 2%. Estimativa separada da simulação de energia, seguros e telefonia.</p>
-          </div>
-          <div class="net__row">
-            <div class="nf">
-              <label class="nf__k mono" for="netN">Clientes vinculados</label>
-              <div class="nf__v"><output for="netN" data-net-n>100</output><span class="stepper"><button class="stepper__b" type="button" data-net-step="netN" data-d="-10" aria-label="Diminuir clientes vinculados"><svg viewBox="0 0 24 24"><path d="M6 12h12"/></svg></button><button class="stepper__b" type="button" data-net-step="netN" data-d="10" aria-label="Aumentar clientes vinculados"><svg viewBox="0 0 24 24"><path d="M12 6v12M6 12h12"/></svg></button></span></div>
-              <input class="range" id="netN" type="range" min="0" max="1000" step="10" value="100">
-            </div>
-            <div class="nf">
-              <label class="nf__k mono" for="netS">Recarga média por cliente/mês</label>
-              <div class="nf__v"><output for="netS" data-net-s>R$ 300</output><span class="stepper"><button class="stepper__b" type="button" data-net-step="netS" data-d="-10" aria-label="Diminuir recarga média"><svg viewBox="0 0 24 24"><path d="M6 12h12"/></svg></button><button class="stepper__b" type="button" data-net-step="netS" data-d="10" aria-label="Aumentar recarga média"><svg viewBox="0 0 24 24"><path d="M12 6v12M6 12h12"/></svg></button></span></div>
-              <input class="range" id="netS" type="range" min="0" max="1500" step="10" value="300">
-            </div>
-            <div class="nf nf--out" aria-live="polite">
-              <p class="nf__k mono">Comissão bruta estimada</p>
-              <p class="nf__v"><b data-net>R$ 600,00</b><small>/mês</small></p>
-              <p class="nf__f mono" data-net-f>100 × R$ 300 × 2%</p>
-            </div>
-          </div>
-        </div>
+        <!-- visão simplificada: o simulador da carteira de sempre -->
+        <div class="simv-simples" id="simv-simples" role="tabpanel" aria-labelledby="simv-t-simples" data-simv-panel="simples" hidden>
+          <div class="sim__panel" data-reveal>
+            <!-- esquerda: o cenário -->
+            <div class="sim__in">
+              <div class="sim__top">
+                <p class="sim__h mono">Monte seu cenário</p>
+                <button class="sim__reset" type="button" data-reset>Redefinir</button>
+              </div>
 
-        <!-- como a conta é feita: por último, depois da rede -->
-        <details class="how" data-reveal>
-          <summary><span class="how__k mono">Entenda os números</span><span class="how__t">Como esta projeção é calculada</span><i aria-hidden="true"></i></summary>
-          <div class="how__body">
-            <ol>
-              <li><b>Clientes por mês</b> = novos clientes por dia × 30 dias de operação.</li>
-              <li><b>Receita por cliente</b> = soma das conexões escolhidas: energia R$ 20,00 (4% de uma conta de R$ 500), seguros R$ 25,00 (5% de uma mensalidade de R$ 500) e telefonia R$ 7,00 por linha ativa.</li>
-              <li><b>No mês escolhido</b>: clientes na carteira = clientes por mês × meses; receita mensal = carteira × receita por cliente.</li>
-              <li><b>Acumulado</b> = soma das receitas mensais do mês 1 até o mês escolhido.</li>
-            </ol>
-            <p>Projeção ilustrativa, sem considerar cancelamentos. A rede (2%) é uma estimativa separada.</p>
+              <div class="daily">
+                <div class="daily__top">
+                  <label class="daily__lbl" for="daily">Novos clientes por dia</label>
+                  <div class="daily__ctl">
+                    <button class="step-btn" type="button" data-step="-1" aria-label="Menos um cliente por dia"><svg viewBox="0 0 24 24"><path d="M6 12h12"/></svg></button>
+                    <output class="daily__out" for="daily" data-daily>2</output>
+                    <button class="step-btn" type="button" data-step="1" aria-label="Mais um cliente por dia"><svg viewBox="0 0 24 24"><path d="M12 6v12M6 12h12"/></svg></button>
+                  </div>
+                </div>
+                <div class="crowd" aria-hidden="true" data-people></div>
+                <input class="range" id="daily" type="range" min="0" max="20" step="1" value="2" aria-describedby="daily-note">
+                <div class="range__scale mono" aria-hidden="true"><span>0</span><span>5</span><span>10</span><span>15</span><span>20</span></div>
+                <p class="daily__note" id="daily-note">São <span data-monthly>60</span> clientes por mês em 30 dias de operação. <span class="daily__key mono">Cada ícone = 1 novo cliente por dia.</span></p>
+              </div>
+
+              <p class="kicker mono sim__kc">Conexões</p>
+              <ul class="conn">
+                <li>
+                  <label class="conn__row">
+                    <span class="conn__ill" aria-hidden="true"><img src="assets/img/r4-produto/iso-energia-s.webp" alt="" width="560" height="418" loading="lazy"></span>
+                    <span class="conn__t"><b>Energia</b><small class="mono">4% de R$ 500</small></span>
+                    <span class="conn__v">R$ 20,00<small>/mês</small></span>
+                    <input class="switch-in" type="checkbox" data-conn="energia" checked><span class="sw" aria-hidden="true"></span>
+                  </label>
+                </li>
+                <li>
+                  <label class="conn__row">
+                    <span class="conn__ill" aria-hidden="true"><img src="assets/img/r4-produto/iso-seguro-s.webp" alt="" width="560" height="418" loading="lazy"></span>
+                    <span class="conn__t"><b>Seguros</b><small class="mono">5% de R$ 500</small></span>
+                    <span class="conn__v">R$ 25,00<small>/mês</small></span>
+                    <input class="switch-in" type="checkbox" data-conn="seguro" checked><span class="sw" aria-hidden="true"></span>
+                  </label>
+                </li>
+                <li>
+                  <label class="conn__row">
+                    <span class="conn__ill" aria-hidden="true"><img src="assets/img/r4-produto/iso-telefonia-s.webp" alt="" width="560" height="418" loading="lazy"></span>
+                    <span class="conn__t"><b>Telefonia</b><small class="mono">por linha ativa</small></span>
+                    <span class="conn__v">R$ 7,00<small>/mês</small></span>
+                    <input class="switch-in" type="checkbox" data-conn="telefonia" checked><span class="sw" aria-hidden="true"></span>
+                  </label>
+                </li>
+              </ul>
+
+              <div class="unit">
+                <p>Receita mensal por cliente<small>nas conexões escolhidas</small></p>
+                <b data-unit>R$ 52,00</b>
+              </div>
+            </div>
+
+            <!-- direita: a carteira no tempo (leitura + gráfico de 120 meses, como no r4-sessao) -->
+            <div class="sim__out">
+              <div class="sim__top">
+                <p class="sim__h mono">Sua carteira no tempo</p>
+                <div class="seg" role="radiogroup" aria-label="Horizonte da projeção" data-seg>
+                  <span class="seg__ind" aria-hidden="true" data-seg-ind></span>
+                  <button type="button" role="radio" aria-checked="false" data-h="1">1º mês</button>
+                  <button type="button" role="radio" aria-checked="true" data-h="12">1 ano</button>
+                  <button type="button" role="radio" aria-checked="false" data-h="60">5 anos</button>
+                  <button type="button" role="radio" aria-checked="false" data-h="120">10 anos</button>
+                </div>
+              </div>
+              <div class="read" aria-live="polite">
+                <p class="read__lbl"><span>Receita mensal</span><span class="read__h mono" data-h-label>Fim do 1º ano</span></p>
+                <p class="read__val"><b data-mensal>R$ 37.440,00</b></p>
+                <dl class="read__meta">
+                  <div><dt><span class="t-xl">Clientes na carteira</span><span class="t-xs">Clientes</span></dt><dd data-carteira>720</dd></div>
+                  <div><dt>Acumulado no período</dt><dd data-acum>R$ 243.360,00</dd></div>
+                </dl>
+              </div>
+              <div class="chart" data-chart>
+                <div class="chart__y mono" aria-hidden="true"><span data-y-max>R$ 374,4 mil</span><span data-y-mid>R$ 187,2 mil</span><span>R$ 0</span></div>
+                <div class="chart__plot">
+                  <svg class="chart__svg" viewBox="0 0 640 220" preserveAspectRatio="none" aria-hidden="true">
+                    <g class="chart__grid"><line x1="0" y1="20" x2="640" y2="20"/><line x1="0" y1="105" x2="640" y2="105"/><line x1="0" y1="190" x2="640" y2="190"/></g>
+                    <g class="chart__bars" data-bars></g>
+                    <path class="chart__line chart__line--ghost" d="M0 190 L640 20"/>
+                    <path class="chart__line chart__line--live" data-line d="M0 190 L640 20"/>
+                  </svg>
+                  <div class="chart__marks" aria-hidden="true" data-marks></div>
+                  <div class="chart__dot" aria-hidden="true" data-dot><span class="chart__tip mono" data-tip>R$ 37.440/mês</span></div>
+                  <div class="chart__x mono" aria-hidden="true"><span style="--x:0">0</span><span style="--x:.1">1 ano</span><span style="--x:.5">5 anos</span><span style="--x:1">10 anos</span></div>
+                </div>
+              </div>
+              <div class="sim__send">
+                <a class="btn btn--neon js-wa-sim" href="#">Enviar minha simulação<span class="btn__chip"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+                <p class="sim__fine">Projeção ilustrativa com base nas conexões selecionadas, sem considerar cancelamentos.</p>
+              </div>
+            </div>
           </div>
-        </details>
+
+          <!-- rede: estimativa separada · cabeçalho e, embaixo, três células com as mesmas linhas (rótulo, valor, régua) -->
+          <div class="net" data-reveal>
+            <div class="net__head">
+              <div>
+                <p class="net__tag mono"><b>+2%</b>Rede · estimativa separada</p>
+                <h3>Sua carteira também rende na rede</h3>
+              </div>
+              <p class="net__txt">Clientes vinculados × gasto mensal em recargas na rede × 2%. Estimativa separada da simulação de energia, seguros e telefonia.</p>
+            </div>
+            <div class="net__row">
+              <div class="nf">
+                <label class="nf__k mono" for="netN">Clientes vinculados</label>
+                <div class="nf__v"><output for="netN" data-net-n>100</output><span class="stepper"><button class="stepper__b" type="button" data-net-step="netN" data-d="-10" aria-label="Diminuir clientes vinculados"><svg viewBox="0 0 24 24"><path d="M6 12h12"/></svg></button><button class="stepper__b" type="button" data-net-step="netN" data-d="10" aria-label="Aumentar clientes vinculados"><svg viewBox="0 0 24 24"><path d="M12 6v12M6 12h12"/></svg></button></span></div>
+                <input class="range" id="netN" type="range" min="0" max="1000" step="10" value="100">
+              </div>
+              <div class="nf">
+                <label class="nf__k mono" for="netS">Recarga média por cliente/mês</label>
+                <div class="nf__v"><output for="netS" data-net-s>R$ 300</output><span class="stepper"><button class="stepper__b" type="button" data-net-step="netS" data-d="-10" aria-label="Diminuir recarga média"><svg viewBox="0 0 24 24"><path d="M6 12h12"/></svg></button><button class="stepper__b" type="button" data-net-step="netS" data-d="10" aria-label="Aumentar recarga média"><svg viewBox="0 0 24 24"><path d="M12 6v12M6 12h12"/></svg></button></span></div>
+                <input class="range" id="netS" type="range" min="0" max="1500" step="10" value="300">
+              </div>
+              <div class="nf nf--out" aria-live="polite">
+                <p class="nf__k mono">Comissão bruta estimada</p>
+                <p class="nf__v"><b data-net>R$ 600,00</b><small>/mês</small></p>
+                <p class="nf__f mono" data-net-f>100 × R$ 300 × 2%</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- como a conta é feita: por último, depois da rede -->
+          <details class="how" data-reveal>
+            <summary><span class="how__k mono">Entenda os números</span><span class="how__t">Como esta projeção é calculada</span><i aria-hidden="true"></i></summary>
+            <div class="how__body">
+              <ol>
+                <li><b>Clientes por mês</b> = novos clientes por dia × 30 dias de operação.</li>
+                <li><b>Receita por cliente</b> = soma das conexões escolhidas: energia R$ 20,00 (4% de uma conta de R$ 500), seguros R$ 25,00 (5% de uma mensalidade de R$ 500) e telefonia R$ 7,00 por linha ativa.</li>
+                <li><b>No mês escolhido</b>: clientes na carteira = clientes por mês × meses; receita mensal = carteira × receita por cliente.</li>
+                <li><b>Acumulado</b> = soma das receitas mensais do mês 1 até o mês escolhido.</li>
+              </ol>
+              <p>Projeção ilustrativa, sem considerar cancelamentos. A rede (2%) é uma estimativa separada.</p>
+            </div>
+          </details>
+        </div>
       </div>
     </section>
 
@@ -868,5 +1119,7 @@
   <script src="js/vendor/ScrollTrigger.min.js" defer></script>
   <script src="js/vendor/SplitText.min.js" defer></script>
   <script src="lp.js" defer></script>
+  <script src="shared/simulador-core.js" defer></script>
+  <script src="simulador-v4.js" defer></script>
 </body>
 </html>
