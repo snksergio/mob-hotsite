@@ -1,0 +1,270 @@
+/* =========================================================
+   iGreen MOB · contador V2 (contador-v2.html) — só o Painel muda; vem depois de contador.css.
+   Sem vídeo: a foto da estrada fica parada e o movimento vem das camadas por cima dela.
+   - .pista: a foto + o canvas (o chão da foto escorrendo em perspectiva e as duas faixas entre as pistas). Balança com skewX a partir do
+     ponto de fuga: o chão perto da câmera anda mais e o horizonte quase nada, o parallax de uma câmera que oscila na pista.
+   - .carro: fica parado (só a suspensão); a metade de baixo some na sombra e o asfalto reflete as lanternas.
+   Medidas da foto (fração da largura/altura): ponto de fuga 49,9% × 56,45%; carro em 42,58% / 67,12%, 14,80% × 17,77%.
+   ========================================================= */
+.box--pista { width: max(100cqw, 179.17cqh); height: max(100cqh, 55.814cqw); }            /* 5504 × 3072 */
+
+.pista { position: absolute; inset: 0; transform-origin: 49.9% 56.45%; scale: 1.02; animation: sway 17s ease-in-out infinite; }
+/* a câmera oscila na pista (o chão entorta a partir do horizonte; o carro não entra nessa camada) */
+@keyframes sway {
+  0%, 100% { transform: skewX(0deg); }
+  22% { transform: skewX(-0.7deg); }
+  48% { transform: skewX(0.3deg); }
+  71% { transform: skewX(0.8deg); }
+  86% { transform: skewX(0.1deg); }
+}
+.pista__foto { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+.pista__fx { position: absolute; left: 0; top: 0; pointer-events: none; opacity: 0; transition: opacity 0.4s; }
+.pista__fx.is-on { opacity: 1; }
+
+/* ---------- o carro ---------- */
+.carro { position: absolute; left: 42.584%; top: 67.12%; width: 14.803%; height: 17.766%; }
+.carro__corpo { position: absolute; inset: 0; animation: bob 2.9s ease-in-out infinite; }
+.carro__corpo img { width: 100%; height: 100%; -webkit-mask-image: linear-gradient(180deg, #000 86%, transparent 100%); mask-image: linear-gradient(180deg, #000 86%, transparent 100%); }
+/* a metade de baixo escurece até sumir na pista: uma cópia do carro quase preta por cima, aparecendo só da metade para baixo */
+.carro__corpo .carro__escuro { position: absolute; inset: 0; filter: brightness(0.06); -webkit-mask-image: linear-gradient(180deg, transparent 56%, rgba(0, 0, 0, 0.7) 68%, rgba(0, 0, 0, 0.95) 80%, #000 92%); mask-image: linear-gradient(180deg, transparent 56%, rgba(0, 0, 0, 0.7) 68%, rgba(0, 0, 0, 0.95) 80%, #000 92%); }
+/* as lanternas continuam acesas por cima do escurecido */
+.carro__luz { position: absolute; left: 6%; right: 6%; top: 52%; height: 13%; border-radius: 50%; background: radial-gradient(50% 50% at 50% 50%, rgba(255, 40, 50, 0.42), rgba(255, 30, 40, 0) 70%); mix-blend-mode: screen; animation: luz 3.4s ease-in-out infinite; }
+/* sombra embaixo do carro: cobre as faixas enquanto elas passam por baixo dele */
+.carro__sombra { position: absolute; left: -18%; right: -18%; top: 52%; height: 76%; border-radius: 50%; background: radial-gradient(50% 50% at 50% 42%, rgba(1, 3, 2, 0.98) 0%, rgba(1, 3, 2, 0.96) 46%, rgba(1, 3, 2, 0.7) 68%, rgba(1, 3, 2, 0) 100%); }
+/* reflexo das lanternas no asfalto, logo abaixo do carro */
+.carro__reflexo { position: absolute; left: 8%; right: 8%; top: 96%; height: 66%; opacity: 0.7; animation: reflexo 2.3s ease-in-out infinite;
+  background:
+    radial-gradient(18% 62% at 13% 0%, rgba(255, 36, 48, 0.5), rgba(255, 36, 48, 0) 100%),
+    radial-gradient(18% 62% at 87% 0%, rgba(255, 36, 48, 0.5), rgba(255, 36, 48, 0) 100%),
+    radial-gradient(46% 34% at 50% 0%, rgba(255, 40, 50, 0.16), rgba(255, 40, 50, 0) 100%); }
+@keyframes bob { 0%, 100% { translate: 0 0; } 18% { translate: 0 -0.5%; } 37% { translate: 0 0.15%; } 55% { translate: 0 -0.35%; } 78% { translate: 0 0.25%; } }
+@keyframes luz { 0%, 100% { opacity: 0.85; } 50% { opacity: 1; } }
+@keyframes reflexo { 0%, 100% { opacity: 0.55; } 40% { opacity: 0.8; } 70% { opacity: 0.62; } }
+
+/* a base da tela: desfoque + escuro de baixo para cima (como na V1), tampando a parte de baixo do carro e da pista */
+.pn-base { position: absolute; left: 0; right: 0; bottom: 0; height: 27%; pointer-events: none; background: linear-gradient(180deg, rgba(2, 6, 4, 0) 0%, rgba(2, 6, 4, 0.55) 40%, rgba(2, 6, 4, 0.9) 78%, #020604 100%);
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 60%); mask-image: linear-gradient(180deg, transparent 0%, #000 60%); }
+
+/* a frase do meio do rodapé fica sobre a faixa que passa: sombra para continuar legível */
+body[data-scene="painel"] .ct-bar__mid { text-shadow: 0 0 10px #000, 0 0 3px #000; }
+
+/* celular em pé: a foto vertical é o recorte do meio (25% a 75% da largura) da mesma foto */
+@media (max-aspect-ratio: 4/5) {
+  .pista__foto { left: 25%; width: 50%; }
+}
+
+/* ---------- REVELAÇÃO V2: a imagem já é escura (fundo preto), então sem o escurecimento e a luz que passa da V1 ---------- */
+/* a imagem aparece inteira (como "contain"), um pouco acima do rodapé; o preto dela emenda no fundo da cena e as bordas somem no escuro */
+.sc--rv2 { background: #000; }
+.sc--rv2 .media { filter: none; -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 5%, #000 95%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0%, #000 5%, #000 95%, transparent 100%); }
+@media (min-aspect-ratio: 4/5) {
+  /* a imagem ocupa a cena toda (o topo dela é preto: o título e a contagem ficam por cima); o carro termina logo acima do rodapé */
+  .sc--rv2 .stage { top: 0; }
+  .sc--rv2 .box { top: 59.4%; width: min(100cqw, 150cqh); height: calc(min(100cqw, 150cqh) * 0.5578); }
+  .sc--rv2 .stage::after { background: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 26%); }   /* embaixo, só a sombra do rodapé (.sc--rv2::after) */
+}
+/* celular em pé: a imagem inteira na faixa do meio */
+@media (max-aspect-ratio: 4/5) {
+  /* a ilustração bem maior (passa das laterais da tela, centralizada) e a faixa dela vai até mais perto da contagem */
+  .sc--rv2 .stage { top: 31cqh; bottom: 19cqh; }
+  .sc--rv2 .box { width: 140cqw; height: 78.09cqw; }
+  .sc--rv2 .stage::after { background: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, 0) 14%); }   /* embaixo a própria imagem some (máscara) e a sombra do rodapé completa */
+}
+
+/* "acender" (revelacao-v2.js): o canvas cobre a foto escura com o mesmo recorte; aparece quando o efeito está ligado */
+.rv-fx { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; pointer-events: none; transition: opacity 0.5s;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 5%, #000 95%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0%, #000 5%, #000 95%, transparent 100%); }
+.sc--rv2.is-fx .rv-fx.is-on { opacity: 1; }
+.sc--rv2.is-fx { touch-action: none; }
+/* dica: some depois do primeiro movimento */
+.rv-hint { margin: 26px 0 0; display: flex; align-items: center; gap: 10px; font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(214, 255, 206, 0.72); opacity: 0; pointer-events: none; transition: opacity 0.8s; white-space: nowrap; }
+.rv-hint::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #7dff8a; box-shadow: 0 0 10px #03ff1f; animation: breathe 1.6s ease-in-out infinite; }
+.sc--rv2.is-fx .rv-hint { opacity: 1; }
+.sc--rv2.is-fx .rv-hint.is-gone { opacity: 0; }
+@media (max-width: 760px) { .rv-hint { margin-top: 14px; font-size: 8px; } }
+
+
+
+
+/* =========================================================
+   Tipografia, tamanhos e cores do site (lp.css) — só no V2; a disposição das cenas não muda.
+   Título: Instrument Sans 400, −0,045em (o título do herói do site); rótulos: Geist Mono 11px, maiúsculas, 0,12–0,13em;
+   textos: o branco e os dois cinzas do site (--ink, --ink-2, --ink-3); destaque: neon #03FF1F; nenhum texto abaixo de 10px.
+   ========================================================= */
+/* ---------- topo: o logo do site (iGreen | MOB) e as versões no estilo do menu do site ---------- */
+.brand { gap: 12px; }
+.brand img { width: auto; height: 23px; }
+.brand > i { width: 1px; height: 15px; background: var(--line-2); }
+.brand > span { padding: 0; border: 0; font: 400 10px/1 var(--m); letter-spacing: 0.32em; color: var(--neon); }
+.ct-switch { gap: 2px; padding: 4px; border: 0; border-radius: 999px; background: rgba(242, 246, 239, 0.045); box-shadow: inset 0 0 0 1px rgba(242, 246, 239, 0.09); }
+.ct-switch a { padding: 8px 14px; border-radius: 999px; font-size: 14px; color: var(--ink-2); }
+.ct-switch a:hover { color: var(--ink); }
+.ct-switch a[aria-current] { color: var(--ink); background: rgba(242, 246, 239, 0.07); box-shadow: none; }
+
+/* ---------- PAINEL ---------- */
+/* etiqueta em pílula com bolinha (.tag do site) */
+.pn-eyebrow { display: inline-flex; align-items: center; gap: 10px; height: 32px; margin: 0 0 18px; padding: 0 14px 0 12px; border-radius: 999px; font: 400 13px var(--f); letter-spacing: 0; color: var(--ink-2); background: rgba(242, 246, 239, 0.05); box-shadow: inset 0 0 0 1px rgba(242, 246, 239, 0.1); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.pn-eyebrow i { width: 6px; height: 6px; border-radius: 50%; background: var(--neon); box-shadow: 0 0 10px var(--neon); }
+/* título no tamanho do herói do site, com o destaque em neon */
+.pn-head h1 { font-size: clamp(36px, min(3.9vw, 6.1vh), 72px); font-weight: 400; line-height: 0.98; letter-spacing: -0.045em; color: var(--ink); }
+.pn-head h1 span { color: var(--neon); text-shadow: 0 0 40px rgba(3, 255, 31, 0.22); }
+/* leituras laterais: rótulo mono do site, valor e linha de apoio nos tamanhos do site */
+.pn-tele p { font: 500 11px/1.3 var(--m); letter-spacing: 0.13em; text-transform: uppercase; color: var(--ink-3); }
+.pn-tele strong { margin-top: 10px; font: 400 clamp(18px, 1.45vw, 24px)/1.15 var(--f); letter-spacing: -0.025em; text-transform: none; color: var(--ink); }
+.pn-tele strong span { font-size: 0.62em; letter-spacing: 0; color: var(--ink-3); }
+.pn-tele small { margin-top: 8px; font: 400 13px/1.4 var(--f); letter-spacing: 0; text-transform: none; color: var(--ink-2); }
+.pn-tele__icon { color: var(--neon); }
+.pn-batt { border-color: var(--line-2); }
+.pn-batt::after { background: var(--line-2); }
+.pn-batt i { background: var(--neon); }
+/* velocímetro: as marcas nos verdes do site (o desenho continua o mesmo) */
+.pn-hud__scale [data-hud] line { stroke: #7dff8a; }
+/* contagem */
+.pn-clock__k { margin-bottom: 20px; font: 500 11px/1.3 var(--m); letter-spacing: 0.13em; text-transform: uppercase; color: var(--ink-2); }
+.pn-cd b { font-size: clamp(48px, 5vw, 76px); font-weight: 400; line-height: 0.9; letter-spacing: -0.05em; color: var(--ink); }
+.pn-cd .is-s b { color: var(--neon); text-shadow: 0 0 40px rgba(3, 255, 31, 0.22), 0 3px 20px #000; }
+.pn-cd span { margin-top: 14px; font: 500 10.5px/1 var(--m); letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2); }
+.pn-cd i { color: rgba(242, 246, 239, 0.28); }
+.pn-route > span { background: var(--line-2); }
+.pn-route > i { background: var(--neon); }
+.pn-route small { margin-top: 10px; font: 500 10.5px/1.3 var(--m); letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); }
+
+/* ---------- rodapé (as duas cenas): data, frase, pausar e o botão de salvar com os componentes do site ---------- */
+.ct-bar__date .mono, body[data-scene="painel"] .ct-bar__date .mono { font: 500 11px/1.3 var(--m); letter-spacing: 0.13em; text-transform: uppercase; color: var(--ink-3); }
+.ct-bar__date p:last-child, body[data-scene="painel"] .ct-bar__date p:last-child { font-size: clamp(18px, 1.45vw, 22px); letter-spacing: -0.02em; color: var(--ink); }
+.ct-bar__date p:last-child span, body[data-scene="painel"] .ct-bar__date p:last-child span { font-size: 0.8em; color: var(--ink-3); }
+body[data-scene="painel"] .ct-bar__date i { width: 6px; height: 6px; border-radius: 50%; background: var(--neon); box-shadow: 0 0 10px var(--neon); }
+.ct-bar__mid, body[data-scene="painel"] .ct-bar__mid { font-size: 13.5px; line-height: 1.5; color: var(--ink-3); }
+.ct-bar__mid b, body[data-scene="painel"] .ct-bar__mid b { font-weight: 500; color: var(--ink); }
+body[data-scene="painel"] .ct-bar__mid span { color: var(--ink-3); }
+/* pausar = o botão redondo do site; salvar = a pílula neon do site (com o círculo escuro e a seta) */
+.pause, body[data-scene="painel"] .pause { width: 42px; height: 42px; background: rgba(242, 246, 239, 0.05); box-shadow: inset 0 0 0 1px var(--line-2); color: var(--ink); }
+.ct-bar .btn, body[data-scene="painel"] .ct-bar .btn { height: 42px; gap: 10px; padding: 0 5px 0 18px; border: 0; border-radius: 999px; background: var(--neon); color: var(--neon-ink); font-size: 14px; font-weight: 500; letter-spacing: -0.01em; box-shadow: 0 14px 36px -18px rgba(3, 255, 31, 0.9); transform: none; }
+.ct-bar .btn:hover, body[data-scene="painel"] .ct-bar .btn:hover { background: #4dff60; transform: none; }
+.ct-bar .btn__chip, body[data-scene="painel"] .ct-bar .btn__chip { width: 32px; height: 32px; border-radius: 50%; background: var(--neon-ink); color: var(--neon); }
+body[data-scene="painel"] .ct-bar .btn__chip svg { display: block; }
+body[data-scene="painel"] .ct-bar .btn__chip::before { content: none; }
+.ct-bar .btn:hover .btn__chip { transform: scale(1.06); }   /* o ícone é um calendário: não gira */
+.ct-bar .btn__chip svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.ct-legal, body[data-scene="painel"] .ct-legal { font: 400 12px/1.4 var(--f); letter-spacing: 0; text-transform: none; color: var(--ink-3); }
+
+/* ---------- REVELAÇÃO: rótulo com bolinha, título do herói do site, texto de apoio e contagem ---------- */
+.sc--rv2 .eyebrow { gap: 10px; font: 500 11px/1.3 var(--m); letter-spacing: 0.12em; }
+.sc--rv2 .eyebrow i { width: 6px; height: 6px; border-radius: 50%; }
+.sc--rv2 .ct-t--l { line-height: 0.98; letter-spacing: -0.045em; }
+.sc--rv2 .ct-p { font-size: 16px; line-height: 1.6; color: var(--ink-2); }
+/* a dica vira a etiqueta em pílula do site */
+.rv-hint { display: inline-flex; height: 32px; margin-top: 24px; padding: 0 14px 0 12px; border-radius: 999px; font: 400 13px var(--f); letter-spacing: 0; text-transform: none; color: var(--ink-2); background: rgba(242, 246, 239, 0.05); box-shadow: inset 0 0 0 1px rgba(242, 246, 239, 0.1); }
+.rv-hint::before { background: var(--neon); }
+.sc--rv2 .kick { font: 500 11px/1.3 var(--m); letter-spacing: 0.13em; text-transform: uppercase; color: var(--ink-2); }
+.sc--rv2 .cd b { font-size: clamp(44px, min(5vw, 9.5vh), 76px); font-weight: 400; line-height: 0.9; letter-spacing: -0.05em; text-shadow: 0 2px 18px rgba(0, 0, 0, 0.85); }
+.sc--rv2 .kick, .sc--rv2 .cd span { text-shadow: 0 1px 10px rgba(0, 0, 0, 0.9); }
+.sc--rv2 .cd .is-s b { color: var(--neon); text-shadow: 0 0 40px rgba(3, 255, 31, 0.22), 0 2px 18px rgba(0, 0, 0, 0.85); }
+.sc--rv2 .cd span { font: 500 10.5px/1 var(--m); letter-spacing: 0.12em; color: var(--ink-2); }
+.sc--rv2 .cd i { color: rgba(242, 246, 239, 0.28); }
+
+/* ---------- celular: os tamanhos de celular do site (nada abaixo de 10px) ---------- */
+@media (max-width: 760px) {
+  .ct-bar__tz { display: none; }
+  .sc--rv2 .cd-wrap { bottom: 106px; }   /* a contagem mais para baixo, perto do rodapé */
+  .brand img { width: auto; height: 20px; }
+  .brand > i { height: 13px; }
+  .brand > span { padding: 0; font-size: 9.5px; line-height: 1; }
+  .ct-switch a { padding: 8px 11px; font-size: 13px; }
+  .pn-eyebrow { height: 30px; margin-bottom: 16px; font-size: 12.5px; letter-spacing: 0; }
+  .pn-head h1 { font-size: clamp(29px, 8.4vw, 40px); line-height: 1.02; letter-spacing: -0.045em; }
+  .pn-clock__k { margin-bottom: 16px; font-size: 10px; letter-spacing: 0.12em; }
+  .pn-cd b { font-size: clamp(36px, 11vw, 46px); letter-spacing: -0.05em; }
+  .pn-cd span { margin-top: 10px; font-size: 10px; letter-spacing: 0.08em; }
+  .pn-route small { font-size: 10px; letter-spacing: 0.1em; }
+  body[data-scene="painel"] .ct-bar__date .mono, .ct-bar__date .mono { font-size: 10px; letter-spacing: 0.1em; }
+  body[data-scene="painel"] .ct-bar__date p:last-child, .ct-bar__date p:last-child { margin-top: 6px; font-size: 16px; }
+  body[data-scene="painel"] .ct-bar__date i { width: 5px; height: 5px; }
+  body[data-scene="painel"] .pause, .pause { width: 38px; height: 38px; }
+  body[data-scene="painel"] .ct-bar .btn, .ct-bar .btn { height: 40px; gap: 8px; padding: 0 4px 0 15px; font-size: 13px; }
+  body[data-scene="painel"] .ct-bar .btn__chip, .ct-bar .btn__chip { width: 30px; height: 30px; }
+  body[data-scene="painel"] .ct-bar .btn__chip::before { content: none; }
+  body[data-scene="painel"] .ct-legal, .ct-legal { font-size: 11px; }
+  .sc--rv2 .ct-p { font-size: 14.5px; }
+  .rv-hint { height: 30px; margin-top: 14px; font-size: 12.5px; }
+  .sc--rv2 .cd b { font-size: clamp(38px, 11.5vw, 50px); }
+  .sc--rv2 .cd span { font-size: 10px; letter-spacing: 0.08em; }
+}
+@media (max-width: 400px) {
+  body[data-scene="painel"] .ct-bar .btn, .ct-bar .btn { padding-left: 12px; font-size: 12.5px; }
+}
+
+/* ---------- rodapé: a data do lançamento (folhinha + data por extenso) ---------- */
+.ct-bar, body[data-scene="painel"] .ct-bar { bottom: 40px; padding-top: 0; border-top: 0; align-items: center; }
+.ct-when { display: flex; align-items: center; gap: 14px; min-width: 0; }
+.ct-when__cal { display: grid; place-content: center; justify-items: center; flex: none; width: 50px; height: 54px; border-radius: 12px; background: rgba(242, 246, 239, 0.05); box-shadow: inset 0 0 0 1px rgba(242, 246, 239, 0.1); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.ct-when__cal b { font-size: 22px; font-weight: 500; line-height: 1; letter-spacing: -0.04em; color: var(--ink); }
+.ct-when__cal small { margin-top: 4px; font: 500 10px/1 var(--m); letter-spacing: 0.14em; text-transform: uppercase; color: var(--neon); }
+.ct-when p { display: grid; gap: 4px; min-width: 0; }
+.ct-when__k { font: 500 11px/1.3 var(--m); letter-spacing: 0.13em; text-transform: uppercase; color: var(--ink-3); white-space: nowrap; }
+.ct-when strong { font-size: clamp(18px, 1.45vw, 22px); font-weight: 400; line-height: 1.15; letter-spacing: -0.025em; color: var(--ink); white-space: nowrap; }
+.ct-when strong span { color: var(--ink-2); }
+body .ct-bar .t-xs { display: none; }
+body .ct-bar .t-xl { display: inline; }
+/* o pausar só faz sentido no Painel (a estrada anda sem parar); na Revelação ele sai */
+body[data-scene="revelacao"] .pause { display: none; }
+
+/* ---------- Revelação: sombra subindo do rodapé, cortando a imagem (no celular a borda de baixo da imagem também some) ---------- */
+.sc--rv2::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; z-index: 1; height: clamp(160px, 24vh, 240px); pointer-events: none; background: linear-gradient(0deg, #000 0%, #000 22%, rgba(0, 0, 0, 0.9) 40%, rgba(0, 0, 0, 0) 100%); }   /* só na faixa do rodapé: o chão some no preto embaixo e a sombra desaparece em linha reta para cima */
+@media (max-aspect-ratio: 4/5) {
+  .sc--rv2 .media, .sc--rv2 .rv-fx { -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 5%, #000 95%, transparent 100%), linear-gradient(180deg, transparent 0%, #000 14%, #000 70%, transparent 100%); -webkit-mask-composite: source-in; mask-image: linear-gradient(90deg, transparent 0%, #000 5%, #000 95%, transparent 100%), linear-gradient(180deg, transparent 0%, #000 14%, #000 70%, transparent 100%); mask-composite: intersect; }
+  .sc--rv2 .box { translate: -50% calc(-50% + 3cqh); }   /* um pouco mais para baixo: a dica não encosta no letreiro nos celulares pequenos */
+}
+/* celulares baixos (ex.: 360 × 740): a faixa da ilustração começa um pouco mais abaixo, longe da dica */
+@media (max-aspect-ratio: 4/5) and (max-height: 780px) {
+  .sc--rv2 .stage { top: 35cqh; }
+}
+
+@media (max-width: 760px) {
+  .ct-bar, body[data-scene="painel"] .ct-bar { bottom: 22px; left: 18px; right: 18px; gap: 10px; }
+  body .ct-bar .t-xl { display: none; }
+  body .ct-bar .t-xs { display: inline; }
+  .ct-when { gap: 10px; }
+  .ct-when__cal { width: 42px; height: 46px; border-radius: 10px; }
+  .ct-when__cal b { font-size: 18px; }
+  .ct-when__cal small { font-size: 9.5px; }
+  .ct-when__k { font-size: 10px; letter-spacing: 0.1em; }
+  .ct-when strong { font-size: 15.5px; }
+}
+
+/* =========================================================
+   Notebook (telas deitadas, 1280 × 609 a 1920 × 969): as duas cenas acompanham a altura da tela.
+   A 1920 × 969 fica tudo como estava; nas telas mais baixas o velocímetro, os números e a ilustração diminuem só o necessário.
+   ========================================================= */
+/* Painel: o velocímetro tinha tamanho fixo e cobria o carro nas telas baixas; agora ele, os números e os espaços da contagem seguem a altura */
+@media (min-width: 761px) {
+  .pn-eyebrow { margin-bottom: clamp(12px, 1.9vh, 18px); }
+  .pn-hud { width: min(68vw, 760px, 80vh); }
+  .pn-clock { padding: clamp(14px, 2.7vh, 26px) 16px clamp(12px, 2.4vh, 23px); }
+  .pn-clock__k { margin-bottom: clamp(12px, 2.1vh, 20px); }
+  .pn-cd b { font-size: clamp(44px, min(5vw, 7.8vh), 76px); }
+  .pn-cd span { margin-top: clamp(8px, 1.45vh, 14px); }
+  .pn-route { margin-top: clamp(10px, 2.1vh, 20px); }
+  .pn-route small { margin-top: clamp(6px, 1vh, 10px); }
+}
+/* Revelação: o telhado da estação fica sempre abaixo da contagem e o carro termina acima do rodapé.
+   Na imagem, o ponto mais alto do telhado embaixo da contagem fica a 9,5% da altura e o carro termina a 80%: entre os dois, 70,5%. */
+@media (min-aspect-ratio: 4/5) and (min-width: 761px) {
+  .sc--rv2 {
+    --cdf: clamp(44px, min(5vw, 7.8vh), 76px);                                               /* números da contagem */
+    --cdb: calc(clamp(118px, 15.5cqh, 164px) + 0.9 * var(--cdf) + 61px);                    /* onde a contagem termina, com folga */
+    --h0: min(55.78cqw, 83.67cqh);                                                          /* a altura da imagem como era */
+    --car: min(calc(59.4cqh + 0.3 * var(--h0)), calc(100cqh - 94px - max(16px, 3cqh)));   /* onde o carro termina: como era, mas acima do rodapé */
+    --rvh: min(var(--h0), calc((var(--car) - var(--cdb)) / 0.705));
+  }
+  .sc--rv2 .cd b { font-size: var(--cdf); }
+  .sc--rv2 .box { top: calc(var(--car) - 0.3 * var(--rvh)); width: calc(var(--rvh) / 0.5578); height: var(--rvh); }
+}
+/* telas deitadas mais quadradas (4:3, 3:2, 16:10 em janela): a imagem fica mais larga que a coluna do texto e o telhado (o lado esquerdo, a 26%
+   da largura e 21% da altura) encostava na dica; ali a imagem também termina abaixo do texto (título em 2 linhas + texto de apoio + dica) */
+@media (min-aspect-ratio: 4/5) and (max-aspect-ratio: 8/5) and (min-width: 761px) {
+  .sc--rv2 {
+    --hb: calc(clamp(108px, 14cqh, 150px) + 1.96 * clamp(38px, min(4.4vw, 7.4cqh), 76px) + 144px);
+    --rvh: min(var(--h0), calc((var(--car) - var(--cdb)) / 0.705), calc((var(--car) - var(--hb)) / 0.59));
+  }
+}

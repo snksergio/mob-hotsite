@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>iGreen MOB · Em breve</title>
+  <meta name="description" content="Lançamento oficial iGreen MOB: 10/10/2026, às 20h (horário de Brasília). Tudo o que você precisa para se conectar ao novo.">
+  <meta name="theme-color" content="#020604">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23020604'/%3E%3Cpath d='M18 3 7 18h8l-2 11 12-17h-9z' fill='%2303ff1f'/%3E%3C/svg%3E">
+  <link rel="preload" as="image" imagesrcset="contador/img/estrada-v2-1600.webp?v=6da5664f 1600w, contador/img/estrada-v2-2560.webp?v=03a4b600 2560w" imagesizes="max(100vw, 179.17vh)" media="(min-aspect-ratio: 4/5)" fetchpriority="high">
+  <link rel="preload" as="image" href="contador/img/estrada-v2-port.webp?v=d0eae9aa" media="(max-aspect-ratio: 4/5)" fetchpriority="high">
+  <link rel="preload" as="image" href="contador/img/carro-v2.webp?v=43ca334b" fetchpriority="high">
+  <link rel="stylesheet" href="contador/css/fonts-instrument.css?v=56be40bd">
+  <link rel="stylesheet" href="contador/css/contador.css?v=feb45806">
+  <link rel="stylesheet" href="contador/css/contador-v2.css?v=e8b5ea5a">
+  <script>document.documentElement.classList.add("js")</script>
+  <!-- a data e os textos do lançamento (lidos por contador/js/contador.js?v=e4c8e974) -->
+  <script>window.CONTADOR = { launch: "2026-10-10T20:00:00-03:00", when: "10 de outubro de 2026, às 20h", title: "Lançamento oficial iGreen MOB", desc: "Tudo o que você precisa para se conectar ao novo.", tagline: ["Tudo o que você precisa", "para se conectar ao novo."] };</script>
+</head>
+<body data-scene="painel">
+  <a class="skip" href="#contagem">Ir para a contagem</a>
+
+  <header class="ct-hdr">
+    <a class="brand" href="index.html" aria-label="iGreen MOB"><img src="contador/img/logo-igreen.svg?v=9174ab3a" alt="iGreen" width="101" height="28"><i aria-hidden="true"></i><span>MOB</span></a>
+    <!-- versões da página (proposta): o link de cada uma pode ser compartilhado (#painel, #revelacao) -->
+    <nav class="ct-switch" aria-label="Versões da página">
+      <a href="#painel" data-go="painel" aria-current="page">Painel V2</a>
+      <a href="#revelacao" data-go="revelacao">Revelação V2</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- =============== 1 · PAINEL V2: foto parada da pista + camadas que dão o movimento (sem vídeo) =============== -->
+    <section class="sc sc--painel sc--v2" data-sc="painel" aria-labelledby="t-painel">
+      <div class="stage" aria-hidden="true">
+        <!-- a caixa tem a proporção da foto (5504 × 3072) e cobre a tela; tudo dentro dela é medido em frações da foto -->
+        <div class="box box--pista">
+          <!-- a pista: foto + faixas, reflexos e poeira desenhados no canvas; balança junto (parallax: perto anda mais, horizonte quase nada) -->
+          <div class="pista" data-pista>
+            <picture>
+              <source media="(max-aspect-ratio: 4/5)" srcset="contador/img/estrada-v2-port.webp?v=d0eae9aa" width="1600" height="1786">
+              <img class="pista__foto" src="contador/img/estrada-v2-2560.webp?v=03a4b600" srcset="contador/img/estrada-v2-1600.webp?v=6da5664f 1600w, contador/img/estrada-v2-2560.webp?v=03a4b600 2560w" sizes="max(100vw, 179.17vh)" width="2560" height="1428" alt="" fetchpriority="high" decoding="async">
+            </picture>
+            <canvas class="pista__fx" data-pista-fx></canvas>
+          </div>
+          <!-- o carro: a metade de baixo some na sombra da pista; reflexo vermelho das lanternas no asfalto -->
+          <div class="carro">
+            <i class="carro__sombra"></i>
+            <i class="carro__reflexo"></i>
+            <div class="carro__corpo">
+              <img src="contador/img/carro-v2.webp?v=43ca334b" width="495" height="334" alt="" decoding="async">
+              <img class="carro__escuro" src="contador/img/carro-v2.webp?v=43ca334b" width="495" height="334" alt="" decoding="async">
+              <i class="carro__luz"></i>
+            </div>
+          </div>
+        </div>
+        <!-- a base da tela: desfoque escuro de baixo para cima, cobrindo a parte de baixo do carro e da pista -->
+        <div class="pn-base"></div>
+      </div>
+      <div class="pn-head">
+        <p class="pn-eyebrow"><i></i>iGreen MOB · Em breve</p>
+        <h1 id="t-painel">O futuro está<br><span>na sua direção.</span></h1>
+      </div>
+      <!-- leituras do painel nas laterais -->
+      <aside class="pn-tele pn-tele--l" aria-label="Destino"><span class="pn-tele__icon" aria-hidden="true">↗</span><p>Próximo destino<strong>Uma nova conexão.</strong><small>iGreen MOB / lançamento do site</small></p></aside>
+      <aside class="pn-tele pn-tele--r" aria-label="Data do lançamento"><p>Chegada prevista<strong>10 OUT <span>2026</span></strong><small>20:00 · horário de Brasília</small></p><span class="pn-batt" aria-hidden="true"><i></i><i></i><i></i><i></i></span></aside>
+      <!-- velocímetro: meio arco fino com as marcas, a contagem no meio -->
+      <div class="pn-hud">
+        <svg class="pn-hud__scale" viewBox="0 0 800 440" aria-hidden="true">
+          <defs>
+            <linearGradient id="pnArc"><stop stop-color="#7dff8a" stop-opacity=".05"/><stop offset=".5" stop-color="#7dff8a" stop-opacity=".85"/><stop offset="1" stop-color="#7dff8a" stop-opacity=".05"/></linearGradient>
+            <!-- forte em cima e sumindo embaixo: o arco e as marcas praticamente desaparecem perto das pontas -->
+            <linearGradient id="pnFade" gradientUnits="userSpaceOnUse" x1="0" y1="35" x2="0" y2="410"><stop offset=".3" stop-color="#fff"/><stop offset=".6" stop-color="#fff" stop-opacity=".4"/><stop offset=".82" stop-color="#fff" stop-opacity=".06"/><stop offset=".94" stop-color="#fff" stop-opacity="0"/></linearGradient>
+            <mask id="pnMask" maskUnits="userSpaceOnUse" x="-20" y="0" width="840" height="440"><rect x="-20" y="0" width="840" height="440" fill="url(#pnFade)"/></mask>
+          </defs>
+          <g mask="url(#pnMask)">
+            <path d="M25 410 A375 375 0 0 1 775 410" fill="none" stroke="url(#pnArc)" stroke-width="1.5"/>
+            <path d="M43 410 A357 357 0 0 1 757 410" fill="none" stroke="#7dff8a" stroke-opacity=".1"/>
+            <g data-hud></g>
+          </g>
+          <circle cx="400" cy="35" r="3" fill="#03ff1f"/>
+        </svg>
+        <div class="pn-clock">
+          <p class="pn-clock__k">Contagem para a estreia</p>
+          <div class="pn-cd" data-cd role="timer" aria-labelledby="t-painel">
+            <div><b data-d>00</b><span>Dias</span></div><i>:</i>
+            <div><b data-h>00</b><span>Horas</span></div><i>:</i>
+            <div><b data-m>00</b><span>Minutos</span></div><i>:</i>
+            <div class="is-s"><b data-s>00</b><span>Segundos</span></div>
+          </div>
+          <div class="pn-route" aria-hidden="true"><span></span><i></i><span></span><small>Um novo caminho. A mesma energia.</small></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============== 2 · REVELAÇÃO V2: a estação no escuro; com o cursor no letreiro ela acende como um neon dando partida (contador/js/revelacao-v2.js?v=489cb1ee) =============== -->
+    <section class="sc sc--revelacao sc--rv2" data-sc="revelacao" data-rv-fx-sec aria-labelledby="t-revelacao" hidden>
+      <div class="stage" aria-hidden="true">
+        <div class="box box--photo">
+          <img class="media" data-rv-img src="contador/img/revelacao-v2-ultimo-escura-3840.webp?v=476e8b12" srcset="contador/img/revelacao-v2-ultimo-escura-1600.webp?v=b0bc144b 1600w, contador/img/revelacao-v2-ultimo-escura-3840.webp?v=476e8b12 3840w" sizes="100vw" alt="" width="2560" height="1428" loading="lazy" decoding="async">
+          <!-- a foto acesa, revelada pelo efeito neon por cima da escura -->
+          <canvas class="rv-fx" data-rv-fx></canvas>
+        </div>
+      </div>
+      <div class="sc__head">
+        <p class="eyebrow"><i></i>O futuro se revela</p>
+        <h1 class="ct-t ct-t--l" id="t-revelacao">Uma nova era. <br><span class="dim">Prestes a acender.</span></h1>
+        <p class="ct-p">O próximo capítulo da iGreen MOB está chegando.</p>
+        <p class="rv-hint mono" data-rv-hint aria-hidden="true"></p>
+      </div>
+      <div class="cd-wrap">
+        <p class="kick mono">O novo começa em</p>
+        <div class="cd" data-cd role="timer" aria-labelledby="t-revelacao">
+          <div><b data-d>00</b><span>Dias</span></div><i>:</i>
+          <div><b data-h>00</b><span>Horas</span></div><i>:</i>
+          <div><b data-m>00</b><span>Minutos</span></div><i>:</i>
+          <div class="is-s"><b data-s>00</b><span>Segundos</span></div>
+        </div>
+      </div>
+    </section>
+
+    <p class="sr-only" id="contagem" data-sr aria-live="polite"></p>
+  </main>
+
+  <!-- rodapé fixo: a data do lançamento (folhinha + data por extenso), a frase e salvar a data (o pausar só aparece no Painel) -->
+  <footer class="ct-bar">
+    <div class="ct-when">
+      <span class="ct-when__cal" aria-hidden="true"><b>10</b><small>Out</small></span>
+      <p><span class="ct-when__k"><span class="t-xl">Lançamento oficial iGreen MOB</span><span class="t-xs">Lançamento oficial</span></span><strong>Sábado, 10/10 <span>· 20h</span></strong></p>
+    </div>
+    <p class="ct-bar__mid"><b data-tag>Tudo o que você precisa</b><span data-tag2>para se conectar ao novo.</span></p>
+    <div class="ct-bar__act">
+      <button class="pause" type="button" data-pause aria-pressed="false" aria-label="Pausar animações"><span class="pause__i" aria-hidden="true"></span></button>
+      <div class="save">
+        <button class="btn btn--neon btn--sm" type="button" data-save aria-expanded="false" aria-controls="save-menu"><span class="t-xl">Salvar a data</span><span class="t-xs">Salvar</span><span class="btn__chip"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5.5" width="16" height="14.5" rx="2.5"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/></svg></span></button>
+        <div class="save__menu" id="save-menu" hidden>
+          <a data-gcal target="_blank" rel="noopener">Google Agenda</a>
+          <button type="button" data-ics>Apple, Outlook e outros (.ics)</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="contador/js/contador.js?v=e4c8e974" defer></script>
+  <script src="contador/js/contador-v2.js?v=9ddf0a84" defer></script>
+  <script src="contador/js/revelacao-v2.js?v=489cb1ee" defer></script>
+  <script>
+    /* a Revelação liga o efeito neon sozinha quando aparece (e desliga ao trocar para o Painel) */
+    document.addEventListener("DOMContentLoaded", function () {
+      var sec = document.querySelector("[data-sc='revelacao']");
+      function sync() { if (!window.RV2FX) return; if (sec.hidden) window.RV2FX.off(); else window.RV2FX.on("neon"); }
+      window.addEventListener("hashchange", function () { setTimeout(sync, 0); });
+      sync();
+    });
+  </script>
+</body>
+</html>
